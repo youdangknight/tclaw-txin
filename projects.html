@@ -307,10 +307,12 @@ function createProject(){
   if(!name){ toast('请输入项目名称'); document.getElementById('fName').focus(); return; }
   const desc=document.getElementById('fDesc').value.trim();
   const tpl=TEMPLATES.find(t=>t.id===pickedTpl);
-  PROJECTS.unshift({id:'p'+Date.now(),name,sub:(tpl?'来自模板「'+tpl.name+'」 · ':'刚刚创建')+(desc?'':' '),t:name[0],archived:false,tpl:pickedTpl});
+  const id='p'+Date.now();
+  PROJECTS.unshift({id,name,sub:(tpl?'来自模板「'+tpl.name+'」 · ':'刚刚创建')+(desc?'':' '),t:name[0],archived:false,tpl:pickedTpl});
   closeCreate();
   renderMine();
-  toast('项目「'+name+'」已创建');
+  // 创建即进入项目空间，在项目内开始第一个对话
+  location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(name)+'&fresh=1';
 }
 function openProject(id,name){ location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(name); }
 

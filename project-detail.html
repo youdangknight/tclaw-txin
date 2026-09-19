@@ -110,6 +110,24 @@ tbody tr:hover{background:#fafbfc;}
 .link-btn:hover{text-decoration:underline;}
 .tb-empty{text-align:center;color:var(--sub2);font-size:13px;padding:30px 0;}
 
+/* 项目内对话：空态 + 内嵌输入框 */
+.chat-empty{text-align:center;padding:40px 0 30px;}
+.chat-empty .ce-ic{width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 14px;}
+.chat-empty .ce-t{font-size:15px;font-weight:600;}
+.chat-empty .ce-d{font-size:12.5px;color:var(--sub);margin-top:7px;line-height:1.7;}
+.chat-composer{margin-top:18px;border:1px solid var(--border);border-radius:14px;background:#fff;padding:12px 14px 10px;box-shadow:0 2px 10px rgba(30,50,90,.05);}
+.chat-composer:focus-within{border-color:#bcd2fb;box-shadow:0 0 0 3px rgba(47,123,246,.10);}
+.chat-composer textarea{width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:14px;line-height:1.6;color:var(--text);max-height:140px;}
+.chat-composer textarea::placeholder{color:#b4b9c1;}
+.cc-tools{display:flex;align-items:center;gap:6px;margin-top:8px;}
+.cc-tool{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 10px;border-radius:8px;font-size:12.5px;color:var(--sub);cursor:pointer;}
+.cc-tool:hover{background:#f3f5f8;color:var(--text);}
+.cc-sp{flex:1;}
+.cc-send{height:32px;padding:0 18px;border:none;border-radius:9px;background:var(--blue);color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
+.cc-send:hover{background:var(--blue-d);}
+.cc-hint{text-align:center;font-size:12px;color:var(--sub2);margin-top:12px;}
+.cc-hint b{color:#5a6adf;font-weight:600;}
+
 /* 项目资料 */
 .mat-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .seg{display:flex;background:#f2f3f5;border-radius:10px;padding:3px;}
@@ -221,10 +239,10 @@ tbody tr:hover{background:#fafbfc;}
             <div class="d-ic" id="dIc">Q</div>
             <div>
               <div class="d-title" id="dTitle">2026 Q3 产品规划</div>
-              <div class="d-sub"><span>3 个对话</span><span>·</span><span>4 个文件</span><span>·</span><span>创建于 2026-07-15</span></div>
+              <div class="d-sub"><span id="chatCount">3 个对话</span><span>·</span><span>4 个文件</span><span>·</span><span>创建于 2026-07-15</span></div>
             </div>
             <div class="d-actions">
-              <button class="btn-start" onclick="toast('开始对话：已带入当前项目上下文')">
+              <button class="btn-start" onclick="startChat()">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>
                 开始对话
               </button>
@@ -245,15 +263,50 @@ tbody tr:hover{background:#fafbfc;}
           <div class="d-body">
             <!-- 对话 -->
             <section class="pane on" id="pane-chat">
-              <img class="chat-mascot" src="assets/mascot.png" alt="龙虾助手">
-              <div class="chat-search">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
-                <input placeholder="搜索本项目对话" oninput="filterChat(this.value)">
+              <!-- 空态：新项目还没有对话 -->
+              <div class="chat-empty" id="chatEmpty">
+                <img class="ce-ic" src="assets/mascot.png" alt="龙虾助手">
+                <div class="ce-t">和团队助手开启第一个对话</div>
+                <div class="ce-d">对话会自动携带本项目的说明、资料与记忆，产出的内容也会归档到本项目<br>在下方直接输入第一句话即可</div>
               </div>
-              <table>
-                <thead><tr><th>对话</th><th>最近更新</th><th>操作</th></tr></thead>
-                <tbody id="chatTbody"></tbody>
-              </table>
+              <!-- 已有对话列表 -->
+              <div id="chatListBlock">
+                <div class="chat-search">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+                  <input placeholder="搜索本项目对话" oninput="filterChat(this.value)">
+                </div>
+                <table>
+                  <thead><tr><th>对话</th><th>最近更新</th><th>操作</th></tr></thead>
+                  <tbody id="chatTbody"></tbody>
+                </table>
+              </div>
+              <!-- 内嵌输入框：项目内直接发起对话，不再跳转新建任务 -->
+              <div class="chat-composer">
+                <textarea id="ccInput" rows="2" placeholder="输入第一句话，开启项目对话…  @ 引用资产文件、项目待办或调用技能"></textarea>
+                <div class="cc-tools">
+                  <div class="cc-tool" onclick="toast('附件 / 截图 / 语音（原型演示）')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  </div>
+                  <div class="cc-tool" onclick="toast('引用项目资料 / 待办（原型演示）')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg>
+                    @引用
+                  </div>
+                  <div class="cc-tool" onclick="toast('选择技能（原型演示）')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><path d="M9 4.5v15M4.5 9h15"/></svg>
+                    技能
+                  </div>
+                  <div class="cc-tool" onclick="toast('切换云端 / 本地任务模式（原型演示）')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/><circle cx="12" cy="12" r="3.4"/></svg>
+                    本地任务
+                  </div>
+                  <span class="cc-sp"></span>
+                  <button class="cc-send" onclick="sendProjectChat()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+                    发送
+                  </button>
+                </div>
+              </div>
+              <div class="cc-hint">当前为 <b>项目对话</b>，自动携带项目说明 · 项目资料 · 项目记忆上下文</div>
             </section>
 
             <!-- 项目资料 -->
@@ -324,14 +377,21 @@ tbody tr:hover{background:#fafbfc;}
 
 <div class="toast" id="toastEl"></div>
 <script>
-// URL 参数：从项目列表点进来时带上项目名
+// URL 参数：从项目列表点进来时带上项目名；fresh=1 表示刚创建的新项目
+const q=new URLSearchParams(location.search);
+const isFresh=q.get('fresh')==='1';
 (function(){
-  const p=new URLSearchParams(location.search);
-  const name=p.get('name');
+  const name=q.get('name');
   if(name){
     document.getElementById('dTitle').textContent=name;
     document.getElementById('dIc').textContent=name[0];
     document.title=name+' · TCLaw 龙虾';
+  }
+  if(isFresh){
+    // 新项目：清零演示数据，创建时间显示今天
+    document.getElementById('chatCount').textContent='0 个对话';
+    const subs=document.querySelectorAll('.d-head .d-sub span');
+    subs[subs.length-1].textContent='创建于 2026-09-19';
   }
 })();
 
@@ -350,23 +410,63 @@ function switchTab(el){
   document.getElementById('pane-'+el.dataset.pane).classList.add('on');
 }
 
-// 对话数据
-const CHATS=[
+// 对话数据（新项目初始为空）
+let CHATS=isFresh ? [] : [
   {name:'竞品对比',date:'09/03'},
   {name:'需求池整理',date:'09/02'},
   {name:'季度目标拆解',date:'09/01'}
 ];
+function today(){const d=new Date();return String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0');}
 function renderChat(kw){
   const list=CHATS.filter(c=>!kw||c.name.includes(kw));
   document.getElementById('chatTbody').innerHTML = list.length ? list.map(c=>`
     <tr>
       <td><div class="chat-name"><span class="chat-dot"></span>${c.name}</div></td>
       <td>${c.date}</td>
-      <td><span class="link-btn" onclick="toast('打开对话：${c.name}')">打开</span></td>
-    </tr>`).join('') : '<tr><td colspan="3" class="tb-empty">没有匹配的对话</td></tr>';
+      <td><span class="link-btn" onclick="toast('打开对话：${c.name}（原型演示）')">打开</span></td>
+    </tr>`).join('') : '<tr><td colspan="3" class="tb-empty">'+(CHATS.length?'没有匹配的对话':'')+'</td></tr>';
+  // 空态 / 列表显隐 + 头部对话数
+  document.getElementById('chatEmpty').style.display=CHATS.length?'none':'block';
+  document.getElementById('chatListBlock').style.display=CHATS.length?'block':'none';
+  document.getElementById('chatCount').textContent=CHATS.length+' 个对话';
 }
 function filterChat(kw){ renderChat(kw.trim()); }
 renderChat('');
+
+// 开始对话：切到对话 Tab 并聚焦输入框（不离开项目空间）
+function startChat(){
+  const tab=document.querySelector('.d-tab[data-pane="chat"]');
+  switchTab(tab);
+  const ta=document.getElementById('ccInput');
+  ta.placeholder='直接输入，和团队助手开始对话…  @ 引用资产文件、项目待办或调用技能';
+  setTimeout(()=>ta.focus(),60);
+}
+
+// 发送：在项目内生成一条新对话（原型演示），不跳转新建任务页
+function sendProjectChat(){
+  const ta=document.getElementById('ccInput');
+  const v=ta.value.trim();
+  if(!v){ ta.focus(); return; }
+  // 对话标题取首句，过长截断
+  const name=v.length>16?v.slice(0,16)+'…':v;
+  CHATS.unshift({name,date:today()});
+  ta.value=''; ta.style.height='auto'; ta.rows=2;
+  renderChat('');
+  toast('已开启项目对话：'+name);
+}
+// 输入框：Enter 发送，Shift+Enter 换行；自适应高度
+(function(){
+  const ta=document.getElementById('ccInput');
+  ta.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendProjectChat(); }
+  });
+  ta.addEventListener('input',()=>{
+    ta.style.height='auto';
+    ta.style.height=Math.min(ta.scrollHeight,140)+'px';
+  });
+  // 刚创建的新项目进入后自动聚焦，方便直接开口
+  if(isFresh) setTimeout(()=>ta.focus(),300);
+})();
 
 // 项目资料
 const MATERIALS=[
