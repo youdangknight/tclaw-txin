@@ -249,6 +249,9 @@ svg{display:block;}
 .cn-src{display:inline-flex;margin-top:5px;font-size:10.5px;font-weight:500;border-radius:5px;padding:2px 8px;background:#f2f3f5;color:#6b7280;}
 .cn-src.preset{background:#eaf1fe;color:#2f7bf6;}
 .cn-src.market{background:#eef0f2;color:#5b616a;}
+/* 后台已配置标记：IT 统一托管，无需个人授权 */
+.cn-auth-flag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;border-radius:7px;padding:3px 9px;white-space:nowrap;flex-shrink:0;}
+.cn-auth-flag.backend{background:#f0faf5;color:#178a58;border:1px solid #cfeedf;}
 .cn-desc{font-size:12.5px;color:#6b727c;margin-top:9px;line-height:1.6;}
 .cn-tags{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;}
 .cn-tag{font-size:11px;border-radius:6px;padding:2.5px 9px;background:#eef4ff;color:var(--blue);}
@@ -308,6 +311,67 @@ svg{display:block;}
 .dr-foot .btn{flex:1;height:40px;border-radius:11px;font-size:13.5px;cursor:pointer;border:1px solid var(--border);background:#fff;font-family:inherit;}
 .dr-foot .btn-pri{background:var(--blue);color:#fff;border-color:var(--blue);}
 .dr-foot .btn-pri:hover{background:var(--blue-d);}
+
+/* ===== 连接器（MCP）详情抽屉 ===== */
+#cnDrawer{width:680px;}
+.cd-head{display:flex;align-items:center;justify-content:space-between;padding:18px 26px;border-bottom:1px solid var(--line);}
+.cd-title{font-size:22px;font-weight:800;color:#1f2329;}
+.cd-tools{display:flex;align-items:center;gap:6px;}
+.cd-icon-btn{width:38px;height:38px;border-radius:11px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;color:#5b616a;cursor:pointer;}
+.cd-icon-btn:hover{background:#f5f7fa;color:#1f2329;}
+.cd-icon-btn.warn{color:#e0685f;}
+.cd-icon-btn.warn:hover{background:#fef3f2;}
+.cd-icon-btn.ok{color:#19b06e;background:#f0faf5;border-color:#cfeedf;}
+.cd-id{display:flex;align-items:flex-start;gap:14px;margin-top:4px;}
+.cd-ic{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex-shrink:0;}
+.cd-id-main{flex:1;min-width:0;}
+.cd-name-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.cd-name{font-size:19px;font-weight:700;color:#1f2329;}
+.cd-tags{display:inline-flex;gap:6px;}
+.cd-tags .ct{font-size:11.5px;color:#2f7bf6;background:#eef4ff;border:1px solid #d5e5fc;border-radius:7px;padding:3px 10px;}
+.cd-ver{font-size:12.5px;color:var(--sub2);margin-top:6px;}
+#cdStatus{margin-top:4px;flex-shrink:0;}
+.cd-desc{font-size:13.5px;color:#5b616a;line-height:1.7;margin:12px 0 4px;}
+/* 授权方式提示 */
+.cd-auth{display:flex;align-items:center;gap:9px;border-radius:11px;padding:10px 14px;margin:12px 0 2px;font-size:12.5px;line-height:1.6;}
+.cd-auth.backend{background:#f0faf5;border:1px solid #cfeedf;color:#178a58;}
+.cd-auth.user{background:#f3f6fd;border:1px solid #d9e5fb;color:#2f5fc0;}
+.cd-auth.warn{background:#fff8ef;border:1px solid #f4ddbc;color:#b47120;}
+.cd-auth b{font-weight:700;}
+.cd-auth .cd-auth-act{margin-left:auto;cursor:pointer;font-weight:600;white-space:nowrap;}
+.cd-auth.user .cd-auth-act{color:#2f7bf6;}
+.cd-auth.warn .cd-auth-act{color:#d97e2b;}
+
+.cd-sec-title{font-size:16px;font-weight:700;color:#1f2329;margin:22px 0 12px;padding-left:9px;border-left:4px solid #6a5be2;line-height:1.2;display:flex;align-items:center;gap:8px;}
+.cd-tool-n{font-size:12px;color:var(--sub2);font-weight:400;}
+.cd-info{border:1px solid var(--border);border-radius:13px;overflow:hidden;}
+.ci-row{display:grid;grid-template-columns:120px 1fr 1fr;gap:14px;padding:13px 16px;border-bottom:1px solid #f2f3f5;align-items:start;}
+.ci-row:last-child{border-bottom:none;}
+.ci-row .ci-lb{font-size:13px;color:var(--sub);white-space:nowrap;padding-top:1px;}
+.ci-row .ci-val{font-size:13px;color:#2b3038;word-break:break-all;line-height:1.6;}
+.ci-row .ci-val:empty::before{content:"—";color:#b7bcc5;}
+.ci-row .mono{font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12px;color:#5b616a;}
+.ci-head-row{grid-template-columns:120px 1fr;}
+.ci-head-row .ci-val{grid-column:2;}
+
+.cd-tool-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;}
+.cd-tool-tab{flex-shrink:0;font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12.5px;color:#5b616a;background:#f4f5f7;border:1px solid transparent;border-radius:9px;padding:8px 14px;cursor:pointer;white-space:nowrap;}
+.cd-tool-tab.on{color:#6a5be2;background:#f2efff;border-color:#ddd2f8;font-weight:600;}
+.cd-tool-card{border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-top:2px;}
+.cd-tool-name{font-family:ui-monospace,Consolas,Menlo,monospace;font-size:15px;font-weight:700;color:#1f2329;padding-left:9px;border-left:4px solid #6a5be2;line-height:1.3;}
+.cd-tool-desc{font-size:13px;color:#5b616a;line-height:1.75;margin:12px 0 4px;}
+.cd-ptitle{font-size:14px;font-weight:700;color:#1f2329;padding-left:9px;border-left:4px solid #6a5be2;margin:16px 0 10px;}
+.cd-table{width:100%;border:1px solid #eef0f3;border-radius:10px;border-collapse:collapse;overflow:hidden;}
+.cd-table th{background:#fafbfc;font-size:12.5px;color:var(--sub);font-weight:600;text-align:left;padding:10px 14px;border-bottom:1px solid #eef0f3;}
+.cd-table td{font-size:12.5px;color:#3c424b;padding:10px 14px;border-bottom:1px solid #f4f5f7;vertical-align:top;line-height:1.6;}
+.cd-table tr:last-child td{border-bottom:none;}
+.cd-table td:first-child{font-family:ui-monospace,Consolas,Menlo,monospace;color:#1f2329;white-space:nowrap;}
+.cd-table .t-type{color:#6a5be2;font-family:ui-monospace,Consolas,Menlo,monospace;white-space:nowrap;}
+.cd-table-empty{text-align:center;color:#9aa0a9;font-size:12.5px;padding:20px !important;}
+
+.cd-foot{padding:14px 26px 18px;border-top:1px solid var(--line);}
+.cd-try{width:100%;height:46px;border:none;border-radius:12px;background:#6a5be2;color:#fff;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;}
+.cd-try:hover{background:#5d4ed6;}
 
 .toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:rgba(31,35,41,.92);color:#fff;font-size:13px;padding:9px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:99;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
@@ -613,6 +677,54 @@ svg{display:block;}
   </div>
 </div>
 
+<!-- 连接器（MCP）详情抽屉 -->
+<div class="drawer-mask" id="cnMask" onclick="closeConnDrawer()"></div>
+<div class="drawer" id="cnDrawer">
+  <div class="cd-head">
+    <div class="cd-title">MCP 详情</div>
+    <div class="cd-tools">
+      <span class="cd-icon-btn" title="编辑" onclick="toast('编辑连接器配置（原型演示）')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+      <span class="cd-icon-btn" title="导出" onclick="toast('导出连接器配置（原型演示）')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span>
+      <span class="cd-icon-btn warn" title="删除" onclick="toast('删除连接器（原型演示）')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>
+      <span class="cd-icon-btn ok" title="已添加" onclick="toast('该连接器已添加')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+    </div>
+  </div>
+  <div class="dr-body">
+    <div class="cd-id">
+      <div class="cd-ic" id="cdIc"></div>
+      <div class="cd-id-main">
+        <div class="cd-name-row">
+          <span class="cd-name" id="cdName"></span>
+          <span class="cd-tags" id="cdTags"></span>
+        </div>
+        <div class="cd-ver" id="cdVer"></div>
+      </div>
+      <span class="st" id="cdStatus"></span>
+    </div>
+    <div class="cd-desc" id="cdDesc"></div>
+    <!-- 授权方式提示 -->
+    <div class="cd-auth" id="cdAuth"></div>
+
+    <div class="cd-sec-title">基本信息</div>
+    <div class="cd-info">
+      <div class="ci-row"><span class="ci-lb">服务器标识符</span><span class="ci-val" id="ciId"></span></div>
+      <div class="ci-row"><span class="ci-lb">类型</span><span class="ci-val" id="ciType"></span></div>
+      <div class="ci-row"><span class="ci-lb">URL</span><span class="ci-val mono" id="ciUrl"></span></div>
+      <div class="ci-row"><span class="ci-lb">超时时间</span><span class="ci-val" id="ciTimeout"></span></div>
+      <div class="ci-row"><span class="ci-lb">提供者</span><span class="ci-val" id="ciProvider"></span></div>
+      <div class="ci-row"><span class="ci-lb">提供者网址</span><span class="ci-val" id="ciProviderUrl"></span></div>
+      <div class="ci-row ci-head-row"><span class="ci-lb">请求头</span><span class="ci-val mono" id="ciHeaders"></span></div>
+    </div>
+
+    <div class="cd-sec-title">工具 <span class="cd-tool-n" id="cdToolN"></span></div>
+    <div class="cd-tool-tabs" id="cdToolTabs"></div>
+    <div class="cd-tool-card" id="cdToolCard"></div>
+  </div>
+  <div class="cd-foot">
+    <button class="cd-try" onclick="toast('已带入该连接器，在聊天中尝试（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg> 在聊天中尝试</button>
+  </div>
+</div>
+
 <div class="toast" id="toastEl"></div>
 <script>
 /* ================= 数据 ================= */
@@ -658,13 +770,36 @@ const SKILLS=[
  {id:'contract',name:'合同风险检查',cat:'法务',desc:'识别合同中的风险条款并给出修改建议，输出风险清单。',builtin:false,enabled:false,users:0}
 ];
 const CONNECTORS=[
- {id:'mail',name:'TCL 邮箱代发服务',ver:'v2',tools:6,src:'企业预置',status:'ok',statusText:'已连接',desc:'用于发送通知及接收系统消息的邮箱服务，支持代发与回执跟踪。',account:'ex_min4.wang@tcl.com',users:4,tags:['通用系统','使能类'],bg:'#E2EFFE',c:'#2F7BF6',letter:'M'},
- {id:'confluence',name:'Confluence 知识库',ver:'v1',tools:14,src:'企业预置',status:'exp',statusText:'已过期',desc:'绑定个人访问令牌后可使用知识库的读写与全文检索。',account:'令牌已于 08/20 过期',users:1,tags:['研发/研发','智能知识库平台'],bg:'#E8ECFB',c:'#4A5FBF',letter:'C'},
- {id:'txin',name:'T信 消息',ver:'v3',tools:9,src:'企业预置',status:'ok',statusText:'已连接',desc:'在群聊与单聊中收发消息、读取附件，并支持机器人推送。',account:'以工号免密授权',users:1,tags:['通用系统','营销服'],bg:'#DDF3EC',c:'#19B08A',letter:'T'},
- {id:'qcc',name:'企查查',ver:'v1',tools:11,src:'市场安装',status:'ok',statusText:'已连接',desc:'查询企业工商、股权、涉诉与经营风险信息。',account:'API Key · 团队共享',users:2,tags:['营销服','大数据'],bg:'#FFF4E5',c:'#E8932B',letter:'企'},
- {id:'amap',name:'高德地图',ver:'v2',tools:8,src:'市场安装',status:'off',statusText:'未连接',desc:'查询地点、路线规划、周边检索与地理编码。',account:'',users:0,tags:['使能类','通用系统'],bg:'#E4F4F6',c:'#1596A8',letter:'A'},
- {id:'wecom',name:'企业微信',ver:'v1',tools:7,src:'市场安装',status:'wait',statusText:'待开通',desc:'同步通讯录、发送应用消息与审批回调，需管理员开通。',account:'等待管理员审批',users:0,tags:['通用系统','营销服'],bg:'#EAF2FF',c:'#3E7BD6',letter:'W'}
+ {id:'mail',name:'TCL 邮箱代发服务',ver:'v2',tools:6,src:'企业预置',status:'ok',statusText:'已连接',authMode:'user',desc:'用于发送通知及接收系统消息的邮箱服务，支持代发与回执跟踪。',account:'ex_min4.wang@tcl.com',users:4,tags:['通用系统','使能类'],bg:'#E2EFFE',c:'#2F7BF6',letter:'M'},
+ {id:'confluence',name:'Confluence 知识库',ver:'v1',tools:14,src:'企业预置',status:'exp',statusText:'已过期',authMode:'user',desc:'绑定个人访问令牌后可使用知识库的读写与全文检索。',account:'令牌已于 08/20 过期',users:1,tags:['研发/研发','智能知识库平台'],bg:'#E8ECFB',c:'#4A5FBF',letter:'C'},
+ {id:'txin',name:'T信 消息',ver:'v3',tools:9,src:'企业预置',status:'ok',statusText:'已连接',authMode:'backend',desc:'在群聊与单聊中收发消息、读取附件，并支持机器人推送。',account:'后台已配置 · 工号免密',users:1,tags:['通用系统','营销服'],bg:'#DDF3EC',c:'#19B08A',letter:'T'},
+ {id:'qcc',name:'企查查',ver:'v1',tools:11,src:'市场安装',status:'ok',statusText:'已连接',authMode:'backend',desc:'查询企业工商、股权、涉诉与经营风险信息。',account:'API Key · 团队共享',users:2,tags:['营销服','大数据'],bg:'#FFF4E5',c:'#E8932B',letter:'企'},
+ {id:'amap',name:'高德地图',ver:'v2',tools:8,src:'市场安装',status:'off',statusText:'未连接',authMode:'user',desc:'查询地点、路线规划、周边检索与地理编码。',account:'',users:0,tags:['使能类','通用系统'],bg:'#E4F4F6',c:'#1596A8',letter:'A'},
+ {id:'wecom',name:'企业微信',ver:'v1',tools:7,src:'市场安装',status:'wait',statusText:'待开通',authMode:'user',desc:'同步通讯录、发送应用消息与审批回调，需管理员开通。',account:'等待管理员审批',users:0,tags:['通用系统','营销服'],bg:'#EAF2FF',c:'#3E7BD6',letter:'W'}
 ];
+
+/* 连接器详情：服务器基本信息 + 工具清单（对应原 MCP 详情） */
+const CONN_DETAIL={
+ mail:{serverId:'tcl-mail-sender',type:'服务器发送事件(sse)',url:'https://mcp.tcl.com/mail-sse',timeout:'30S',provider:'TCL 信息技术中心',providerUrl:'https://it.tcl.com',headers:'{"Authorization":"Bearer eyJhbGciOi…"}',tools:[
+  {n:'mail_send',d:'以当前用户身份代发邮件，支持抄送、附件与回执跟踪。',p:[{n:'to',t:'string',d:'收件人邮箱，多个用逗号分隔'},{n:'subject',t:'string',d:'邮件主题'},{n:'body',t:'string',d:'邮件正文，支持 HTML'}]},
+  {n:'mail_query_reply',d:'按邮件 ID 查询收件人回执与回复内容。',p:[{n:'mail_id',t:'string',d:'邮件唯一标识'}]}]},
+ confluence:{serverId:'mcp-confluence',type:'服务器发送事件(sse)',url:'https://chat-ape-mcp-se.tclking.com/sse',timeout:'30S',provider:'',providerUrl:'',headers:'{"X-Confluence-URL":"https://confluence.tclking.com","X-Confluence-TOKEN":"MTc1Mjg3NjE0…"}',tools:[
+  {n:'confluence_search',d:'Search Confluence content using simple terms or CQL. Returns a JSON list of simplified page objects.',p:[{n:'query',t:'string',d:'Search query - can be either a simple text or a CQL query string'},{n:'limit',t:'integer',d:'Maximum number of results (1-6), default to 3'},{n:'spaces_filter',t:'string',d:'(Optional) Comma-separated list of space keys to filter by'}],o:[{n:'results',t:'array',d:'匹配的 Confluence 页面对象列表'}]},
+  {n:'confluence_get_page_content_by_url',d:'按页面 URL 获取单个 Confluence 页面的完整正文内容。',p:[{n:'url',t:'string',d:'Confluence 页面链接'}]},
+  {n:'confluence_get_pages_content_by_url',d:'批量获取多个页面内容，用于跨页面汇总。',p:[{n:'urls',t:'array',d:'页面 URL 列表'}]}]},
+ txin:{serverId:'tcl-txin-msg',type:'服务器发送事件(sse)',url:'https://mcp.tcl.com/txin-sse',timeout:'30S',provider:'TCL 信息技术中心',providerUrl:'https://it.tcl.com',headers:'{"X-SSO-Token":"工号免密（后台托管）"}',tools:[
+  {n:'txin_send_message',d:'向个人或群聊发送文本/卡片消息。',p:[{n:'chat_id',t:'string',d:'会话 ID'},{n:'content',t:'string',d:'消息内容'}]},
+  {n:'txin_read_attachments',d:'读取指定会话中的附件并返回下载地址。',p:[{n:'chat_id',t:'string',d:'会话 ID'}]}]},
+ qcc:{serverId:'qcc-openapi',type:'HTTP 流式',url:'https://mcp.tcl.com/qcc/sse',timeout:'30S',provider:'企查查开放平台',providerUrl:'https://open.qcc.com',headers:'{"X-Api-Key":"团队共享密钥（后台托管）"}',tools:[
+  {n:'qcc_search_company',d:'按企业名称/统一社会信用代码查询工商基础信息。',p:[{n:'keyword',t:'string',d:'企业名称或信用代码'}]},
+  {n:'qcc_risk_info',d:'查询企业涉诉、被执行与经营风险信息。',p:[{n:'keyword',t:'string',d:'企业名称'},{n:'risk_type',t:'string',d:'风险类型：lawsuit / executed / abnormal'}]}]},
+ amap:{serverId:'amap-mcp',type:'HTTP 流式',url:'https://restapi.amap.com/mcp',timeout:'20S',provider:'高德开放平台',providerUrl:'https://lbs.amap.com',headers:'{"key":"个人申请的 Web 服务 Key"}',tools:[
+  {n:'maps_geo',d:'将详细地址转换为经纬度坐标（地理编码）。',p:[{n:'address',t:'string',d:'待解析的结构化地址'},{n:'city',t:'string',d:'城市名，可选'}]},
+  {n:'maps_around_search',d:'基于中心点周边检索 POI。',p:[{n:'location',t:'string',d:'中心点经纬度 lng,lat'},{n:'keywords',t:'string',d:'检索关键词'},{n:'radius',t:'integer',d:'搜索半径（米），默认 3000'}]}]},
+ wecom:{serverId:'wecom-corp',type:'服务器发送事件(sse)',url:'https://qyapi.weixin.qq.com/mcp',timeout:'30S',provider:'腾讯企业微信',providerUrl:'https://work.weixin.qq.com',headers:'{"corpsecret":"需企业管理员在后台开通应用"}',tools:[
+  {n:'wecom_sync_contacts',d:'同步企业通讯录部门与成员。',p:[{n:'dept_id',t:'integer',d:'部门 ID，默认根部门'}]},
+  {n:'wecom_send_app_msg',d:'发送企业微信应用消息并支持审批回调。',p:[{n:'to_user',t:'string',d:'接收成员 UserID 列表'},{n:'content',t:'string',d:'消息内容'}]}]}
+};
 
 /* ================= 页面切换 ================= */
 function switchPage(btn){
@@ -968,18 +1103,21 @@ function renderConn(){
 
   document.getElementById('cnGrid').innerHTML = list.length ? list.map(c=>{
     let btn='';
-    if(c.status==='ok') btn=`<span class="st ok">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();toast('管理授权：${c.name}')">管理</button>`;
-    else if(c.status==='exp') btn=`<span class="st exp">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();toast('重新授权：${c.name}')">重新授权</button>`;
+    if(c.status==='ok') btn=`<span class="st ok">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();openConnDrawer('${c.id}')">管理</button>`;
+    else if(c.status==='exp') btn=`<span class="st exp">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();openConnDrawer('${c.id}')">重新授权</button>`;
     else if(c.status==='wait') btn=`<span class="st wait">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();toast('已提交开通申请（原型演示）')">查看审批</button>`;
-    else btn=`<span class="st off">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();toast('开始授权：${c.name}')">授权连接</button>`;
+    else btn=`<span class="st off">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();openConnDrawer('${c.id}')">授权连接</button>`;
     const srcCls=c.src==='企业预置'?'preset':(c.src==='市场安装'?'market':'');
-    return `<div class="conn st-${c.status}" onclick="toast('查看连接器详情：${c.name}（原型演示）')">
+    // 后台已配置：在卡片上标记，无需用户授权
+    const backendTag=c.authMode==='backend'?'<span class="cn-auth-flag backend">后台已配置</span>':'';
+    return `<div class="conn st-${c.status}" onclick="openConnDrawer('${c.id}')">
       <div class="conn-top">
         <div class="cn-ic" style="background:${c.bg};color:${c.c}">${c.letter}</div>
         <div class="cn-main">
           <div class="cn-name">${c.name} <span class="cn-ver">${c.ver} ｜ ${c.tools}个工具</span></div>
           <span class="cn-src ${srcCls}">${c.src}</span>
         </div>
+        ${backendTag}
       </div>
       <div class="cn-desc">${c.desc}</div>
       <div class="cn-tags">${c.tags.map(t=>'<span class="cn-tag">'+t+'</span>').join('')}</div>
@@ -991,6 +1129,96 @@ function renderConn(){
   }).join('') : '<div class="empty-hint" style="display:block">'+(cnViewMode==='mine'?'还没有已授权的连接器，切到「全部连接器」去添加':'没有匹配的连接器')+'</div>';
 }
 renderConn();
+
+/* ---------- 连接器（MCP）详情抽屉 ---------- */
+function openConnDrawer(id){
+  const c=CONNECTORS.find(x=>x.id===id);
+  const d=CONN_DETAIL[id];
+  if(!c||!d) return;
+  document.getElementById('cdIc').style.background=c.bg;
+  document.getElementById('cdIc').style.color=c.c;
+  document.getElementById('cdIc').textContent=c.letter;
+  document.getElementById('cdName').textContent=c.name;
+  document.getElementById('cdTags').innerHTML=c.tags.map(t=>'<span class="ct">'+t+'</span>').join('');
+  document.getElementById('cdVer').textContent=c.ver+'　｜　'+c.tools+' 个工具';
+  const st=document.getElementById('cdStatus');
+  st.className='st '+c.status;
+  st.textContent=c.statusText;
+  document.getElementById('cdDesc').textContent=c.desc;
+  document.getElementById('ciId').textContent=d.serverId;
+  document.getElementById('ciType').textContent=d.type;
+  document.getElementById('ciUrl').textContent=d.url;
+  document.getElementById('ciTimeout').textContent=d.timeout;
+  document.getElementById('ciProvider').textContent=d.provider||'';
+  document.getElementById('ciProviderUrl').textContent=d.providerUrl||'';
+  document.getElementById('ciHeaders').textContent=d.headers;
+  document.getElementById('cdToolN').textContent='('+d.tools.length+')';
+  // 授权方式提示条：后台已配置 / 需用户授权（过期用 warn）
+  const auth=document.getElementById('cdAuth');
+  if(c.authMode==='backend'){
+    auth.className='cd-auth backend';
+    auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span><b>后台已配置</b>：凭据由 IT 统一托管，当前账号免授权即可使用，无需个人操作。</span>';
+  }else if(c.status==='exp'){
+    auth.className='cd-auth warn';
+    auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span>授权已过期，需<b>重新授权</b>后才能继续调用该连接器的工具。</span><span class="cd-auth-act" onclick="cnAuthAct(\''+c.id+'\')">重新授权</span>';
+  }else if(c.status==='wait'){
+    auth.className='cd-auth warn';
+    auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span>该连接器需企业管理员开通，开通申请<span>审批中</span>。</span><span class="cd-auth-act" onclick="toast(\'查看开通审批进度（原型演示）\')">查看审批</span>';
+  }else if(c.status==='ok'){
+    auth.className='cd-auth user';
+    auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>已个人授权</b>：'+(c.account||'账号已连接')+'，可随时解除授权。</span><span class="cd-auth-act" onclick="cnAuthAct(\''+c.id+'\')">管理授权</span>';
+  }else{
+    auth.className='cd-auth user';
+    auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span><b>需要授权</b>：连接后硅基员工才能调用该工具。</span><span class="cd-auth-act" onclick="cnAuthAct(\''+c.id+'\')">去授权</span>';
+  }
+  // 工具 Tab
+  document.getElementById('cdToolTabs').innerHTML=d.tools.map((t,i)=>'<div class="cd-tool-tab '+(i===0?'on':'')+'" onclick="cdToolTab(this,'+i+')">'+t.n+'</div>').join('');
+  window.__cdTools=d.tools;
+  cdRenderTool(0);
+  document.getElementById('cnMask').classList.add('show');
+  document.getElementById('cnDrawer').classList.add('show');
+}
+function closeConnDrawer(){
+  document.getElementById('cnMask').classList.remove('show');
+  document.getElementById('cnDrawer').classList.remove('show');
+}
+function cdToolTab(el,i){
+  el.parentElement.querySelectorAll('.cd-tool-tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  cdRenderTool(i);
+}
+function cdRenderTool(i){
+  const t=(window.__cdTools||[])[i];
+  if(!t) return;
+  const rows=(arr,head)=>arr&&arr.length ? `<table class="cd-table">
+      <thead><tr><th style="width:150px">${head}名称</th><th style="width:110px">参数类型</th><th>参数描述</th></tr></thead>
+      <tbody>${arr.map(p=>'<tr><td>'+p.n+'</td><td class="t-type">'+(p.t||'object')+'</td><td>'+p.d+'</td></tr>').join('')}</tbody>
+    </table>` : '<table class="cd-table"><tbody><tr><td class="cd-table-empty">暂无数据</td></tr></tbody></table>';
+  document.getElementById('cdToolCard').innerHTML=`
+    <div class="cd-tool-name">${t.n}</div>
+    <div class="cd-tool-desc">${t.d}</div>
+    <div class="cd-ptitle">输入参数</div>
+    ${rows(t.p,'参数')}
+    <div class="cd-ptitle">输出参数</div>
+    ${rows(t.o,'参数')}`;
+}
+function cnAuthAct(id){
+  const c=CONNECTORS.find(x=>x.id===id);
+  if(!c) return;
+  if(c.status==='ok'){ toast('管理授权：解除/更换账号（原型演示）'); return; }
+  if(c.status==='exp'){
+    c.status='ok'; c.statusText='已连接';
+    c.account=c.id==='confluence'?'个人访问令牌 · 有效':c.account;
+    renderConn(); openConnDrawer(id);
+    toast('已重新授权「'+c.name+'」');
+    return;
+  }
+  // 未连接 → 授权成功
+  c.status='ok'; c.statusText='已连接';
+  c.account=c.id==='amap'?'Web 服务 Key · 已绑定':'账号已连接';
+  renderConn(); openConnDrawer(id);
+  toast('已授权连接「'+c.name+'」');
+}
 
 // URL 参数：?tab=conn&view=mine 直达连接器·我的连接（供设置·系统集成跳转）
 (function(){
