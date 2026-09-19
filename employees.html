@@ -204,6 +204,27 @@ svg{display:block;}
 .mk-foot .inst{margin-left:auto;}
 
 /* ===== 连接器 ===== */
+/* 视图分段 */
+.cn-viewbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cn-seg{display:inline-flex;background:#eceef1;border-radius:11px;padding:4px;gap:2px;}
+.cn-seg-item{height:34px;padding:0 20px;border-radius:8px;display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:#5b616a;cursor:pointer;font-weight:500;}
+.cn-seg-item:hover{color:#2b3038;}
+.cn-seg-item.on{background:#fff;color:#1f2329;font-weight:600;box-shadow:0 1px 4px rgba(15,23,42,.10);}
+.cn-seg-n{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:19px;padding:0 6px;border-radius:10px;background:#e3e6ea;color:#6b7280;font-size:11px;font-weight:600;}
+.cn-seg-item.on .cn-seg-n{background:#e8effc;color:var(--blue);}
+
+/* 状态摘要条（我的连接） */
+.cn-statusbar{display:none;align-items:center;gap:22px;background:#fff;border:1px solid var(--border);border-radius:13px;padding:13px 20px;margin-bottom:14px;}
+.cn-statusbar.show{display:flex;}
+.csb{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#5b616a;}
+.csb b{font-size:14px;color:#1f2329;}
+.csb i{width:8px;height:8px;border-radius:50%;}
+.csb.ok i{background:var(--green);}
+.csb.exp i{background:var(--orange);}
+.csb.wait i{background:var(--purple);}
+.csb.exp b{color:var(--orange);}
+.csb.wait b{color:var(--purple);}
+
 .cn-filter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:16px;}
 .f-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
 .f-row:last-child{margin-bottom:0;}
@@ -215,12 +236,17 @@ svg{display:block;}
 
 .cn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
 .conn{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;}
+/* 异常状态卡片：浅描边提醒 */
+.conn.st-exp{border-color:#f3d9b5;background:#fffdf9;}
+.conn.st-wait{border-color:#ddd2f3;background:#fdfcff;}
 .conn-top{display:flex;align-items:flex-start;gap:13px;}
 .cn-ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
 .cn-main{flex:1;min-width:0;}
 .cn-name{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
 .cn-ver{font-size:11.5px;color:var(--sub2);font-weight:400;}
-.cn-src{font-size:11.5px;color:var(--sub2);margin-top:4px;}
+.cn-src{display:inline-flex;margin-top:5px;font-size:10.5px;font-weight:500;border-radius:5px;padding:2px 8px;background:#f2f3f5;color:#6b7280;}
+.cn-src.preset{background:#eaf1fe;color:#2f7bf6;}
+.cn-src.market{background:#eef0f2;color:#5b616a;}
 .cn-desc{font-size:12.5px;color:#6b727c;margin-top:9px;line-height:1.6;}
 .cn-tags{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;}
 .cn-tag{font-size:11px;border-radius:6px;padding:2.5px 9px;background:#eef4ff;color:var(--blue);}
@@ -491,29 +517,56 @@ svg{display:block;}
 
         <!-- ============ 连接器 ============ -->
         <section class="page" id="page-conn">
-          <div class="cn-filter">
-            <div class="f-row">
-              <span class="f-lb">应用领域</span>
-              <span class="f-chip on" onclick="cnChip(this)">全部</span>
-              <span class="f-chip" onclick="cnChip(this)">营销服</span>
-              <span class="f-chip" onclick="cnChip(this)">使能类</span>
-              <span class="f-chip" onclick="cnChip(this)">研发</span>
-              <span class="f-chip" onclick="cnChip(this)">大供应链</span>
+          <!-- 视图分段：全部连接器（逛/装） ｜ 我的连接（授权管理，原设置·系统集成） -->
+          <div class="cn-viewbar">
+            <div class="cn-seg">
+              <div class="cn-seg-item on" data-view="all" onclick="cnView(this)">全部连接器</div>
+              <div class="cn-seg-item" data-view="mine" onclick="cnView(this)">我的连接 <span class="cn-seg-n" id="cnMineN">0</span></div>
             </div>
-            <div class="f-row">
+          </div>
+          <!-- 我的连接：状态摘要条（异常一目了然） -->
+          <div class="cn-statusbar" id="cnStatusBar">
+            <span class="csb ok"><i></i>已连接 <b id="csbOk">0</b></span>
+            <span class="csb exp"><i></i>需重新授权 <b id="csbExp">0</b></span>
+            <span class="csb wait"><i></i>待开通 / 审批中 <b id="csbWait">0</b></span>
+          </div>
+          <div class="cn-filter">
+            <div class="f-row" id="cnSourceRow">
+              <span class="f-lb">来源</span>
+              <span class="f-chip on" data-group="source" onclick="cnChip(this)">全部</span>
+              <span class="f-chip" data-group="source" onclick="cnChip(this)">企业预置</span>
+              <span class="f-chip" data-group="source" onclick="cnChip(this)">市场安装</span>
+            </div>
+            <div class="f-row" id="cnDomainRow">
+              <span class="f-lb">应用领域</span>
+              <span class="f-chip on" data-group="domain" onclick="cnChip(this)">全部</span>
+              <span class="f-chip" data-group="domain" onclick="cnChip(this)">营销服</span>
+              <span class="f-chip" data-group="domain" onclick="cnChip(this)">使能类</span>
+              <span class="f-chip" data-group="domain" onclick="cnChip(this)">研发</span>
+              <span class="f-chip" data-group="domain" onclick="cnChip(this)">大供应链</span>
+            </div>
+            <div class="f-row" id="cnSysRow">
               <span class="f-lb">业务系统</span>
-              <span class="f-chip on" onclick="cnChip(this)">全部</span>
-              <span class="f-chip" onclick="cnChip(this)">通用系统</span>
-              <span class="f-chip" onclick="cnChip(this)">TMS</span>
-              <span class="f-chip" onclick="cnChip(this)">大数据</span>
-              <span class="f-chip" onclick="cnChip(this)">SRM</span>
-              <span class="f-chip" onclick="cnChip(this)">MES</span>
+              <span class="f-chip on" data-group="sys" onclick="cnChip(this)">全部</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">通用系统</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">TMS</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">大数据</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">SRM</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">MES</span>
               <span class="f-chip more" onclick="toast('展开更多系统分类（原型演示）')">展开</span>
               <span class="sp"></span>
               <div class="search" style="width:230px">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
                 <input id="cnSearch" placeholder="搜索连接器" oninput="renderConn()">
               </div>
+            </div>
+            <!-- 我的连接视图专用：状态筛选 -->
+            <div class="f-row" id="cnStateRow" style="display:none">
+              <span class="f-lb">授权状态</span>
+              <span class="f-chip on" data-group="state" onclick="cnChip(this)">全部</span>
+              <span class="f-chip" data-group="state" onclick="cnChip(this)">需处理</span>
+              <span class="f-chip" data-group="state" onclick="cnChip(this)">已连接</span>
+              <span class="f-chip" data-group="state" onclick="cnChip(this)">待开通</span>
             </div>
           </div>
           <div class="cn-grid" id="cnGrid"></div>
@@ -863,25 +916,69 @@ function mkInstall(id,btn){
 }
 
 /* ================= 连接器 ================= */
+// 视图：all=全部连接器（逛/装）；mine=我的连接（授权管理，合并原设置·系统集成）
+let cnViewMode='all';
+const CN_STATES=['ok','exp','wait','off'];
+function cnActiveChip(group){
+  const el=document.querySelector('.f-chip.on[data-group="'+group+'"]');
+  return el?el.textContent.trim():'';
+}
 function cnChip(el){
   el.parentElement.querySelectorAll('.f-chip').forEach(c=>c.classList.remove('on'));
   el.classList.add('on');
+  renderConn();
+}
+function cnView(el){
+  cnViewMode=el.dataset.view;
+  document.querySelectorAll('.cn-seg-item').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  // 我的连接：显示状态摘要条 + 状态筛选行；全部连接器：隐藏
+  document.getElementById('cnStatusBar').classList.toggle('show',cnViewMode==='mine');
+  document.getElementById('cnStateRow').style.display=cnViewMode==='mine'?'flex':'none';
+  // 切视图时重置状态筛选
+  const stRow=document.getElementById('cnStateRow');
+  stRow.querySelectorAll('.f-chip').forEach((c,i)=>c.classList.toggle('on',i===0));
+  renderConn();
 }
 function renderConn(){
   const kw=(document.getElementById('cnSearch').value||'').trim().toLowerCase();
-  const list=CONNECTORS.filter(c=>c.name.toLowerCase().includes(kw)||c.desc.toLowerCase().includes(kw));
+  const src=cnActiveChip('source'), dom=cnActiveChip('domain'), sys=cnActiveChip('sys'), st=cnActiveChip('state');
+  // 我的连接只显示已建立关系的连接器（已连接/已过期/待开通）
+  let list=CONNECTORS.filter(c=>cnViewMode==='all' || c.status!=='off');
+  list=list.filter(c=>!src||src==='全部'||c.src===src);
+  list=list.filter(c=>!dom||dom==='全部'||c.tags.some(t=>t.includes(dom)));
+  list=list.filter(c=>!sys||sys==='全部'||c.tags.some(t=>t===sys||t.includes(sys)));
+  if(st&&st!=='全部'){
+    if(st==='需处理') list=list.filter(c=>c.status==='exp'||c.status==='wait');
+    else if(st==='已连接') list=list.filter(c=>c.status==='ok');
+    else if(st==='待开通') list=list.filter(c=>c.status==='wait');
+  }
+  list=list.filter(c=>c.name.toLowerCase().includes(kw)||c.desc.toLowerCase().includes(kw));
+  // 我的连接：异常优先（已过期 > 待开通 > 已连接）
+  if(cnViewMode==='mine'){
+    const rank={exp:0,wait:1,ok:2};
+    list.sort((a,b)=>(rank[a.status]??9)-(rank[b.status]??9));
+  }
+  // 计数：分段角标与状态摘要
+  const mine=CONNECTORS.filter(c=>c.status!=='off');
+  document.getElementById('cnMineN').textContent=mine.length;
+  document.getElementById('csbOk').textContent=mine.filter(c=>c.status==='ok').length;
+  document.getElementById('csbExp').textContent=mine.filter(c=>c.status==='exp').length;
+  document.getElementById('csbWait').textContent=mine.filter(c=>c.status==='wait').length;
+
   document.getElementById('cnGrid').innerHTML = list.length ? list.map(c=>{
     let btn='';
     if(c.status==='ok') btn=`<span class="st ok">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();toast('管理授权：${c.name}')">管理</button>`;
     else if(c.status==='exp') btn=`<span class="st exp">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();toast('重新授权：${c.name}')">重新授权</button>`;
-    else if(c.status==='wait') btn=`<span class="st wait">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();toast('已提交开通申请（原型演示）')">去开通</button>`;
+    else if(c.status==='wait') btn=`<span class="st wait">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();toast('已提交开通申请（原型演示）')">查看审批</button>`;
     else btn=`<span class="st off">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();toast('开始授权：${c.name}')">授权连接</button>`;
-    return `<div class="conn" onclick="toast('查看连接器详情：${c.name}（原型演示）')">
+    const srcCls=c.src==='企业预置'?'preset':(c.src==='市场安装'?'market':'');
+    return `<div class="conn st-${c.status}" onclick="toast('查看连接器详情：${c.name}（原型演示）')">
       <div class="conn-top">
         <div class="cn-ic" style="background:${c.bg};color:${c.c}">${c.letter}</div>
         <div class="cn-main">
           <div class="cn-name">${c.name} <span class="cn-ver">${c.ver} ｜ ${c.tools}个工具</span></div>
-          <div class="cn-src">${c.src}</div>
+          <span class="cn-src ${srcCls}">${c.src}</span>
         </div>
         <span class="cn-add" onclick="event.stopPropagation();toast('连接器更多操作（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
       </div>
@@ -892,9 +989,23 @@ function renderConn(){
         ${btn}
       </div>
     </div>`;
-  }).join('') : '<div class="empty-hint" style="display:block">没有匹配的连接器</div>';
+  }).join('') : '<div class="empty-hint" style="display:block">'+(cnViewMode==='mine'?'还没有已授权的连接器，切到「全部连接器」去添加':'没有匹配的连接器')+'</div>';
 }
 renderConn();
+
+// URL 参数：?tab=conn&view=mine 直达连接器·我的连接（供设置·系统集成跳转）
+(function(){
+  const p=new URLSearchParams(location.search);
+  const tab=p.get('tab');
+  if(tab){
+    const btn=document.querySelector('.top-tab[data-page="'+tab+'"]');
+    if(btn) switchPage(btn);
+    if(tab==='conn'&&p.get('view')==='mine'){
+      const seg=document.querySelector('.cn-seg-item[data-view="mine"]');
+      if(seg) cnView(seg);
+    }
+  }
+})();
 
 /* 侧栏会话 */
 document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
