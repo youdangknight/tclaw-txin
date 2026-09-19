@@ -216,7 +216,9 @@ svg{display:block;}
 /* 状态摘要条（我的连接） */
 .cn-statusbar{display:none;align-items:center;gap:22px;background:#fff;border:1px solid var(--border);border-radius:13px;padding:13px 20px;margin-bottom:14px;}
 .cn-statusbar.show{display:flex;}
-.csb{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#5b616a;}
+.csb{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#5b616a;cursor:pointer;padding:5px 12px;border-radius:9px;user-select:none;transition:background .15s;}
+.csb:hover{background:#f5f7fa;}
+.csb.sel{background:#f0f3f8;font-weight:600;}
 .csb b{font-size:14px;color:#1f2329;}
 .csb i{width:8px;height:8px;border-radius:50%;}
 .csb.ok i{background:var(--green);}
@@ -225,7 +227,16 @@ svg{display:block;}
 .csb.exp b{color:var(--orange);}
 .csb.wait b{color:var(--purple);}
 
-.cn-filter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:16px;}
+.cn-filter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px 18px;margin-bottom:16px;}
+.cn-toolbar{margin-bottom:0 !important;}
+/* 高级筛选折叠区 */
+.cn-adv{display:none;padding-top:14px;margin-top:12px;border-top:1px solid #f2f3f5;}
+.cn-adv.show{display:block;}
+.cn-adv-btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px;border-radius:9px;border:1px solid var(--border);background:#fff;color:#5b616a;font-size:12.5px;cursor:pointer;font-family:inherit;}
+.cn-adv-btn:hover{border-color:#b9cdf5;color:var(--blue);}
+.cn-adv-btn.on{background:#eef4ff;border-color:#c3d9fb;color:var(--blue);}
+.cn-adv-btn.on .cn-adv-caret{transform:rotate(180deg);}
+.cn-adv-caret{transition:transform .2s;}
 .f-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
 .f-row:last-child{margin-bottom:0;}
 .f-lb{font-size:13px;font-weight:600;color:#5b616a;width:70px;flex-shrink:0;}
@@ -524,49 +535,49 @@ svg{display:block;}
               <div class="cn-seg-item" data-view="mine" onclick="cnView(this)">我的连接 <span class="cn-seg-n" id="cnMineN">0</span></div>
             </div>
           </div>
-          <!-- 我的连接：状态摘要条（异常一目了然） -->
+          <!-- 我的连接：状态摘要条（点击数字直接筛选，再点取消） -->
           <div class="cn-statusbar" id="cnStatusBar">
-            <span class="csb ok"><i></i>已连接 <b id="csbOk">0</b></span>
-            <span class="csb exp"><i></i>需重新授权 <b id="csbExp">0</b></span>
-            <span class="csb wait"><i></i>待开通 / 审批中 <b id="csbWait">0</b></span>
+            <span class="csb ok" data-st="ok" onclick="cnStateFilter('ok')"><i></i>已连接 <b id="csbOk">0</b></span>
+            <span class="csb exp" data-st="exp" onclick="cnStateFilter('exp')"><i></i>需重新授权 <b id="csbExp">0</b></span>
+            <span class="csb wait" data-st="wait" onclick="cnStateFilter('wait')"><i></i>待开通 / 审批中 <b id="csbWait">0</b></span>
           </div>
           <div class="cn-filter">
-            <div class="f-row" id="cnSourceRow">
-              <span class="f-lb">来源</span>
+            <!-- 常驻工具条：来源 + 搜索 + 高级筛选开关 -->
+            <div class="f-row cn-toolbar">
               <span class="f-chip on" data-group="source" onclick="cnChip(this)">全部</span>
               <span class="f-chip" data-group="source" onclick="cnChip(this)">企业预置</span>
               <span class="f-chip" data-group="source" onclick="cnChip(this)">市场安装</span>
-            </div>
-            <div class="f-row" id="cnDomainRow">
-              <span class="f-lb">应用领域</span>
-              <span class="f-chip on" data-group="domain" onclick="cnChip(this)">全部</span>
-              <span class="f-chip" data-group="domain" onclick="cnChip(this)">营销服</span>
-              <span class="f-chip" data-group="domain" onclick="cnChip(this)">使能类</span>
-              <span class="f-chip" data-group="domain" onclick="cnChip(this)">研发</span>
-              <span class="f-chip" data-group="domain" onclick="cnChip(this)">大供应链</span>
-            </div>
-            <div class="f-row" id="cnSysRow">
-              <span class="f-lb">业务系统</span>
-              <span class="f-chip on" data-group="sys" onclick="cnChip(this)">全部</span>
-              <span class="f-chip" data-group="sys" onclick="cnChip(this)">通用系统</span>
-              <span class="f-chip" data-group="sys" onclick="cnChip(this)">TMS</span>
-              <span class="f-chip" data-group="sys" onclick="cnChip(this)">大数据</span>
-              <span class="f-chip" data-group="sys" onclick="cnChip(this)">SRM</span>
-              <span class="f-chip" data-group="sys" onclick="cnChip(this)">MES</span>
-              <span class="f-chip more" onclick="toast('展开更多系统分类（原型演示）')">展开</span>
               <span class="sp"></span>
-              <div class="search" style="width:230px">
+              <div class="search" style="width:210px">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
                 <input id="cnSearch" placeholder="搜索连接器" oninput="renderConn()">
               </div>
+              <button class="cn-adv-btn" id="cnAdvBtn" onclick="toggleCnAdv()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v5l-4 2v-7L4 5Z"/></svg>
+                筛选
+                <svg class="cn-adv-caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
-            <!-- 我的连接视图专用：状态筛选 -->
-            <div class="f-row" id="cnStateRow" style="display:none">
-              <span class="f-lb">授权状态</span>
-              <span class="f-chip on" data-group="state" onclick="cnChip(this)">全部</span>
-              <span class="f-chip" data-group="state" onclick="cnChip(this)">需处理</span>
-              <span class="f-chip" data-group="state" onclick="cnChip(this)">已连接</span>
-              <span class="f-chip" data-group="state" onclick="cnChip(this)">待开通</span>
+            <!-- 高级筛选（默认收起） -->
+            <div class="cn-adv" id="cnAdv">
+              <div class="f-row">
+                <span class="f-lb">应用领域</span>
+                <span class="f-chip on" data-group="domain" onclick="cnChip(this)">全部</span>
+                <span class="f-chip" data-group="domain" onclick="cnChip(this)">营销服</span>
+                <span class="f-chip" data-group="domain" onclick="cnChip(this)">使能类</span>
+                <span class="f-chip" data-group="domain" onclick="cnChip(this)">研发</span>
+                <span class="f-chip" data-group="domain" onclick="cnChip(this)">大供应链</span>
+              </div>
+              <div class="f-row" style="margin-bottom:0">
+                <span class="f-lb">业务系统</span>
+                <span class="f-chip on" data-group="sys" onclick="cnChip(this)">全部</span>
+                <span class="f-chip" data-group="sys" onclick="cnChip(this)">通用系统</span>
+                <span class="f-chip" data-group="sys" onclick="cnChip(this)">TMS</span>
+                <span class="f-chip" data-group="sys" onclick="cnChip(this)">大数据</span>
+                <span class="f-chip" data-group="sys" onclick="cnChip(this)">SRM</span>
+                <span class="f-chip" data-group="sys" onclick="cnChip(this)">MES</span>
+                <span class="f-chip more" onclick="toast('展开更多系统分类（原型演示）')">展开</span>
+              </div>
             </div>
           </div>
           <div class="cn-grid" id="cnGrid"></div>
@@ -918,7 +929,7 @@ function mkInstall(id,btn){
 /* ================= 连接器 ================= */
 // 视图：all=全部连接器（逛/装）；mine=我的连接（授权管理，合并原设置·系统集成）
 let cnViewMode='all';
-const CN_STATES=['ok','exp','wait','off'];
+let cnStateSel=''; // 我的连接：点击状态摘要条选中的状态 ok/exp/wait
 function cnActiveChip(group){
   const el=document.querySelector('.f-chip.on[data-group="'+group+'"]');
   return el?el.textContent.trim():'';
@@ -928,31 +939,38 @@ function cnChip(el){
   el.classList.add('on');
   renderConn();
 }
+// 高级筛选折叠
+function toggleCnAdv(){
+  const adv=document.getElementById('cnAdv');
+  const btn=document.getElementById('cnAdvBtn');
+  const open=adv.classList.toggle('show');
+  btn.classList.toggle('on',open);
+}
+// 点击状态摘要条：筛选该状态，再点一次取消
+function cnStateFilter(st){
+  cnStateSel=cnStateSel===st?'':st;
+  document.querySelectorAll('.csb').forEach(b=>b.classList.toggle('sel',b.dataset.st===cnStateSel));
+  renderConn();
+}
 function cnView(el){
   cnViewMode=el.dataset.view;
   document.querySelectorAll('.cn-seg-item').forEach(x=>x.classList.remove('on'));
   el.classList.add('on');
-  // 我的连接：显示状态摘要条 + 状态筛选行；全部连接器：隐藏
+  // 我的连接：显示状态摘要条；切视图时重置状态筛选
   document.getElementById('cnStatusBar').classList.toggle('show',cnViewMode==='mine');
-  document.getElementById('cnStateRow').style.display=cnViewMode==='mine'?'flex':'none';
-  // 切视图时重置状态筛选
-  const stRow=document.getElementById('cnStateRow');
-  stRow.querySelectorAll('.f-chip').forEach((c,i)=>c.classList.toggle('on',i===0));
+  cnStateSel='';
+  document.querySelectorAll('.csb').forEach(b=>b.classList.remove('sel'));
   renderConn();
 }
 function renderConn(){
   const kw=(document.getElementById('cnSearch').value||'').trim().toLowerCase();
-  const src=cnActiveChip('source'), dom=cnActiveChip('domain'), sys=cnActiveChip('sys'), st=cnActiveChip('state');
+  const src=cnActiveChip('source'), dom=cnActiveChip('domain'), sys=cnActiveChip('sys');
   // 我的连接只显示已建立关系的连接器（已连接/已过期/待开通）
   let list=CONNECTORS.filter(c=>cnViewMode==='all' || c.status!=='off');
   list=list.filter(c=>!src||src==='全部'||c.src===src);
   list=list.filter(c=>!dom||dom==='全部'||c.tags.some(t=>t.includes(dom)));
   list=list.filter(c=>!sys||sys==='全部'||c.tags.some(t=>t===sys||t.includes(sys)));
-  if(st&&st!=='全部'){
-    if(st==='需处理') list=list.filter(c=>c.status==='exp'||c.status==='wait');
-    else if(st==='已连接') list=list.filter(c=>c.status==='ok');
-    else if(st==='待开通') list=list.filter(c=>c.status==='wait');
-  }
+  if(cnStateSel) list=list.filter(c=>c.status===cnStateSel);
   list=list.filter(c=>c.name.toLowerCase().includes(kw)||c.desc.toLowerCase().includes(kw));
   // 我的连接：异常优先（已过期 > 待开通 > 已连接）
   if(cnViewMode==='mine'){
@@ -980,7 +998,6 @@ function renderConn(){
           <div class="cn-name">${c.name} <span class="cn-ver">${c.ver} ｜ ${c.tools}个工具</span></div>
           <span class="cn-src ${srcCls}">${c.src}</span>
         </div>
-        <span class="cn-add" onclick="event.stopPropagation();toast('连接器更多操作（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
       </div>
       <div class="cn-desc">${c.desc}</div>
       <div class="cn-tags">${c.tags.map(t=>'<span class="cn-tag">'+t+'</span>').join('')}</div>
