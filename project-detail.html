@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目详情 · TCLaw 龙虾 AI 工作台</title>
+<style>
+:root{
+  --side-bg:#f6f7f9; --panel:#ffffff; --border:#e8e9ed; --line:#ededf0;
+  --text:#1f2329; --sub:#8a9099; --sub2:#a6abb4; --chip:#f3f4f6;
+  --blue:#2f7bf6; --blue-d:#2568dd; --ink:#1f2329;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:#fff;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;}
+.app{display:flex;flex-direction:column;height:100vh;}
+svg{display:block;}
+
+.titlebar{height:38px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;}
+.traffic{display:flex;gap:8px;}
+.traffic i{width:12px;height:12px;border-radius:50%;display:block;}
+.traffic i:nth-child(1){background:#ff5f57;}.traffic i:nth-child(2){background:#febc2e;}.traffic i:nth-child(3){background:#28c840;}
+.tb-tools{display:flex;align-items:center;gap:6px;margin-left:32px;}
+.tb-icon{width:30px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#6b7078;cursor:pointer;text-decoration:none;}
+.tb-icon:hover{background:#f1f2f4;color:var(--text);}
+
+.body{flex:1;display:flex;min-height:0;}
+
+/* 左侧栏 */
+.side{width:296px;flex-shrink:0;background:var(--side-bg);display:flex;flex-direction:column;min-height:0;}
+.nav{padding:10px 12px 6px;flex-shrink:0;}
+.nav-item{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:9px;color:#3a3f47;font-size:14px;cursor:pointer;text-decoration:none;}
+.nav-item .ic{color:#5b616a;display:flex;flex-shrink:0;}
+.nav-item:hover{background:#eceef1;}
+.nav-item.on{background:#e8effc;color:var(--blue);font-weight:500;}
+.nav-item.on .ic{color:var(--blue);}
+
+/* 项目树（融合导航模式，参考截图） */
+.proj-tree{flex:1;overflow-y:auto;padding:4px 10px 8px;}
+.pt-head{display:flex;align-items:center;padding:8px 10px 6px;font-size:12px;color:var(--sub);}
+.pt-head .pt-title{font-weight:600;color:#5b616a;}
+.pt-head .pt-add{margin-left:auto;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#8a9099;cursor:pointer;}
+.pt-head .pt-add:hover{background:#eceef1;color:var(--text);}
+.pt-pj{display:flex;align-items:center;gap:7px;height:36px;padding:0 8px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;}
+.pt-pj:hover{background:#eceef1;}
+.pt-pj.on{background:#e3eaf6;color:#1f2329;}
+.pt-pj .car{color:#9aa0aa;display:flex;transition:.2s;}
+.pt-pj.open .car{transform:rotate(90deg);}
+.pt-pj .pji{color:#6a7078;display:flex;}
+.pt-pj .pnm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pt-sub{padding:2px 0 4px 26px;}
+.pt-chat{display:flex;align-items:center;gap:8px;height:32px;padding:0 8px;border-radius:8px;font-size:12.5px;color:#5b616a;cursor:pointer;white-space:nowrap;}
+.pt-chat:hover{background:#eceef1;}
+.pt-chat .cnm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pt-chat .ct{font-size:11px;color:var(--sub2);flex-shrink:0;}
+.pt-chat.on{background:#fff;color:var(--blue);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.pt-pj2{display:flex;align-items:center;gap:7px;height:34px;padding:0 8px 0 16px;border-radius:9px;font-size:13px;color:#3a3f47;cursor:pointer;}
+.pt-pj2:hover{background:#eceef1;}
+.pt-pj2 .car{color:#9aa0aa;display:flex;}
+.pt-pj2 .pnm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pt-sep{height:1px;background:var(--line);margin:10px 12px;}
+.pt-recent{padding:2px 10px;}
+.pt-recent .r-t{font-size:12px;color:var(--sub);padding:4px 8px;display:flex;align-items:center;}
+.pt-recent .r-t .q{margin-left:auto;color:#aab0b9;cursor:pointer;}
+
+.userbar{height:58px;flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 12px;border-top:1px solid var(--line);}
+.userbar .u-face{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#2b6de8,#4d8dff);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;position:relative;}
+.userbar .u-face::after{content:"";position:absolute;right:-2px;bottom:-2px;width:12px;height:12px;border-radius:50%;background:#28c840;border:2px solid var(--side-bg);}
+.userbar .u-name{font-size:13.5px;font-weight:500;}
+.userbar .u-more{margin-left:auto;color:#8a9099;cursor:pointer;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.userbar .u-more:hover{background:#eceef1;}
+
+/* 主区 */
+.main{flex:1;overflow-y:auto;background:#f7f8fa;}
+.wrap{max-width:900px;margin:0 auto;padding:28px 36px 60px;}
+
+.back{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--sub);cursor:pointer;text-decoration:none;margin-bottom:14px;}
+.back:hover{color:var(--blue);}
+
+.detail{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+/* 项目头 */
+.d-head{display:flex;align-items:center;gap:14px;padding:22px 26px 16px;}
+.d-ic{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#eef2ff,#e4ecff);color:#4a5fbf;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0;}
+.d-title{font-size:20px;font-weight:700;}
+.d-sub{font-size:12.5px;color:var(--sub);margin-top:3px;display:flex;align-items:center;gap:8px;}
+.d-actions{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.btn-start{height:38px;padding:0 18px;border-radius:10px;background:var(--blue);color:#fff;font-size:13.5px;font-weight:500;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
+.btn-start:hover{background:var(--blue-d);}
+.icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;color:#6b7078;cursor:pointer;}
+.icon-btn:hover{background:#f5f6f8;}
+
+/* Tabs */
+.d-tabs{display:flex;gap:26px;padding:0 26px;border-bottom:1px solid var(--line);}
+.d-tab{position:relative;height:46px;display:flex;align-items:center;font-size:14px;color:var(--sub);cursor:pointer;}
+.d-tab:hover{color:var(--text);}
+.d-tab.on{color:var(--text);font-weight:600;}
+.d-tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2.5px;border-radius:2px;background:var(--blue);}
+.d-body{padding:22px 26px 28px;}
+.pane{display:none;}
+.pane.on{display:block;}
+
+/* 对话 Tab */
+.chat-search{display:flex;align-items:center;gap:8px;width:290px;height:38px;border:1px solid var(--border);border-radius:10px;padding:0 13px;color:var(--sub2);margin-bottom:6px;}
+.chat-search input{border:none;outline:none;flex:1;font-size:13px;font-family:inherit;background:transparent;}
+.chat-mascot{float:right;width:52px;height:52px;border-radius:50%;object-fit:cover;margin:-6px 6px 0 0;}
+table{width:100%;border-collapse:collapse;clear:both;}
+thead th{text-align:left;font-size:12.5px;font-weight:500;color:var(--sub);padding:12px 10px;border-bottom:1px solid var(--line);}
+thead th:nth-child(2),thead th:nth-child(3){text-align:center;width:130px;}
+tbody td{padding:13px 10px;border-bottom:1px solid #f2f3f5;font-size:13.5px;}
+tbody td:nth-child(2),tbody td:nth-child(3){text-align:center;color:var(--sub);font-size:13px;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:#fafbfc;}
+.chat-name{display:flex;align-items:center;gap:9px;font-weight:500;}
+.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+.link-btn{color:var(--blue);cursor:pointer;font-size:13px;}
+.link-btn:hover{text-decoration:underline;}
+.tb-empty{text-align:center;color:var(--sub2);font-size:13px;padding:30px 0;}
+
+/* 项目资料 */
+.mat-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.seg{display:flex;background:#f2f3f5;border-radius:10px;padding:3px;}
+.seg .s{height:30px;padding:0 16px;display:flex;align-items:center;border-radius:8px;font-size:13px;color:var(--sub);cursor:pointer;}
+.seg .s.on{background:#fff;color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.up-btn{margin-left:auto;height:34px;padding:0 14px;border-radius:9px;border:1px solid var(--border);background:#fff;font-size:13px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:#3a3f47;font-family:inherit;}
+.up-btn:hover{background:#f5f6f8;}
+.mat-list{border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.mat-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid #f2f3f5;cursor:pointer;}
+.mat-row:last-child{border-bottom:none;}
+.mat-row:hover{background:#fafbfc;}
+.m-ic{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.m-nm{font-size:13.5px;font-weight:500;}
+.m-info{font-size:12px;color:var(--sub);margin-top:2px;}
+.m-size{margin-left:auto;font-size:12.5px;color:var(--sub2);}
+.m-more{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#b3bac7;}
+.m-more:hover{background:#f0f1f4;color:var(--text);}
+
+/* 项目说明 */
+.desc-card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+.desc-card .d-tool{display:flex;align-items:center;margin-bottom:10px;}
+.desc-card .d-tool .t{font-size:13px;font-weight:600;}
+.desc-card .d-tool .e{margin-left:auto;font-size:12.5px;color:var(--blue);cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
+.desc-text{font-size:13.5px;line-height:1.9;color:#444b55;white-space:pre-wrap;}
+.desc-text[contenteditable=true]{outline:2px solid #cfe0ff;outline-offset:6px;border-radius:6px;}
+.desc-hint{margin-top:14px;font-size:12px;color:var(--sub2);display:flex;gap:7px;align-items:flex-start;}
+.kv{display:grid;grid-template-columns:90px 1fr;gap:12px 16px;margin-top:18px;}
+.kv .k{font-size:12.5px;color:var(--sub);padding-top:2px;}
+.kv .v{font-size:13px;}
+.member{display:inline-flex;align-items:center;gap:6px;background:#f5f7fa;border-radius:20px;padding:3px 10px 3px 4px;margin:0 6px 6px 0;font-size:12.5px;}
+.member i{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#2b6de8,#4d8dff);color:#fff;font-style:normal;font-size:10.5px;display:flex;align-items:center;justify-content:center;}
+
+/* 项目记忆 */
+.mem-tip{display:flex;gap:10px;background:#f5f8ff;border:1px solid #e3edff;border-radius:12px;padding:13px 16px;font-size:12.5px;color:#5a6a85;line-height:1.7;margin-bottom:16px;}
+.mem-list{display:flex;flex-direction:column;gap:10px;}
+.mem{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;}
+.mem .mi{width:32px;height:32px;border-radius:9px;background:#f1ecfb;color:#6a5be2;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mem .mc{flex:1;min-width:0;}
+.mem .mt{font-size:13px;font-weight:600;margin-bottom:4px;}
+.mem .md{font-size:12.5px;color:#5b616a;line-height:1.7;}
+.mem .mf{font-size:11.5px;color:var(--sub2);margin-top:7px;display:flex;gap:10px;}
+.mem .mx{color:#c2c7cf;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mem .mx:hover{color:#d4493b;}
+.mem-add{margin-top:12px;border:1px dashed #d3d8e0;border-radius:12px;padding:14px;text-align:center;font-size:13px;color:var(--sub);cursor:pointer;}
+.mem-add:hover{border-color:var(--blue);color:var(--blue);background:#fafcff;}
+
+.toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:rgba(31,35,41,.92);color:#fff;font-size:13px;padding:9px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:99;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-thumb{background:#d8dbe0;border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="titlebar">
+    <div class="traffic"><i></i><i></i><i></i></div>
+    <div class="tb-tools">
+      <a class="tb-icon" href="index.html" title="搜索"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></a>
+      <a class="tb-icon" href="index.html" title="侧边栏"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M9 4v16"/></svg></a>
+    </div>
+  </div>
+
+  <div class="body">
+    <!-- 左侧融合导航：项目树 -->
+    <aside class="side">
+      <nav class="nav">
+        <a class="nav-item" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>新对话</a>
+        <div class="nav-item" onclick="toast('定时任务（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 2M9 2h6M12 5V2"/></svg></span>定时任务</div>
+        <div class="nav-item" onclick="toast('AI 资产（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5c2.2-1.4 4.4-2 8-2s5.8.6 8 2v13c-2.2-1.4-4.4-2-8-2s-5.8.6-8 2Z"/><path d="M12 3.5v13"/></svg></span>AI资产</div>
+        <div class="nav-item" onclick="toast('我的应用（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span>我的应用</div>
+      </nav>
+
+      <div class="proj-tree">
+        <div class="pt-head"><span class="pt-title">项目</span>
+          <span class="pt-add" onclick="location.href='projects.html'" title="项目管理"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </div>
+        <!-- 当前项目 -->
+        <div class="pt-pj open on" id="treePj1" onclick="togglePj(this)">
+          <span class="car"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
+          <span class="pji"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 9.5h17"/></svg></span>
+          <span class="pnm" id="treePjName">2026 Q3 产品规划</span>
+        </div>
+        <div class="pt-sub" id="treeSub1">
+          <div class="pt-chat on"><span class="cnm">竞品对比</span><span class="ct">09/03</span></div>
+          <div class="pt-chat"><span class="cnm">需求池整理</span><span class="ct">09/02</span></div>
+          <div class="pt-chat"><span class="cnm">季度目标拆解</span><span class="ct">09/01</span></div>
+        </div>
+        <!-- 其他项目 -->
+        <div class="pt-pj2" onclick="toast('切换项目（原型演示）')">
+          <span class="car"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
+          <span class="pnm">龙虾系统集成优化</span>
+        </div>
+        <div class="pt-pj2" onclick="toast('切换项目（原型演示）')">
+          <span class="car"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
+          <span class="pnm">X11H Mini LED 上市…</span>
+        </div>
+
+        <div class="pt-sep"></div>
+        <div class="pt-recent">
+          <div class="r-t">最近的对话 <span class="q"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></span></div>
+          <div class="pt-chat"><span class="cnm">你的新批量 OpenCl…</span><span class="ct">09/03</span></div>
+          <div class="pt-chat"><span class="cnm">主岗网页触 AI 对话…</span><span class="ct">09/02</span></div>
+        </div>
+      </div>
+
+      <div class="userbar">
+        <div class="u-face">王</div><span class="u-name">王婵</span>
+        <div class="u-more"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+      </div>
+    </aside>
+
+    <!-- 主区 -->
+    <main class="main">
+      <div class="wrap">
+        <a class="back" href="projects.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg>
+          返回项目
+        </a>
+        <div class="detail">
+          <!-- 项目头 -->
+          <div class="d-head">
+            <div class="d-ic" id="dIc">Q</div>
+            <div>
+              <div class="d-title" id="dTitle">2026 Q3 产品规划</div>
+              <div class="d-sub"><span>3 个对话</span><span>·</span><span>4 个文件</span><span>·</span><span>创建于 2026-07-15</span></div>
+            </div>
+            <div class="d-actions">
+              <button class="btn-start" onclick="toast('开始对话：已带入当前项目上下文')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>
+                开始对话
+              </button>
+              <button class="icon-btn" onclick="toast('项目设置（原型演示）')" title="更多">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="d-tabs">
+            <div class="d-tab on" data-pane="chat" onclick="switchTab(this)">对话</div>
+            <div class="d-tab" data-pane="files" onclick="switchTab(this)">项目资料</div>
+            <div class="d-tab" data-pane="desc" onclick="switchTab(this)">项目说明</div>
+            <div class="d-tab" data-pane="mem" onclick="switchTab(this)">项目记忆</div>
+          </div>
+
+          <div class="d-body">
+            <!-- 对话 -->
+            <section class="pane on" id="pane-chat">
+              <img class="chat-mascot" src="assets/mascot.png" alt="龙虾助手">
+              <div class="chat-search">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+                <input placeholder="搜索本项目对话" oninput="filterChat(this.value)">
+              </div>
+              <table>
+                <thead><tr><th>对话</th><th>最近更新</th><th>操作</th></tr></thead>
+                <tbody id="chatTbody"></tbody>
+              </table>
+            </section>
+
+            <!-- 项目资料 -->
+            <section class="pane" id="pane-files">
+              <div class="mat-toolbar">
+                <div class="seg">
+                  <div class="s on" onclick="matSeg(this,'all')">全部</div>
+                  <div class="s" onclick="matSeg(this,'doc')">文档</div>
+                  <div class="s" onclick="matSeg(this,'sheet')">表格</div>
+                  <div class="s" onclick="matSeg(this,'media')">媒体</div>
+                </div>
+                <button class="up-btn" onclick="toast('上传资料（原型演示）')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M4 16v2.5A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V16"/></svg>
+                  上传资料
+                </button>
+              </div>
+              <div class="mat-list" id="matList"></div>
+            </section>
+
+            <!-- 项目说明 -->
+            <section class="pane" id="pane-desc">
+              <div class="desc-card">
+                <div class="d-tool">
+                  <span class="t">项目背景与目标</span>
+                  <span class="e" id="editBtn" onclick="toggleEdit()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>编辑</span>
+                </div>
+                <div class="desc-text" id="descText">本项目聚焦 2026 年 Q3 产品线规划，围绕显示主业与新能源光伏双主业，输出季度产品路线图与重点项目排期。
+
+核心目标：
+1. 完成 Q3 新品节奏与竞品对标，明确差异化卖点；
+2. 拉通需求池，按优先级冻结研发投入范围；
+3. 将季度目标拆解到月，形成可跟踪的里程碑。
+
+说明内容会作为项目内所有对话的共享背景，助手据此保持口径一致。</div>
+                <div class="desc-hint">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a9099" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg>
+                  <span>项目说明由成员共同维护，用于给 AI 提供稳定的项目背景；临时性结论请写入「项目记忆」。</span>
+                </div>
+              </div>
+              <div class="kv">
+                <span class="k">项目成员</span>
+                <span class="v">
+                  <span class="member"><i>王</i>王婵</span>
+                  <span class="member"><i>傅</i>傅略维</span>
+                  <span class="member"><i>陈</i>陈政霖</span>
+                  <span class="member" style="cursor:pointer;color:var(--blue);background:#f0f6ff" onclick="toast('邀请成员（原型演示）')"><i style="background:#dce9ff;color:var(--blue)">+</i>邀请</span>
+                </span>
+                <span class="k">创建时间</span><span class="v">2026-07-15 10:24</span>
+                <span class="k">关联模板</span><span class="v">产品需求全流程</span>
+              </div>
+            </section>
+
+            <!-- 项目记忆 -->
+            <section class="pane" id="pane-mem">
+              <div class="mem-tip">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5a6a85" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg>
+                <span>项目记忆是从项目对话中沉淀的关键事实与决策，助手在本项目内对话时会自动参考，保证上下文连续。</span>
+              </div>
+              <div class="mem-list" id="memList"></div>
+              <div class="mem-add" onclick="addMem()">＋ 手动添加一条项目记忆</div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+<script>
+// URL 参数：从项目列表点进来时带上项目名
+(function(){
+  const p=new URLSearchParams(location.search);
+  const name=p.get('name');
+  if(name){
+    document.getElementById('dTitle').textContent=name;
+    document.getElementById('treePjName').textContent=name;
+    document.getElementById('dIc').textContent=name[0];
+    document.title=name+' · TCLaw 龙虾';
+  }
+})();
+
+// Tab 切换
+function switchTab(el){
+  document.querySelectorAll('.d-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('pane-'+el.dataset.pane).classList.add('on');
+}
+
+// 侧栏项目折叠
+function togglePj(el){ el.classList.toggle('open'); document.getElementById('treeSub1').style.display=el.classList.contains('open')?'block':'none'; }
+
+// 对话数据
+const CHATS=[
+  {name:'竞品对比',date:'09/03'},
+  {name:'需求池整理',date:'09/02'},
+  {name:'季度目标拆解',date:'09/01'}
+];
+function renderChat(kw){
+  const list=CHATS.filter(c=>!kw||c.name.includes(kw));
+  document.getElementById('chatTbody').innerHTML = list.length ? list.map(c=>`
+    <tr>
+      <td><div class="chat-name"><span class="chat-dot"></span>${c.name}</div></td>
+      <td>${c.date}</td>
+      <td><span class="link-btn" onclick="toast('打开对话：${c.name}')">打开</span></td>
+    </tr>`).join('') : '<tr><td colspan="3" class="tb-empty">没有匹配的对话</td></tr>';
+}
+function filterChat(kw){ renderChat(kw.trim()); }
+renderChat('');
+
+// 项目资料
+const MATERIALS=[
+  {nm:'Q3产品规划-v2.pptx',info:'傅略维 · 09/03 更新',size:'4.2 MB',type:'ppt'},
+  {nm:'竞品对比矩阵.xlsx',info:'王婵 · 09/03 更新',size:'860 KB',type:'sheet'},
+  {nm:'Q3需求池（冻结版）.xlsx',info:'陈政霖 · 09/02 更新',size:'1.1 MB',type:'sheet'},
+  {nm:'季度目标拆解说明.docx',info:'王婵 · 09/01 更新',size:'320 KB',type:'doc'},
+  {nm:'用户调研访谈纪要-0828.docx',info:'傅略维 · 08/28 更新',size:'256 KB',type:'doc'},
+  {nm:'产品路线图.png',info:'王婵 · 08/25 更新',size:'1.8 MB',type:'media'}
+];
+const M_STYLE={
+  ppt:['#fdeef4','#d6487e','<path d="M4 4h16v12H4z"/><path d="M8 20h8M12 16v4" stroke-linecap="round"/>'],
+  sheet:['#e6f7ee','#18a058','<path d="M4 4h16v16H4z"/><path d="M4 9h16M4 14h16M9 4v16M14 4v16"/>'],
+  doc:['#e8effd','#2f7bf6','<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h5"/>'],
+  media:['#fff4e5','#e8932b','<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m4.5 17.5 5-5 3.5 3.5 2.5-2.5 4 4"/>']
+};
+let matFilter='all';
+function matSeg(el,f){
+  document.querySelectorAll('#pane-files .seg .s').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on'); matFilter=f; renderMat();
+}
+function renderMat(){
+  const list=MATERIALS.filter(m=>matFilter==='all'||m.type===matFilter);
+  document.getElementById('matList').innerHTML = list.length ? list.map(m=>{
+    const [bg,c,paths]=M_STYLE[m.type];
+    return `<div class="mat-row" onclick="toast('预览：${m.nm}')">
+      <div class="m-ic" style="background:${bg};color:${c}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${paths}</svg></div>
+      <div><div class="m-nm">${m.nm}</div><div class="m-info">${m.info}</div></div>
+      <span class="m-size">${m.size}</span>
+      <span class="m-more" onclick="event.stopPropagation();toast('文件更多操作（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg></span>
+    </div>`;
+  }).join('') : '<div class="tb-empty">该分类下暂无资料</div>';
+}
+renderMat();
+
+// 项目说明编辑
+function toggleEdit(){
+  const box=document.getElementById('descText');
+  const btn=document.getElementById('editBtn');
+  const editing=box.getAttribute('contenteditable')==='true';
+  if(editing){
+    box.setAttribute('contenteditable','false');
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>编辑';
+    toast('项目说明已保存');
+  }else{
+    box.setAttribute('contenteditable','true');
+    box.focus();
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>保存';
+  }
+}
+
+// 项目记忆
+let MEMORIES=[
+  {t:'关键决策：Q3 优先级冻结',d:'Mini LED 高端线资源优先，商显线顺延至 Q4；需求池已于 09/02 冻结，新增需求走变更评审。',src:'来自对话「需求池整理」',time:'09/02 16:40'},
+  {t:'竞品结论',d:'主要竞品在 75/85 寸段价差约 8%，我方差异化主打高刷与护眼，营销话术需避开纯价格对比。',src:'来自对话「竞品对比」',time:'09/03 11:12'},
+  {t:'口径：季度目标',d:'Q3 出货目标对内拆解为月度 3:3:4 节奏，对外披露统一使用"稳健增长"表述，不承诺具体数字。',src:'来自对话「季度目标拆解」',time:'09/01 15:02'}
+];
+function renderMem(){
+  document.getElementById('memList').innerHTML=MEMORIES.map((m,i)=>`
+    <div class="mem">
+      <div class="mi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg></div>
+      <div class="mc"><div class="mt">${m.t}</div><div class="md">${m.d}</div><div class="mf"><span>${m.src}</span><span>${m.time}</span></div></div>
+      <span class="mx" onclick="delMem(${i})" title="删除"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></span>
+    </div>`).join('');
+}
+function addMem(){
+  const t=prompt('记忆标题：');
+  if(!t) return;
+  const d=prompt('记忆内容：')||'';
+  MEMORIES.unshift({t,d,src:'手动添加',time:new Date().toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).replace(/\//g,'-')});
+  renderMem(); toast('已添加项目记忆');
+}
+function delMem(i){ MEMORIES.splice(i,1); renderMem(); toast('已删除该记忆'); }
+renderMem();
+
+let toastTimer;
+function toast(msg){const el=document.getElementById('toastEl');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),1800);}
+</script>
+</body>
+</html>

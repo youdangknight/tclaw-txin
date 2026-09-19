@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>硅基员工 · 技能 · 连接器 · TCLaw 龙虾 AI 工作台</title>
+<style>
+:root{
+  --side-bg:#f6f7f9; --panel:#ffffff; --border:#e8e9ed; --line:#ededf0;
+  --text:#1f2329; --sub:#8a9099; --sub2:#a6abb4;
+  --blue:#2f7bf6; --blue-d:#2568dd; --purple:#6a5be2; --ink:#1f2329;
+  --green:#18a058; --orange:#e8932b; --red:#d4493b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:#fff;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;}
+.app{display:flex;flex-direction:column;height:100vh;}
+svg{display:block;}
+
+.titlebar{height:38px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;}
+.traffic{display:flex;gap:8px;}
+.traffic i{width:12px;height:12px;border-radius:50%;display:block;}
+.traffic i:nth-child(1){background:#ff5f57;}.traffic i:nth-child(2){background:#febc2e;}.traffic i:nth-child(3){background:#28c840;}
+.tb-tools{display:flex;align-items:center;gap:6px;margin-left:32px;}
+.tb-icon{width:30px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#6b7078;cursor:pointer;text-decoration:none;}
+.tb-icon:hover{background:#f1f2f4;color:var(--text);}
+
+.body{flex:1;display:flex;min-height:0;}
+
+/* 侧栏 */
+.side{width:296px;flex-shrink:0;background:var(--side-bg);display:flex;flex-direction:column;min-height:0;}
+.nav{padding:10px 12px 6px;flex-shrink:0;}
+.nav-item{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:9px;color:#3a3f47;font-size:14px;cursor:pointer;text-decoration:none;}
+.nav-item .ic{color:#5b616a;display:flex;flex-shrink:0;}
+.nav-item:hover{background:#eceef1;}
+.nav-item.new{font-weight:500;}
+.nav-item.on{background:#e8effc;color:var(--blue);font-weight:500;}
+.nav-item.on .ic{color:var(--blue);}
+.im{flex:1;display:flex;min-height:0;border-top:1px solid var(--line);}
+.rail{width:54px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;}
+.rail .r-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#5b616a;cursor:pointer;}
+.rail .r-icon:hover{background:#eceef1;color:var(--text);}
+.rail .r-sp{flex:1;}
+.conv{flex:1;display:flex;flex-direction:column;min-width:0;}
+.tabs{height:46px;flex-shrink:0;display:flex;align-items:center;gap:14px;padding:0 10px 0 2px;font-size:12.5px;color:var(--sub);white-space:nowrap;}
+.tabs .t{cursor:pointer;}
+.tabs .t.on{color:var(--text);font-weight:600;}
+.conv-list{flex:1;overflow-y:auto;padding:0 6px 6px;}
+.conv-item{display:flex;align-items:center;gap:9px;padding:8px;border-radius:10px;cursor:pointer;}
+.conv-item:hover{background:#eceef1;}
+.conv-item .face{width:40px;height:40px;border-radius:50%;flex-shrink:0;object-fit:cover;}
+.conv-item .meta{flex:1;min-width:0;}
+.conv-item .row1{display:flex;align-items:baseline;justify-content:space-between;gap:6px;}
+.conv-item .nm{font-size:13.5px;font-weight:500;}
+.conv-item .time{font-size:11.5px;color:var(--sub2);}
+.conv-item .preview{font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.userbar{height:58px;flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 12px;border-top:1px solid var(--line);}
+.userbar .u-face{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#2b6de8,#4d8dff);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;position:relative;}
+.userbar .u-face::after{content:"";position:absolute;right:-2px;bottom:-2px;width:12px;height:12px;border-radius:50%;background:#28c840;border:2px solid var(--side-bg);}
+.userbar .u-name{font-size:13.5px;font-weight:500;}
+.userbar .u-more{margin-left:auto;color:#8a9099;cursor:pointer;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.userbar .u-more:hover{background:#eceef1;}
+
+/* 主区 */
+.main{flex:1;overflow-y:auto;background:#f7f8fa;}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 32px 60px;}
+
+/* 一级 Tabs */
+.top-tabs{display:flex;align-items:center;gap:4px;margin-bottom:20px;}
+.top-tab{height:40px;padding:0 20px;border-radius:11px;font-size:14.5px;font-weight:600;color:var(--sub);cursor:pointer;display:flex;align-items:center;gap:8px;background:transparent;border:none;font-family:inherit;}
+.top-tab .ti{display:flex;}
+.top-tab:hover{background:#eceef1;color:var(--text);}
+.top-tab.on{background:#fff;color:var(--text);box-shadow:0 2px 10px rgba(31,35,41,.08);}
+.top-tab.on .ti{color:var(--blue);}
+
+.page{display:none;}
+.page.on{display:block;}
+
+/* ===== 硅基员工 ===== */
+.hero{display:flex;align-items:center;gap:20px;background:linear-gradient(100deg,#eef4ff 0%,#f4f1ff 60%,#eef6ff 100%);border:1px solid #e7edfa;border-radius:20px;padding:26px 30px;overflow:hidden;}
+.hero .h-left{flex:1;min-width:0;}
+.hero h1{font-size:26px;font-weight:700;}
+.hero p{font-size:13.5px;color:#727b8a;margin-top:8px;line-height:1.6;}
+.hero .h-pic{width:340px;height:138px;border-radius:14px;object-fit:cover;flex-shrink:0;}
+
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0;}
+.stat{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;display:flex;align-items:center;gap:14px;cursor:default;}
+.stat.act{cursor:pointer;transition:.15s;}
+.stat.act:hover{box-shadow:0 6px 20px rgba(31,35,41,.07);transform:translateY(-1px);}
+.stat .s-ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.stat .s-num{font-size:25px;font-weight:700;line-height:1.1;}
+.stat .s-lb{font-size:12.5px;color:var(--sub);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.sub-bar{display:flex;align-items:center;gap:14px;margin:8px 2px 14px;}
+.seg{display:flex;background:#eceef1;border-radius:11px;padding:3px;}
+.seg .s{height:34px;padding:0 20px;display:flex;align-items:center;border-radius:9px;font-size:13.5px;color:var(--sub);cursor:pointer;font-weight:500;}
+.seg .s.on{background:#fff;color:var(--text);font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.sp{flex:1;}
+.search{display:flex;align-items:center;gap:7px;width:260px;height:38px;background:#fff;border:1px solid var(--border);border-radius:11px;padding:0 13px;color:var(--sub2);}
+.search input{border:none;outline:none;flex:1;font-size:13px;font-family:inherit;background:transparent;}
+.search input::placeholder{color:#b4b9c1;}
+
+.emp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.emp{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;cursor:pointer;transition:.15s;}
+.emp:hover{box-shadow:0 8px 24px rgba(31,35,41,.08);border-color:#dde1e8;transform:translateY(-1px);}
+.emp-top{display:flex;align-items:flex-start;gap:12px;}
+.emp-top img{width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#f0f1f4;}
+.emp-info{flex:1;min-width:0;}
+.emp-name{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.emp-no{font-size:12px;color:var(--sub2);font-weight:400;}
+.emp-meta{font-size:12.5px;color:var(--sub);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;border-radius:20px;padding:3px 10px;font-weight:500;flex-shrink:0;}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
+.badge.on{color:var(--green);background:#e8f7ef;}
+.badge.draft{color:var(--blue);background:#eaf2ff;}
+.badge.wait{color:var(--orange);background:#fff4e5;}
+.emp-desc{font-size:12.5px;color:#6b727c;margin-top:12px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.emp-tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;}
+.etag{font-size:11px;background:#f4f5f7;color:#5b616a;border-radius:6px;padding:2.5px 8px;}
+.emp-foot{display:flex;align-items:center;margin-top:13px;padding-top:12px;border-top:1px solid #f2f3f5;font-size:12px;color:var(--sub2);gap:8px;}
+.emp-foot .mini{display:inline-flex;align-items:center;gap:4px;}
+.emp-foot .go{margin-left:auto;color:var(--blue);font-size:12.5px;font-weight:500;display:inline-flex;align-items:center;gap:3px;}
+
+/* ===== 技能 ===== */
+.sk-head{display:flex;align-items:center;gap:22px;margin-bottom:16px;}
+.sk-tt{display:flex;gap:24px;}
+.sk-tt .t{font-size:22px;font-weight:700;color:#c2c7cf;cursor:pointer;position:relative;padding-bottom:8px;}
+.sk-tt .t.on{color:var(--text);}
+.sk-tt .t.on::after{content:"";position:absolute;left:10%;right:10%;bottom:0;height:3.5px;border-radius:2px;background:var(--purple);}
+.setting-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:14px;}
+.cap-row{display:flex;align-items:center;}
+.cap-lb{font-size:14.5px;font-weight:600;}
+.cap-val{margin-left:auto;font-size:14px;color:#5b616a;}
+.cap-val b{color:var(--text);font-size:15px;}
+.cap-sub{font-size:12.5px;color:var(--sub);margin-top:6px;}
+.cap-bar{height:7px;border-radius:4px;background:#eef0f3;margin-top:12px;overflow:hidden;}
+.cap-bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#36c5f0,#2f7bf6);}
+.auto-row{display:flex;align-items:center;gap:12px;}
+.auto-lb{font-size:14.5px;font-weight:600;}
+.auto-sub{font-size:12.5px;color:var(--sub);margin-top:5px;}
+.switch{margin-left:auto;width:46px;height:27px;border-radius:14px;background:var(--purple);position:relative;cursor:pointer;flex-shrink:0;transition:.2s;border:none;}
+.switch i{position:absolute;top:3px;left:22px;width:21px;height:21px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.switch.off{background:#cfd4dc;}
+.switch.off i{left:3px;}
+
+.sk-list{display:flex;flex-direction:column;gap:12px;}
+.skill{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px;}
+.sk-ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0;}
+.sk-body{flex:1;min-width:0;}
+.sk-name{font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.sk-bt{font-size:10.5px;border-radius:5px;padding:1px 7px;font-weight:500;}
+.sk-bt.builtin{color:#6a5be2;background:#f1ecfb;}
+.sk-bt.custom{color:#e8932b;background:#fff4e5;}
+.sk-desc{font-size:12.5px;color:#6b727c;margin-top:5px;line-height:1.6;}
+.sk-meta{margin-top:9px;display:flex;align-items:center;gap:14px;font-size:11.5px;color:var(--sub2);}
+.sk-meta .cat{background:#f4f5f7;border-radius:5px;padding:2px 8px;color:#5b616a;}
+.sk-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;}
+.mini-switch{width:40px;height:23px;border-radius:12px;background:var(--green);position:relative;cursor:pointer;border:none;transition:.2s;flex-shrink:0;}
+.mini-switch i{position:absolute;top:2.5px;left:19px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2);}
+.mini-switch.off{background:#cfd4dc;}.mini-switch.off i{left:2.5px;}
+.sk-users{font-size:11.5px;color:var(--sub2);}
+
+/* ===== 连接器 ===== */
+.cn-filter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:16px;}
+.f-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.f-row:last-child{margin-bottom:0;}
+.f-lb{font-size:13px;font-weight:600;color:#5b616a;width:70px;flex-shrink:0;}
+.f-chip{font-size:12.5px;padding:6px 15px;border-radius:18px;border:1px solid var(--border);background:#fff;color:#5b616a;cursor:pointer;}
+.f-chip:hover{border-color:#b9cdf5;color:var(--blue);}
+.f-chip.on{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:500;}
+.f-chip.more{color:var(--sub);}
+
+.cn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.conn{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;}
+.conn-top{display:flex;align-items:flex-start;gap:13px;}
+.cn-ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+.cn-main{flex:1;min-width:0;}
+.cn-name{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.cn-ver{font-size:11.5px;color:var(--sub2);font-weight:400;}
+.cn-src{font-size:11.5px;color:var(--sub2);margin-top:4px;}
+.cn-desc{font-size:12.5px;color:#6b727c;margin-top:9px;line-height:1.6;}
+.cn-tags{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;}
+.cn-tag{font-size:11px;border-radius:6px;padding:2.5px 9px;background:#eef4ff;color:var(--blue);}
+.cn-foot{display:flex;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #f2f3f5;gap:10px;}
+.cn-account{font-size:11.5px;color:var(--sub2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.st{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;border-radius:20px;padding:3px 10px;}
+.st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
+.st.ok{color:var(--green);background:#e8f7ef;}
+.st.exp{color:var(--orange);background:#fff4e5;}
+.st.off{color:#9aa0aa;background:#f2f3f5;}
+.st.wait{color:var(--purple);background:#f1ecfb;}
+.cn-btn{height:32px;padding:0 15px;border-radius:9px;font-size:12.5px;cursor:pointer;border:1px solid var(--border);background:#fff;color:#3a3f47;font-family:inherit;display:inline-flex;align-items:center;gap:5px;flex-shrink:0;}
+.cn-btn.pri{background:var(--blue);color:#fff;border-color:var(--blue);}
+.cn-btn.pri:hover{background:var(--blue-d);}
+.cn-btn.warn{color:var(--orange);border-color:#f3d9b5;}
+.cn-btn:hover{filter:brightness(.97);}
+.cn-add{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:#fff;color:#8a9099;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.cn-add:hover{color:var(--blue);border-color:var(--blue);}
+
+.empty-hint{grid-column:1/-1;text-align:center;color:var(--sub2);font-size:13px;padding:40px 0;display:none;}
+
+/* 员工详情抽屉 */
+.drawer-mask{position:fixed;inset:0;background:rgba(15,23,42,.35);display:none;z-index:60;}
+.drawer-mask.show{display:block;}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:440px;max-width:94vw;background:#fff;z-index:61;transform:translateX(100%);transition:.28s cubic-bezier(.3,.8,.3,1);display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(15,23,42,.15);}
+.drawer.show{transform:translateX(0);}
+.dr-head{padding:22px 24px 18px;border-bottom:1px solid var(--line);position:relative;}
+.dr-close{position:absolute;right:18px;top:18px;width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#8a9099;cursor:pointer;}
+.dr-close:hover{background:#f2f3f5;color:var(--text);}
+.dr-user{display:flex;align-items:center;gap:14px;}
+.dr-user img{width:62px;height:62px;border-radius:50%;object-fit:cover;background:#f0f1f4;}
+.dr-name{font-size:19px;font-weight:700;display:flex;align-items:center;gap:9px;}
+.dr-sub{font-size:12.5px;color:var(--sub);margin-top:5px;}
+.dr-tabs{display:flex;gap:20px;padding:0 24px;border-bottom:1px solid var(--line);}
+.dr-tab{height:44px;display:flex;align-items:center;font-size:13.5px;color:var(--sub);cursor:pointer;position:relative;}
+.dr-tab.on{color:var(--text);font-weight:600;}
+.dr-tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2.5px;border-radius:2px;background:var(--blue);}
+.dr-body{flex:1;overflow-y:auto;padding:20px 24px;}
+.dr-pane{display:none;}.dr-pane.on{display:block;}
+.dr-sec{margin-bottom:20px;}
+.dr-sec h4{font-size:12.5px;color:var(--sub);font-weight:600;margin-bottom:8px;}
+.dr-sec p{font-size:13.5px;line-height:1.8;color:#3c424b;}
+.quote{background:#f7f8fa;border-radius:12px;padding:12px 15px;font-size:13px;color:#5b616a;line-height:1.7;font-style:italic;}
+.chip-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.chip-tags .ct{font-size:12px;background:#f4f5f7;border-radius:7px;padding:4px 11px;color:#4b525c;}
+.capmini{display:flex;align-items:center;font-size:12.5px;color:var(--sub);margin-bottom:10px;}
+.capmini b{color:var(--text);}
+.capmini .bar{flex:1;height:6px;border-radius:3px;background:#eef0f3;margin:0 10px;overflow:hidden;}
+.capmini .bar i{display:block;height:100%;background:linear-gradient(90deg,#36c5f0,#2f7bf6);border-radius:3px;}
+.dr-item{display:flex;align-items:center;gap:11px;padding:11px 4px;border-bottom:1px solid #f4f5f7;}
+.dr-item:last-child{border-bottom:none;}
+.dr-item .di-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+.dr-item .di-nm{font-size:13.5px;font-weight:600;}
+.dr-item .di-sub{font-size:11.5px;color:var(--sub2);margin-top:2px;}
+.dr-item .x{margin-left:auto;font-size:11.5px;color:var(--red);cursor:pointer;}
+.dr-foot{padding:14px 24px;border-top:1px solid var(--line);display:flex;gap:10px;}
+.dr-foot .btn{flex:1;height:40px;border-radius:11px;font-size:13.5px;cursor:pointer;border:1px solid var(--border);background:#fff;font-family:inherit;}
+.dr-foot .btn-pri{background:var(--blue);color:#fff;border-color:var(--blue);}
+.dr-foot .btn-pri:hover{background:var(--blue-d);}
+
+.toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:rgba(31,35,41,.92);color:#fff;font-size:13px;padding:9px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:99;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-thumb{background:#d8dbe0;border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="titlebar">
+    <div class="traffic"><i></i><i></i><i></i></div>
+    <div class="tb-tools">
+      <a class="tb-icon" href="index.html" title="搜索"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></a>
+      <a class="tb-icon" href="index.html" title="侧边栏"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M9 4v16"/></svg></a>
+    </div>
+  </div>
+
+  <div class="body">
+    <aside class="side">
+      <nav class="nav">
+        <a class="nav-item new" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>新建任务</a>
+        <a class="nav-item" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg></span>历史任务</a>
+        <div class="nav-item" onclick="toast('定时任务（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 2M9 2h6M12 5V2"/></svg></span>定时任务</div>
+        <a class="nav-item" href="projects.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.2 7.3 15.8 10.7M8.2 16.7l7.6-3.4"/></svg></span>项目</a>
+        <a class="nav-item on" href="employees.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/><path d="M18.5 16.5 19 18l1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5Z" stroke-width="1.3"/></svg></span>技能·硅基员工</a>
+        <div class="nav-item" onclick="toast('AI 资产库（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5c2.2-1.4 4.4-2 8-2s5.8.6 8 2v13c-2.2-1.4-4.4-2-8-2s-5.8.6-8 2Z"/><path d="M12 3.5v13"/></svg></span>AI资产库</div>
+        <div class="nav-item" onclick="toast('更多（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></span>更多</div>
+      </nav>
+      <div class="im">
+        <div class="rail">
+          <div class="r-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5 3 7l5 5-5 5 2 2 7-7Z"/><path d="m12 5 7 7-7 7"/></svg></div>
+          <div class="r-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.7"/><path d="m4.5 17.5 5-5 3.5 3.5 2.5-2.5 4 4"/></svg></div>
+          <div class="r-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2.5"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5M3.5 12.5h17"/></svg></div>
+          <div class="r-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="m16 10 5-2.5v9L16 14"/></svg></div>
+          <div class="r-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 4h10v16l-5-3.2L7 20Z"/></svg></div>
+          <div class="r-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7.5" cy="7.5" r="2.2"/><circle cx="16.5" cy="7.5" r="2.2"/><circle cx="7.5" cy="16.5" r="2.2"/><circle cx="16.5" cy="16.5" r="2.2"/></svg></div>
+          <div class="r-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 18a4 4 0 1 1 .7-7.9A5.5 5.5 0 0 1 18.3 12 3.5 3.5 0 0 1 17.5 18Z"/></svg></div>
+          <div class="r-sp"></div>
+          <div class="r-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="18" cy="12" r="1.7"/></svg></div>
+        </div>
+        <div class="conv">
+          <div class="tabs"><span class="t on">全部对话</span><span class="t">未读99+</span><span class="t">待处理</span><span class="t">@我</span></div>
+          <div class="conv-list" id="convList"></div>
+        </div>
+      </div>
+      <div class="userbar">
+        <div class="u-face">哈</div><span class="u-name">阿拉丁</span>
+        <div class="u-more"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="wrap">
+        <!-- 一级 Tabs -->
+        <div class="top-tabs">
+          <button class="top-tab on" data-page="emp" onclick="switchPage(this)">
+            <span class="ti"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span>硅基员工
+          </button>
+          <button class="top-tab" data-page="skill" onclick="switchPage(this)">
+            <span class="ti"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg></span>技能
+          </button>
+          <button class="top-tab" data-page="conn" onclick="switchPage(this)">
+            <span class="ti"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.5a3 3 0 0 1 0-4.2l3-3a3 3 0 0 1 4.2 4.2L14.8 11"/><path d="M15 11.5a3 3 0 0 1 0 4.2l-3 3a3 3 0 0 1-4.2-4.2L9.2 13"/></svg></span>连接器
+          </button>
+        </div>
+
+        <!-- ============ 硅基员工 ============ -->
+        <section class="page on" id="page-emp">
+          <div class="hero">
+            <div class="h-left">
+              <h1>硅基员工</h1>
+              <p>选择专业硅基员工，快速创建会话并完成分析、创作、营销和数据任务。</p>
+            </div>
+            <img class="h-pic" src="assets/hero-team.png" alt="硅基员工团队">
+          </div>
+
+          <div class="stat-row">
+            <div class="stat">
+              <div class="s-ic" style="background:#d9f5ec;color:#18a058"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="m8 3 1.5 2.5h5L16 3M8 11h2v3H8zM14 11h2v3h-2zM8 17h8" /></svg></div>
+              <div><div class="s-num">6</div><div class="s-lb">已上岗硅基员工</div></div>
+            </div>
+            <div class="stat">
+              <div class="s-ic" style="background:#dcecff;color:#2f7bf6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="2.4"/><path d="M10.5 6v12"/></svg></div>
+              <div><div class="s-num">635</div><div class="s-lb">硅基员工累计服务次数</div></div>
+            </div>
+            <div class="stat act" onclick="toast('打开硅基员工创建向导（原型演示）')">
+              <div class="s-ic" style="background:#eef1ff;color:#5a6adf"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="8" r="3.6"/><path d="M5 20c0-3.6 2.7-6 6-6 1 0 2 .2 2.8.5"/><path d="M19 16v6M16 19h6"/></svg></div>
+              <div><div class="s-num" style="font-size:17px;padding-top:4px">创建硅基员工</div><div class="s-lb">几步搭好你的硅基员工</div></div>
+            </div>
+            <div class="stat act" onclick="toast('打开硅基团队创建向导（原型演示）')">
+              <div class="s-ic" style="background:#e8effe;color:#2f7bf6"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3 19c0-2.8 2.5-4.5 5.5-4.5S14 16.2 14 19"/><path d="M15 14.8c2.4.2 4.5 1.6 4.5 4.2"/></svg></div>
+              <div><div class="s-num" style="font-size:17px;padding-top:4px">创建硅基团队</div><div class="s-lb">硅基团队可由多名硅基员工协同</div></div>
+            </div>
+          </div>
+
+          <div class="sub-bar">
+            <div class="seg">
+              <div class="s on" onclick="empSeg(this,'emp')">硅基员工</div>
+              <div class="s" onclick="empSeg(this,'team')">硅基团队</div>
+            </div>
+            <span class="sp"></span>
+            <div class="search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+              <input id="empSearch" placeholder="搜索员工姓名或ID" oninput="renderEmp()">
+            </div>
+          </div>
+          <div class="emp-grid" id="empGrid"></div>
+        </section>
+
+        <!-- ============ 技能 ============ -->
+        <section class="page" id="page-skill">
+          <div class="sk-head">
+            <div class="sk-tt">
+              <div class="t on" onclick="skTab(this,'mine')">我的Skill</div>
+              <div class="t" onclick="skTab(this,'discover')">发现Skill</div>
+            </div>
+          </div>
+
+          <div class="setting-card">
+            <div class="cap-row">
+              <span class="cap-lb">已启用技能容量</span>
+              <span class="cap-val"><b id="capUsed">8</b>/20（推荐）</span>
+            </div>
+            <div class="cap-sub">数量在建议范围内，系统性能处于最佳状态</div>
+            <div class="cap-bar"><i id="capBar" style="width:40%"></i></div>
+          </div>
+
+          <div class="setting-card">
+            <div class="auto-row">
+              <div>
+                <div class="auto-lb">技能自动更新</div>
+                <div class="auto-sub">开启后将每天检索一次技能版本，并自动升级到最新</div>
+              </div>
+              <button class="switch" id="autoSw" onclick="this.classList.toggle('off');toast('技能自动更新已'+(this.classList.contains('off')?'关闭':'开启'))"><i></i></button>
+            </div>
+          </div>
+
+          <div class="sub-bar" style="margin-top:16px">
+            <div class="seg">
+              <div class="s on" onclick="skFilter(this,'builtin')">内置</div>
+              <div class="s" onclick="skFilter(this,'custom')">自定义</div>
+            </div>
+            <span class="sp"></span>
+            <div class="search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+              <input id="skSearch" placeholder="搜索Skill名称" oninput="renderSkills()">
+            </div>
+          </div>
+          <div class="sk-list" id="skList"></div>
+        </section>
+
+        <!-- ============ 连接器 ============ -->
+        <section class="page" id="page-conn">
+          <div class="cn-filter">
+            <div class="f-row">
+              <span class="f-lb">应用领域</span>
+              <span class="f-chip on" onclick="cnChip(this)">全部</span>
+              <span class="f-chip" onclick="cnChip(this)">营销服</span>
+              <span class="f-chip" onclick="cnChip(this)">使能类</span>
+              <span class="f-chip" onclick="cnChip(this)">研发</span>
+              <span class="f-chip" onclick="cnChip(this)">大供应链</span>
+            </div>
+            <div class="f-row">
+              <span class="f-lb">业务系统</span>
+              <span class="f-chip on" onclick="cnChip(this)">全部</span>
+              <span class="f-chip" onclick="cnChip(this)">通用系统</span>
+              <span class="f-chip" onclick="cnChip(this)">TMS</span>
+              <span class="f-chip" onclick="cnChip(this)">大数据</span>
+              <span class="f-chip" onclick="cnChip(this)">SRM</span>
+              <span class="f-chip" onclick="cnChip(this)">MES</span>
+              <span class="f-chip more" onclick="toast('展开更多系统分类（原型演示）')">展开</span>
+              <span class="sp"></span>
+              <div class="search" style="width:230px">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+                <input id="cnSearch" placeholder="搜索连接器" oninput="renderConn()">
+              </div>
+            </div>
+          </div>
+          <div class="cn-grid" id="cnGrid"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- 员工详情抽屉 -->
+<div class="drawer-mask" id="drMask" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="dr-head">
+    <div class="dr-close" onclick="closeDrawer()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></div>
+    <div class="dr-user">
+      <img id="drAv" src="assets/av-niumo.png">
+      <div>
+        <div class="dr-name"><span id="drName"></span><span class="badge on" id="drBadge">已上岗</span></div>
+        <div class="dr-sub" id="drSub"></div>
+      </div>
+    </div>
+  </div>
+  <div class="dr-tabs">
+    <div class="dr-tab on" data-p="profile" onclick="drTab(this)">档案</div>
+    <div class="dr-tab" data-p="skills" onclick="drTab(this)">技能 <span id="drSkN"></span></div>
+    <div class="dr-tab" data-p="conns" onclick="drTab(this)">连接器 <span id="drCnN"></span></div>
+  </div>
+  <div class="dr-body">
+    <div class="dr-pane on" id="drp-profile">
+      <div class="dr-sec"><h4>岗位职责</h4><p id="drDuty"></p></div>
+      <div class="dr-sec"><h4>工作风格</h4><p id="drStyle"></p></div>
+      <div class="dr-sec"><h4>个性签名</h4><div class="quote" id="drSign"></div></div>
+      <div class="dr-sec"><h4>能力标签</h4><div class="chip-tags" id="drTags"></div></div>
+    </div>
+    <div class="dr-pane" id="drp-skills">
+      <div class="capmini"><span>装配容量</span><span class="bar"><i id="drCapBar"></i></span><b id="drCap"></b></div>
+      <div id="drSkills"></div>
+    </div>
+    <div class="dr-pane" id="drp-conns"><div id="drConns"></div></div>
+  </div>
+  <div class="dr-foot">
+    <button class="btn" onclick="toast('编辑员工配置（原型演示）')">编辑配置</button>
+    <button class="btn btn-pri" onclick="toast('已与该硅基员工开始对话')">开始对话</button>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+<script>
+/* ================= 数据 ================= */
+const EMPLOYEES=[
+ {id:'niumo3',name:'牛魔3',no:'12323131132',dept:'41322',owner:'傅略维',account:'lvewei.fu',status:'待审批',av:'assets/av-niumo.png',
+  skills:['init','meeting','competitor'],conns:['mail','confluence'],
+  tags:['竞品分析','产品方案'],days:30,
+  duty:'负责需求澄清、竞品对标、方案撰写与评审材料准备。',
+  style:'先问「为什么做」，再问「怎么做」；方案必须带取舍说明。',
+  sign:'一个说不清取舍的方案，等于没做。'},
+ {id:'niumo4',name:'牛魔4',no:'4871386',dept:'13',owner:'傅略维',account:'lvewei.fu',status:'草稿',av:'assets/av-niumo.png',
+  skills:['init','meeting'],conns:['mail'],
+  tags:['问答','任务执行'],days:12,
+  duty:'负责日常问答与开放式任务的兜底响应，承接暂未明确归属的工作。',
+  style:'先确认目标再动手；信息不足时主动提问。',
+  sign:'把复杂留给我，把简单还给你。'},
+ {id:'niumo2',name:'牛魔2',no:'99014782',dept:'前端开发',owner:'傅略维',account:'lvewei.fu',status:'已上岗',av:'assets/av-niumo.png',
+  skills:['init','meeting','weekly','ppt'],conns:['mail','txin'],
+  tags:['前端','原型'],days:64,
+  duty:'负责前端页面开发与交互原型落地，配合设计稿完成组件化实现。',
+  style:'结构清晰、命名规范；改动兼顾兼容性。',
+  sign:'像素不会说谎。'},
+ {id:'gongsun',name:'公孙小离',no:'1',dept:'测试',owner:'陈政霖',account:'ex_zhen…',status:'已上岗',av:'assets/av-gongsun.png',
+  skills:['init','datareport'],conns:['mail'],
+  tags:['测试','质量'],days:21,
+  duty:'负责功能测试、用例设计与缺陷跟踪，保障交付质量。',
+  style:'用例覆盖边界场景；缺陷必带复现步骤。',
+  sign:'测过，才算做过。'}
+];
+const TEAMS=[
+ {id:'team1',name:'内容创作组',no:'T-001',dept:'市场部',owner:'傅略维',members:3,status:'已上岗',color:'#6a5be2'},
+ {id:'team2',name:'数据分析组',no:'T-002',dept:'数据中台',owner:'陈政霖',members:2,status:'已上岗',color:'#2f7bf6'},
+ {id:'team3',name:'前端交付组',no:'T-003',dept:'研发中心',owner:'傅略维',members:4,status:'草稿',color:'#18a058'}
+];
+const SKILLS=[
+ {id:'init',name:'初始化',cat:'通用',desc:'通过温暖、自适应的引导式对话生成个性化的 SOUL.md 文件。当用户想要创建、设置或初始化其 AI 伙伴的身份时触发。',builtin:true,enabled:true,users:4},
+ {id:'meeting',name:'会议纪要',cat:'文档处理',desc:'把会议录音或记录整理为结构化纪要，自动提炼决议、待办与责任人。',builtin:true,enabled:true,users:3},
+ {id:'ppt',name:'PPT 大纲',cat:'文档处理',desc:'根据主题生成演示文稿大纲，支持分页要点与演讲备注。',builtin:true,enabled:true,users:1},
+ {id:'codereview',name:'代码审查',cat:'开发工具',desc:'检查代码质量、安全与规范问题，给出分级修改建议。',builtin:true,enabled:false,users:0},
+ {id:'weekly',name:'周报生成',cat:'文档处理',desc:'汇总本周工作内容生成周报，支持按项目/任务维度组织。',builtin:false,enabled:true,users:1},
+ {id:'competitor',name:'竞品分析',cat:'行业研究',desc:'对标同类产品输出功能、定价与策略对比，形成可评审结论。',builtin:false,enabled:true,users:1},
+ {id:'datareport',name:'数据分析报告',cat:'数据处理',desc:'读取数据并生成带图表的分析报告，支持趋势与归因解读。',builtin:false,enabled:true,users:1},
+ {id:'contract',name:'合同风险检查',cat:'法务',desc:'识别合同中的风险条款并给出修改建议，输出风险清单。',builtin:false,enabled:false,users:0}
+];
+const CONNECTORS=[
+ {id:'mail',name:'TCL 邮箱代发服务',ver:'v2',tools:6,src:'企业预置',status:'ok',statusText:'已连接',desc:'用于发送通知及接收系统消息的邮箱服务，支持代发与回执跟踪。',account:'ex_min4.wang@tcl.com',users:4,tags:['通用系统','使能类'],bg:'#E2EFFE',c:'#2F7BF6',letter:'M'},
+ {id:'confluence',name:'Confluence 知识库',ver:'v1',tools:14,src:'企业预置',status:'exp',statusText:'已过期',desc:'绑定个人访问令牌后可使用知识库的读写与全文检索。',account:'令牌已于 08/20 过期',users:1,tags:['研发/研发','智能知识库平台'],bg:'#E8ECFB',c:'#4A5FBF',letter:'C'},
+ {id:'txin',name:'T信 消息',ver:'v3',tools:9,src:'企业预置',status:'ok',statusText:'已连接',desc:'在群聊与单聊中收发消息、读取附件，并支持机器人推送。',account:'以工号免密授权',users:1,tags:['通用系统','营销服'],bg:'#DDF3EC',c:'#19B08A',letter:'T'},
+ {id:'qcc',name:'企查查',ver:'v1',tools:11,src:'市场安装',status:'ok',statusText:'已连接',desc:'查询企业工商、股权、涉诉与经营风险信息。',account:'API Key · 团队共享',users:2,tags:['营销服','大数据'],bg:'#FFF4E5',c:'#E8932B',letter:'企'},
+ {id:'amap',name:'高德地图',ver:'v2',tools:8,src:'市场安装',status:'off',statusText:'未连接',desc:'查询地点、路线规划、周边检索与地理编码。',account:'',users:0,tags:['使能类','通用系统'],bg:'#E4F4F6',c:'#1596A8',letter:'A'},
+ {id:'wecom',name:'企业微信',ver:'v1',tools:7,src:'市场安装',status:'wait',statusText:'待开通',desc:'同步通讯录、发送应用消息与审批回调，需管理员开通。',account:'等待管理员审批',users:0,tags:['通用系统','营销服'],bg:'#EAF2FF',c:'#3E7BD6',letter:'W'}
+];
+
+/* ================= 页面切换 ================= */
+function switchPage(btn){
+  document.querySelectorAll('.top-tab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('page-'+btn.dataset.page).classList.add('on');
+}
+
+/* ================= 硅基员工 ================= */
+let empMode='emp';
+function empSeg(el,m){
+  document.querySelectorAll('#page-emp .seg .s').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on'); empMode=m; renderEmp();
+}
+const STATUS_CLASS={已上岗:'on',草稿:'draft',待审批:'wait'};
+function renderEmp(){
+  const kw=(document.getElementById('empSearch').value||'').trim().toLowerCase();
+  const grid=document.getElementById('empGrid');
+  if(empMode==='team'){
+    const list=TEAMS.filter(t=>t.name.toLowerCase().includes(kw)||t.no.toLowerCase().includes(kw));
+    grid.innerHTML = list.length ? list.map(t=>`
+      <div class="emp" onclick="toast('打开团队「${t.name}」（原型演示）')">
+        <div class="emp-top">
+          <div style="width:52px;height:52px;border-radius:50%;flex-shrink:0;background:${t.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3 19c0-2.8 2.5-4.5 5.5-4.5S14 16.2 14 19"/><path d="M15 14.8c2.4.2 4.5 1.6 4.5 4.2"/></svg>
+          </div>
+          <div class="emp-info">
+            <div class="emp-name">${t.name} <span class="emp-no">${t.no}</span></div>
+            <div class="emp-meta">${t.dept}｜@${t.owner}</div>
+          </div>
+          <span class="badge ${STATUS_CLASS[t.status]||'draft'}">${t.status}</span>
+        </div>
+        <div class="emp-tags" style="margin-top:14px"><span class="etag">${t.members} 名硅基员工</span><span class="etag">团队协作</span></div>
+        <div class="emp-foot"><span class="go">管理团队 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span></div>
+      </div>`).join('') : '<div class="empty-hint" style="display:block">没有匹配的硅基团队</div>';
+    return;
+  }
+  const list=EMPLOYEES.filter(e=>e.name.toLowerCase().includes(kw)||e.no.includes(kw)||e.dept.toLowerCase().includes(kw));
+  grid.innerHTML = list.length ? list.map((e,i)=>`
+    <div class="emp" onclick="openDrawer('${e.id}')">
+      <div class="emp-top">
+        <img src="${e.av}" alt="${e.name}">
+        <div class="emp-info">
+          <div class="emp-name">${e.name} <span class="emp-no">${e.no}</span></div>
+          <div class="emp-meta">${e.dept}｜@${e.owner}(${e.account})</div>
+        </div>
+        <span class="badge ${STATUS_CLASS[e.status]}">${e.status}</span>
+      </div>
+      <div class="emp-desc">${e.duty}</div>
+      <div class="emp-tags">${e.tags.map(t=>'<span class="etag">'+t+'</span>').join('')}</div>
+      <div class="emp-foot">
+        <span class="mini"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg>${e.skills.length} 技能</span>
+        <span class="mini"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.5a3 3 0 0 1 0-4.2l3-3a3 3 0 0 1 4.2 4.2L14.8 11"/><path d="M15 11.5a3 3 0 0 1 0 4.2l-3 3a3 3 0 0 1-4.2-4.2L9.2 13"/></svg>${e.conns.length} 连接器</span>
+        <span class="go">查看档案 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span>
+      </div>
+    </div>`).join('') : '<div class="empty-hint" style="display:block">没有匹配的硅基员工</div>';
+}
+renderEmp();
+
+/* ================= 员工抽屉 ================= */
+function openDrawer(id){
+  const e=EMPLOYEES.find(x=>x.id===id); if(!e) return;
+  document.getElementById('drAv').src=e.av;
+  document.getElementById('drName').textContent=e.name;
+  const bd=document.getElementById('drBadge');
+  bd.textContent=e.status; bd.className='badge '+STATUS_CLASS[e.status];
+  document.getElementById('drSub').textContent='工号 '+e.no+' · '+e.dept+' · @'+e.owner+'('+e.account+')';
+  document.getElementById('drDuty').textContent=e.duty;
+  document.getElementById('drStyle').textContent=e.style;
+  document.getElementById('drSign').textContent='「'+e.sign+'」';
+  document.getElementById('drTags').innerHTML=e.tags.map(t=>'<span class="ct">'+t+'</span>').join('');
+  // 技能
+  const sks=SKILLS.filter(s=>e.skills.includes(s.id));
+  document.getElementById('drSkN').textContent=sks.length;
+  document.getElementById('drCnN').textContent=e.conns.length;
+  document.getElementById('drCap').textContent=sks.length+'/20';
+  document.getElementById('drCapBar').style.width=Math.min(100,sks.length/20*100)+'%';
+  document.getElementById('drSkills').innerHTML=sks.map(s=>`
+    <div class="dr-item">
+      <div class="di-ic" style="background:${s.builtin?'#f1ecfb':'#fff4e5'};color:${s.builtin?'#6a5be2':'#e8932b'}">${s.name[0]}</div>
+      <div><div class="di-nm">${s.name}</div><div class="di-sub">${s.cat} · ${s.builtin?'内置':'自定义'}</div></div>
+      <span class="x" onclick="toast('从该员工移除技能（原型演示）')">移除</span>
+    </div>`).join('') + '<div class="dr-item" style="justify-content:center;color:var(--blue);cursor:pointer;font-size:13px;padding-top:14px" onclick="switchPage(document.querySelector(\'.top-tab[data-page=skill]\'));closeDrawer();">＋ 装配更多技能</div>';
+  // 连接器
+  const cns=CONNECTORS.filter(c=>e.conns.includes(c.id));
+  document.getElementById('drConns').innerHTML=cns.map(c=>`
+    <div class="dr-item">
+      <div class="di-ic" style="background:${c.bg};color:${c.c}">${c.letter}</div>
+      <div><div class="di-nm">${c.name}</div><div class="di-sub">${c.statusText}${c.account?' · '+c.account:''}</div></div>
+      <span class="x" style="color:var(--blue)" onclick="toast('连接器授权管理（原型演示）')">管理</span>
+    </div>`).join('') + '<div class="dr-item" style="justify-content:center;color:var(--blue);cursor:pointer;font-size:13px;padding-top:14px" onclick="switchPage(document.querySelector(\'.top-tab[data-page=conn]\'));closeDrawer();">＋ 授权连接器</div>';
+  drTab(document.querySelector('.dr-tab[data-p=profile]'),true);
+  document.getElementById('drMask').classList.add('show');
+  document.getElementById('drawer').classList.add('show');
+}
+function closeDrawer(){document.getElementById('drMask').classList.remove('show');document.getElementById('drawer').classList.remove('show');}
+function drTab(el,silent){
+  document.querySelectorAll('.dr-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.dr-pane').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('drp-'+el.dataset.p).classList.add('on');
+}
+
+/* ================= 技能 ================= */
+let skMode='mine', skType='builtin';
+function skTab(el,m){
+  document.querySelectorAll('.sk-tt .t').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on'); skMode=m;
+  if(m==='discover'){ toast('技能市场：发现更多社区与企业技能（原型演示）'); el.classList.remove('on'); document.querySelector('.sk-tt .t').classList.add('on'); }
+  renderSkills();
+}
+function skFilter(el,t){
+  document.querySelectorAll('#page-skill .seg .s').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on'); skType=t; renderSkills();
+}
+function renderSkills(){
+  const kw=(document.getElementById('skSearch').value||'').trim().toLowerCase();
+  const list=SKILLS.filter(s=>(s.builtin?(skType==='builtin'):(skType==='custom')) && s.name.toLowerCase().includes(kw));
+  const used=SKILLS.filter(s=>s.enabled).length;
+  document.getElementById('capUsed').textContent=used;
+  document.getElementById('capBar').style.width=Math.min(100,used/20*100)+'%';
+  document.getElementById('skList').innerHTML = list.length ? list.map(s=>`
+    <div class="skill">
+      <div class="sk-ic" style="background:${s.builtin?'#eef0ff':'#fff4e5'};color:${s.builtin?'#4a5fbf':'#e8932b'}">${s.name[0]}</div>
+      <div class="sk-body">
+        <div class="sk-name">${s.name}
+          <span class="sk-bt ${s.builtin?'builtin':'custom'}">${s.builtin?'内置':'自定义'}</span>
+        </div>
+        <div class="sk-desc">${s.desc}</div>
+        <div class="sk-meta"><span class="cat">${s.cat}</span><span>${s.users} 名硅基员工在用</span></div>
+      </div>
+      <div class="sk-right">
+        <button class="mini-switch ${s.enabled?'':'off'}" onclick="toggleSkill('${s.id}',this)"><i></i></button>
+        <span class="sk-users">${s.enabled?'已启用':'已停用'}</span>
+      </div>
+    </div>`).join('') : '<div class="empty-hint" style="display:block;grid-column:1/-1">没有匹配的技能</div>';
+}
+function toggleSkill(id,btn){
+  const s=SKILLS.find(x=>x.id===id);
+  s.enabled=!s.enabled;
+  renderSkills();
+  toast('技能「'+s.name+'」已'+(s.enabled?'启用':'停用'));
+}
+renderSkills();
+
+/* ================= 连接器 ================= */
+function cnChip(el){
+  el.parentElement.querySelectorAll('.f-chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+function renderConn(){
+  const kw=(document.getElementById('cnSearch').value||'').trim().toLowerCase();
+  const list=CONNECTORS.filter(c=>c.name.toLowerCase().includes(kw)||c.desc.toLowerCase().includes(kw));
+  document.getElementById('cnGrid').innerHTML = list.length ? list.map(c=>{
+    let btn='';
+    if(c.status==='ok') btn=`<span class="st ok">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();toast('管理授权：${c.name}')">管理</button>`;
+    else if(c.status==='exp') btn=`<span class="st exp">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();toast('重新授权：${c.name}')">重新授权</button>`;
+    else if(c.status==='wait') btn=`<span class="st wait">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();toast('已提交开通申请（原型演示）')">去开通</button>`;
+    else btn=`<span class="st off">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();toast('开始授权：${c.name}')">授权连接</button>`;
+    return `<div class="conn" onclick="toast('查看连接器详情：${c.name}（原型演示）')">
+      <div class="conn-top">
+        <div class="cn-ic" style="background:${c.bg};color:${c.c}">${c.letter}</div>
+        <div class="cn-main">
+          <div class="cn-name">${c.name} <span class="cn-ver">${c.ver} ｜ ${c.tools}个工具</span></div>
+          <div class="cn-src">${c.src}</div>
+        </div>
+        <span class="cn-add" onclick="event.stopPropagation();toast('连接器更多操作（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      </div>
+      <div class="cn-desc">${c.desc}</div>
+      <div class="cn-tags">${c.tags.map(t=>'<span class="cn-tag">'+t+'</span>').join('')}</div>
+      <div class="cn-foot">
+        <span class="cn-account">${c.account||'尚未绑定账号'}</span>
+        ${btn}
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty-hint" style="display:block">没有匹配的连接器</div>';
+}
+renderConn();
+
+/* 侧栏会话 */
+document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
+  <div class="conv-item" onclick="toast('打开会话（原型演示）')">
+    <img class="face" src="assets/avatar.png">
+    <div class="meta"><div class="row1"><span class="nm">梁梦欣</span><span class="time">12:00</span></div><div class="preview">[5条]发给你了噢~</div></div>
+  </div>`).join('');
+
+let toastTimer;
+function toast(msg){const el=document.getElementById('toastEl');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),1800);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+</script>
+</body>
+</html>
