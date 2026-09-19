@@ -160,6 +160,50 @@ svg{display:block;}
 .mini-switch.off{background:#cfd4dc;}.mini-switch.off i{left:2.5px;}
 .sk-users{font-size:11.5px;color:var(--sub2);}
 
+/* ===== 发现 Skill 市场 ===== */
+.mk-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.mk-sort{position:relative;}
+.mk-sort-btn{height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:#fff;font-size:13px;color:#3a3f47;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:inherit;}
+.mk-sort-btn:hover{background:#f5f6f8;}
+.mk-sort-btn .car{transition:.2s;color:#8a9099;}
+.mk-sort.open .car{transform:rotate(180deg);}
+.mk-sort-menu{position:absolute;top:44px;left:0;background:#fff;border:1px solid var(--border);border-radius:11px;box-shadow:0 8px 24px rgba(20,30,50,.12);padding:5px;min-width:132px;z-index:20;display:none;}
+.mk-sort.open .mk-sort-menu{display:block;}
+.mk-sort-menu .o{padding:8px 12px;border-radius:8px;font-size:13px;color:#3a3f47;cursor:pointer;}
+.mk-sort-menu .o:hover{background:#f2f4f8;}
+.mk-sort-menu .o.on{color:var(--purple);font-weight:600;background:#f4f1fd;}
+.mk-search{margin-left:auto;width:300px;height:38px;border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:8px;padding:0 13px;color:var(--sub2);background:#fff;}
+.mk-search input{border:none;outline:none;flex:1;font-size:13px;font-family:inherit;background:transparent;}
+.btn-publish{height:40px;padding:0 18px;border-radius:10px;background:var(--purple);color:#fff;font-size:13.5px;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:inherit;flex-shrink:0;}
+.btn-publish:hover{filter:brightness(1.05);}
+
+.mk-filter{background:#f5f4fd;border:1px solid #ece9fb;border-radius:16px;padding:16px 20px;margin-bottom:16px;}
+.mk-filter .f-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.mk-filter .f-row:last-child{margin-bottom:0;}
+.mk-filter .f-lb{font-size:13px;font-weight:600;color:#5b616a;width:70px;flex-shrink:0;}
+.mk-filter .f-chip{font-size:12.5px;padding:6px 15px;border-radius:18px;border:1px solid #dcdfe6;background:#fff;color:#5b616a;cursor:pointer;}
+.mk-filter .f-chip:hover{border-color:#b7a8f0;color:var(--purple);}
+.mk-filter .f-chip.on{background:#3a3a3c;color:#fff;border-color:#3a3a3c;font-weight:500;}
+.mk-filter .f-chip.more{color:var(--sub);}
+.mk-filter .f-chip.extra{display:none;}
+.mk-filter.expanded .f-chip.extra{display:inline-block;}
+
+.mk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.mk-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;}
+.mk-top{display:flex;align-items:flex-start;gap:12px;}
+.mk-ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;flex-shrink:0;}
+.mk-main{flex:1;min-width:0;}
+.mk-name{font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mk-tech{font-size:11.5px;color:var(--sub2);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mk-add{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:#fff;color:#8a9099;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.mk-add:hover{color:var(--purple);border-color:var(--purple);}
+.mk-add.installed{background:#e8f7ef;border-color:#bfe6d0;color:var(--green);}
+.mk-desc{font-size:12.5px;color:#6b727c;margin-top:11px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:41px;}
+.mk-tags{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;}
+.mk-tag{font-size:11px;border-radius:6px;padding:2.5px 9px;background:#f2f6ff;color:var(--blue);border:1px solid #d8e6ff;}
+.mk-foot{display:flex;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #f2f3f5;font-size:11.5px;color:var(--sub2);gap:8px;}
+.mk-foot .inst{margin-left:auto;}
+
 /* ===== 连接器 ===== */
 .cn-filter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:16px;}
 .f-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
@@ -354,6 +398,7 @@ svg{display:block;}
             </div>
           </div>
 
+          <div id="skPane-mine">
           <div class="setting-card">
             <div class="cap-row">
               <span class="cap-lb">已启用技能容量</span>
@@ -385,6 +430,65 @@ svg{display:block;}
             </div>
           </div>
           <div class="sk-list" id="skList"></div>
+          </div>
+
+          <!-- 发现 Skill 市场 -->
+          <div id="skPane-discover" style="display:none">
+            <div class="mk-bar">
+              <div class="mk-sort" id="mkSort">
+                <button class="mk-sort-btn" onclick="toggleMkSort(event)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  <span id="mkSortLabel">最新</span>
+                  <span class="car"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+                </button>
+                <div class="mk-sort-menu">
+                  <div class="o on" onclick="mkSortPick(this,'latest')">最新</div>
+                  <div class="o" onclick="mkSortPick(this,'hot')">最热</div>
+                  <div class="o" onclick="mkSortPick(this,'name')">名称</div>
+                </div>
+              </div>
+              <div class="mk-search">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+                <input id="mkSearch" placeholder="搜索Skill名称" oninput="renderMarket()">
+              </div>
+              <button class="btn-publish" onclick="toast('发布 Skill：进入技能发布向导（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                发布Skills
+              </button>
+            </div>
+
+            <div class="mk-filter" id="mkFilter">
+              <div class="f-row" data-group="type">
+                <span class="f-lb">基础类型</span>
+                <span class="f-chip on" onclick="mkChip(this)">全部</span>
+                <span class="f-chip" onclick="mkChip(this)">通用Skills</span>
+                <span class="f-chip" onclick="mkChip(this)">业务Skills</span>
+              </div>
+              <div class="f-row" data-group="field">
+                <span class="f-lb">应用领域</span>
+                <span class="f-chip on" onclick="mkChip(this)">全部</span>
+                <span class="f-chip" onclick="mkChip(this)">营销服</span>
+                <span class="f-chip" onclick="mkChip(this)">使能类</span>
+                <span class="f-chip" onclick="mkChip(this)">研发</span>
+                <span class="f-chip" onclick="mkChip(this)">大供应链</span>
+              </div>
+              <div class="f-row" data-group="sys">
+                <span class="f-lb">业务系统</span>
+                <span class="f-chip on" onclick="mkChip(this)">全部</span>
+                <span class="f-chip" onclick="mkChip(this)">通用系统</span>
+                <span class="f-chip" onclick="mkChip(this)">TMS</span>
+                <span class="f-chip" onclick="mkChip(this)">大数据</span>
+                <span class="f-chip" onclick="mkChip(this)">SRM</span>
+                <span class="f-chip" onclick="mkChip(this)">MES</span>
+                <span class="f-chip" onclick="mkChip(this)">智能知识库平台</span>
+                <span class="f-chip extra" onclick="mkChip(this)">PLM</span>
+                <span class="f-chip extra" onclick="mkChip(this)">ERP</span>
+                <span class="f-chip extra" onclick="mkChip(this)">OA</span>
+                <span class="f-chip more" onclick="toggleMkMore(this)">展开</span>
+              </div>
+            </div>
+            <div class="mk-grid" id="mkGrid"></div>
+          </div>
         </section>
 
         <!-- ============ 连接器 ============ -->
@@ -619,11 +723,12 @@ let skMode='mine', skType='builtin';
 function skTab(el,m){
   document.querySelectorAll('.sk-tt .t').forEach(x=>x.classList.remove('on'));
   el.classList.add('on'); skMode=m;
-  if(m==='discover'){ toast('技能市场：发现更多社区与企业技能（原型演示）'); el.classList.remove('on'); document.querySelector('.sk-tt .t').classList.add('on'); }
-  renderSkills();
+  document.getElementById('skPane-mine').style.display = m==='mine'?'block':'none';
+  document.getElementById('skPane-discover').style.display = m==='discover'?'block':'none';
+  if(m==='discover') renderMarket(); else renderSkills();
 }
 function skFilter(el,t){
-  document.querySelectorAll('#page-skill .seg .s').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('#skPane-mine .seg .s').forEach(x=>x.classList.remove('on'));
   el.classList.add('on'); skType=t; renderSkills();
 }
 function renderSkills(){
@@ -655,6 +760,91 @@ function toggleSkill(id,btn){
   toast('技能「'+s.name+'」已'+(s.enabled?'启用':'停用'));
 }
 renderSkills();
+
+/* ================= 发现 Skill 市场 ================= */
+const MARKET_SKILLS=[
+ {id:'mk1',name:'大显示制造skill看板',ver:'v1',tech:'daxianshi-zhizao-skill-kanban',type:'业务Skills',fields:['大供应链'],sys:['通用系统'],author:'刘芸汝',account:'yunru.liu',date:'2026-09-19',installs:1,installed:false,letter:'D',bg:'#e2f3e9',c:'#2f9e5f',ts:7,hot:12,desc:'大显示制造skill看板（市场展示名，技术标识 daxianshi-zhizao-skill-kanban）。为大显示制造管理平台生成 Sk…'},
+ {id:'mk2',name:'车间每日报表和异常待处理汇总',ver:'v5',tech:'workshop-daily-plan-summary',type:'通用Skills',fields:['大供应链'],sys:['通用系统'],author:'黄创州',account:'chuangzhou.huang',date:'2026-09-19',installs:3,installed:false,letter:'W',bg:'#e2effe',c:'#2f7bf6',ts:6,hot:28,desc:'车间每日邮件汇总助手。从TCL邮箱获取当天各线发送的五类邮件（标题须含精确字样：计划达成 / 停线通知 / …'},
+ {id:'mk3',name:'华北大区智屏RDC库存实时更新',ver:'v1',tech:'huabei-zhiping-rdc-realtime',type:'通用Skills',fields:['大供应链'],sys:['通用系统'],author:'赵曦',account:'zxi',date:'2026-09-19',installs:1,installed:false,letter:'H',bg:'#fdeee4',c:'#e07b39',ts:5,hot:9,desc:'华北大区智屏RDC库存实时更新（华北RDC库存日报）。当用户提到「跑华北RDC库存日报」「华北大区智屏RDC库…'},
+ {id:'mk4',name:'行动计划跟踪',ver:'v1',tech:'action-plan-tracker',type:'通用Skills',fields:['大供应链'],sys:['通用系统'],author:'徐飞翔',account:'feixiang.xu',date:'2026-09-19',installs:1,installed:false,letter:'A',bg:'#f1ecfb',c:'#6a5be2',ts:4,hot:15,desc:'行动计划跟踪与催办技能。分析用户上传的行动计划/行动项 Excel（自动识别中英文列名：事项、责任人、截止日…'},
+ {id:'mk5',name:'竞品舆情周报',ver:'v2',tech:'competitor-sentiment-weekly',type:'通用Skills',fields:['营销服'],sys:['大数据'],author:'梁梦欣',account:'mengxin.liang',date:'2026-09-15',installs:12,installed:true,letter:'舆',bg:'#fde9ef',c:'#d6457a',ts:3,hot:46,desc:'聚合行业资讯、社媒与电商评价，按竞品维度生成舆情周报，自动标注正负面与热度趋势。'},
+ {id:'mk6',name:'SRM供应商准入尽调',ver:'v1',tech:'srm-supplier-due-diligence',type:'业务Skills',fields:['大供应链'],sys:['SRM'],author:'陈政霖',account:'zhenglin.chen',date:'2026-09-12',installs:6,installed:false,letter:'S',bg:'#e4f4f6',c:'#1596a8',ts:2,hot:21,desc:'对接 SRM 拉取供应商工商、资质与历史绩效，输出准入尽调报告与风险等级建议。'},
+ {id:'mk7',name:'MES良率异常根因分析',ver:'v3',tech:'mes-yield-rca',type:'业务Skills',fields:['研发'],sys:['MES'],author:'傅略维',account:'luewei.fu',date:'2026-09-08',installs:9,installed:false,letter:'M',bg:'#fff4e5',c:'#e8932b',ts:1,hot:33,desc:'读取 MES 工单与良率数据，定位异常工序与批次，结合 5Why 给出根因假设与改善建议。'},
+ {id:'mk8',name:'知识库智能问答编排',ver:'v2',tech:'kb-qa-orchestrator',type:'通用Skills',fields:['使能类'],sys:['智能知识库平台'],author:'王婵',account:'chan.wang',date:'2026-09-02',installs:17,installed:false,letter:'Q',bg:'#e9eafb',c:'#4a53bf',ts:0,hot:52,desc:'基于企业知识库的检索增强问答编排，支持多文档溯源、权限过滤与答案引用定位。'}
+];
+let mkSort='latest';
+function toggleMkSort(e){
+  e.stopPropagation();
+  document.getElementById('mkSort').classList.toggle('open');
+}
+document.addEventListener('click',()=>document.getElementById('mkSort')&&document.getElementById('mkSort').classList.remove('open'));
+function mkSortPick(el,s){
+  mkSort=s;
+  el.parentElement.querySelectorAll('.o').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('mkSortLabel').textContent=el.textContent;
+  document.getElementById('mkSort').classList.remove('open');
+  renderMarket();
+}
+function mkChip(el){
+  el.parentElement.querySelectorAll('.f-chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  renderMarket();
+}
+function toggleMkMore(el){
+  const box=document.getElementById('mkFilter');
+  const open=box.classList.toggle('expanded');
+  el.textContent=open?'收起':'展开';
+}
+function mkSel(group){
+  const row=document.querySelector('#mkFilter .f-row[data-group="'+group+'"] .f-chip.on');
+  return row&&row.textContent.trim()!=='全部'?row.textContent.trim():'';
+}
+function renderMarket(){
+  const kw=(document.getElementById('mkSearch').value||'').trim().toLowerCase();
+  const t=mkSel('type'), f=mkSel('field'), s=mkSel('sys');
+  let list=MARKET_SKILLS.filter(x=>
+    (!t||x.type===t) &&
+    (!f||x.fields.includes(f)) &&
+    (!s||x.sys.includes(s)) &&
+    (!kw||x.name.toLowerCase().includes(kw)||x.tech.toLowerCase().includes(kw))
+  );
+  if(mkSort==='latest') list.sort((a,b)=>b.ts-a.ts);
+  else if(mkSort==='hot') list.sort((a,b)=>b.hot-a.hot);
+  else list.sort((a,b)=>a.name.localeCompare(b.name,'zh'));
+  document.getElementById('mkGrid').innerHTML = list.length ? list.map(x=>`
+    <div class="mk-card">
+      <div class="mk-top">
+        <div class="mk-ic" style="background:${x.bg};color:${x.c}">${x.letter}</div>
+        <div class="mk-main">
+          <div class="mk-name">${x.name}</div>
+          <div class="mk-tech">${x.ver}　${x.tech}</div>
+        </div>
+        <button class="mk-add ${x.installed?'installed':''}" title="${x.installed?'已安装':'安装'}" onclick="mkInstall('${x.id}',this)">
+          ${x.installed
+            ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+            : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'}
+        </button>
+      </div>
+      <div class="mk-desc">${x.desc}</div>
+      <div class="mk-tags">
+        <span class="mk-tag">${x.type}</span>
+        ${x.fields.map(v=>'<span class="mk-tag">'+(v==='大供应链'?'大供应链/制造':v)+'</span>').join('')}
+        ${x.sys.slice(0,1).map(v=>'<span class="mk-tag">'+v+'</span>').join('')}
+      </div>
+      <div class="mk-foot">
+        <span>${x.author}(${x.account})</span><span>|</span><span>创建时间：${x.date}</span>
+        <span class="inst">${x.installs} 次安装</span>
+      </div>
+    </div>`).join('') : '<div class="empty-hint" style="display:block;grid-column:1/-1">没有匹配的 Skill，试试调整筛选条件</div>';
+}
+function mkInstall(id,btn){
+  const x=MARKET_SKILLS.find(s=>s.id===id);
+  if(x.installed){ toast('技能「'+x.name+'」已安装，可在「我的Skill」中管理'); return; }
+  x.installed=true; x.installs+=1;
+  renderMarket();
+  toast('已安装「'+x.name+'」，可在「我的Skill」中启用');
+}
 
 /* ================= 连接器 ================= */
 function cnChip(el){
