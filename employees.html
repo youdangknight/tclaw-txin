@@ -630,13 +630,26 @@ function empSeg(el,m){
   el.classList.add('on'); empMode=m; renderEmp();
 }
 const STATUS_CLASS={已上岗:'on',草稿:'draft',待审批:'wait'};
+function openTeam(id){
+  const t=TEAMS.find(x=>x.id===id);
+  if(!t) return;
+  const online=t.status==='已上岗'?t.members:0;
+  const p=new URLSearchParams({
+    id:t.id, name:t.name, members:String(t.members),
+    sub:t.dept+'｜负责人 @'+t.owner,
+    tag:t.no+' · '+t.status,
+    state:t.status==='已上岗'?'已上岗运行':'配置中',
+    online:String(online)
+  });
+  location.href='team-detail.html?'+p.toString();
+}
 function renderEmp(){
   const kw=(document.getElementById('empSearch').value||'').trim().toLowerCase();
   const grid=document.getElementById('empGrid');
   if(empMode==='team'){
     const list=TEAMS.filter(t=>t.name.toLowerCase().includes(kw)||t.no.toLowerCase().includes(kw));
     grid.innerHTML = list.length ? list.map(t=>`
-      <div class="emp" onclick="toast('打开团队「${t.name}」（原型演示）')">
+      <div class="emp" onclick="openTeam('${t.id}')">
         <div class="emp-top">
           <div style="width:52px;height:52px;border-radius:50%;flex-shrink:0;background:${t.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3 19c0-2.8 2.5-4.5 5.5-4.5S14 16.2 14 19"/><path d="M15 14.8c2.4.2 4.5 1.6 4.5 4.2"/></svg>
@@ -673,6 +686,11 @@ function renderEmp(){
     </div>`).join('') : '<div class="empty-hint" style="display:block">没有匹配的硅基员工</div>';
 }
 renderEmp();
+// 支持 #team 直达硅基团队列表（团队详情返回时使用）
+if(location.hash==='#team'){
+  const seg=[...document.querySelectorAll('#page-emp .seg .s')].find(s=>s.textContent.trim()==='硅基团队');
+  if(seg) empSeg(seg,'team');
+}
 
 /* ================= 员工抽屉 ================= */
 function openDrawer(id){
