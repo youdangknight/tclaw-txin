@@ -77,11 +77,10 @@ svg{display:block;}
 .page.on{display:block;}
 
 /* ===== 硅基员工 ===== */
-.hero{display:flex;align-items:center;gap:20px;background:linear-gradient(100deg,#eef4ff 0%,#f4f1ff 60%,#eef6ff 100%);border:1px solid #e7edfa;border-radius:20px;padding:26px 30px;overflow:hidden;}
-.hero .h-left{flex:1;min-width:0;}
-.hero h1{font-size:26px;font-weight:700;}
-.hero p{font-size:13.5px;color:#727b8a;margin-top:8px;line-height:1.6;}
-.hero .h-pic{width:340px;height:138px;border-radius:14px;object-fit:cover;flex-shrink:0;}
+.hero{display:flex;align-items:center;background:linear-gradient(100deg,#eef4ff 0%,#f4f1ff 60%,#eef6ff 100%);border:1px solid #e7edfa;border-radius:14px;padding:16px 24px;overflow:hidden;}
+.hero .h-left{display:flex;align-items:baseline;gap:14px;flex:1;min-width:0;}
+.hero h1{font-size:20px;font-weight:700;white-space:nowrap;}
+.hero p{font-size:13px;color:#727b8a;line-height:1.5;}
 
 .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0;}
 .stat{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;display:flex;align-items:center;gap:14px;cursor:default;}
@@ -353,7 +352,6 @@ svg{display:block;}
               <h1>硅基员工</h1>
               <p>选择专业硅基员工，快速创建会话并完成分析、创作、营销和数据任务。</p>
             </div>
-            <img class="h-pic" src="assets/hero-team.png" alt="硅基员工团队">
           </div>
 
           <div class="stat-row">

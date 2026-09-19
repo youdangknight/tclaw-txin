@@ -66,13 +66,12 @@ svg{display:block;}
 .wrap{max-width:1080px;margin:0 auto;padding:26px 36px 60px;}
 
 /* Hero */
-.hero{display:flex;align-items:center;gap:24px;background:linear-gradient(100deg,#f2f6ff 0%,#f6f4ff 55%,#f3f8ff 100%);border:1px solid #edf1fa;border-radius:20px;padding:30px 34px;position:relative;overflow:hidden;}
-.hero .h-left{flex:1;min-width:0;z-index:1;}
-.hero h1{font-size:27px;font-weight:700;letter-spacing:.3px;}
-.hero p{font-size:13.5px;color:#7a8290;margin-top:9px;}
-.btn-new{margin-top:20px;display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 18px;border-radius:10px;background:var(--ink);color:#fff;font-size:14px;font-weight:500;cursor:pointer;border:none;}
+.hero{display:flex;align-items:center;gap:16px;background:linear-gradient(100deg,#f2f6ff 0%,#f6f4ff 55%,#f3f8ff 100%);border:1px solid #edf1fa;border-radius:14px;padding:16px 24px;position:relative;overflow:hidden;}
+.hero .h-left{display:flex;align-items:baseline;gap:14px;flex:1;min-width:0;z-index:1;}
+.hero h1{font-size:20px;font-weight:700;letter-spacing:.3px;white-space:nowrap;}
+.hero p{font-size:13px;color:#7a8290;}
+.btn-new{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 18px;border-radius:10px;background:var(--ink);color:#fff;font-size:14px;font-weight:500;cursor:pointer;border:none;}
 .btn-new:hover{background:#000;}
-.hero .h-pic{width:330px;height:150px;flex-shrink:0;border-radius:14px;object-fit:cover;opacity:.96;}
 
 /* 区块标题行 */
 .sec-head{display:flex;align-items:center;margin:30px 2px 14px;gap:12px;}
@@ -185,12 +184,11 @@ svg{display:block;}
           <div class="h-left">
             <h1>项目</h1>
             <p>多人协同，把会话、文件与任务收口到同一空间，打造超级团队</p>
-            <button class="btn-new" onclick="openCreate()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-              新建项目
-            </button>
           </div>
-          <img class="h-pic" src="assets/hero-team.png" alt="协同团队插画">
+          <button class="btn-new" onclick="openCreate()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            新建项目
+          </button>
         </div>
 
         <!-- 我的项目 -->
