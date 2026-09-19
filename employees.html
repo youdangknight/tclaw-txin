@@ -227,16 +227,7 @@ svg{display:block;}
 .csb.exp b{color:var(--orange);}
 .csb.wait b{color:var(--purple);}
 
-.cn-filter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px 18px;margin-bottom:16px;}
-.cn-toolbar{margin-bottom:0 !important;}
-/* 高级筛选折叠区 */
-.cn-adv{display:none;padding-top:14px;margin-top:12px;border-top:1px solid #f2f3f5;}
-.cn-adv.show{display:block;}
-.cn-adv-btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px;border-radius:9px;border:1px solid var(--border);background:#fff;color:#5b616a;font-size:12.5px;cursor:pointer;font-family:inherit;}
-.cn-adv-btn:hover{border-color:#b9cdf5;color:var(--blue);}
-.cn-adv-btn.on{background:#eef4ff;border-color:#c3d9fb;color:var(--blue);}
-.cn-adv-btn.on .cn-adv-caret{transform:rotate(180deg);}
-.cn-adv-caret{transition:transform .2s;}
+.cn-filter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:16px;}
 .f-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
 .f-row:last-child{margin-bottom:0;}
 .f-lb{font-size:13px;font-weight:600;color:#5b616a;width:70px;flex-shrink:0;}
@@ -542,8 +533,9 @@ svg{display:block;}
             <span class="csb wait" data-st="wait" onclick="cnStateFilter('wait')"><i></i>待开通 / 审批中 <b id="csbWait">0</b></span>
           </div>
           <div class="cn-filter">
-            <!-- 常驻工具条：来源 + 搜索 + 高级筛选开关 -->
-            <div class="f-row cn-toolbar">
+            <!-- 来源与搜索同行 -->
+            <div class="f-row">
+              <span class="f-lb">来源</span>
               <span class="f-chip on" data-group="source" onclick="cnChip(this)">全部</span>
               <span class="f-chip" data-group="source" onclick="cnChip(this)">企业预置</span>
               <span class="f-chip" data-group="source" onclick="cnChip(this)">市场安装</span>
@@ -552,32 +544,29 @@ svg{display:block;}
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
                 <input id="cnSearch" placeholder="搜索连接器" oninput="renderConn()">
               </div>
-              <button class="cn-adv-btn" id="cnAdvBtn" onclick="toggleCnAdv()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v5l-4 2v-7L4 5Z"/></svg>
-                筛选
-                <svg class="cn-adv-caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-              </button>
             </div>
-            <!-- 高级筛选（默认收起） -->
-            <div class="cn-adv" id="cnAdv">
-              <div class="f-row">
-                <span class="f-lb">应用领域</span>
-                <span class="f-chip on" data-group="domain" onclick="cnChip(this)">全部</span>
-                <span class="f-chip" data-group="domain" onclick="cnChip(this)">营销服</span>
-                <span class="f-chip" data-group="domain" onclick="cnChip(this)">使能类</span>
-                <span class="f-chip" data-group="domain" onclick="cnChip(this)">研发</span>
-                <span class="f-chip" data-group="domain" onclick="cnChip(this)">大供应链</span>
-              </div>
-              <div class="f-row" style="margin-bottom:0">
-                <span class="f-lb">业务系统</span>
-                <span class="f-chip on" data-group="sys" onclick="cnChip(this)">全部</span>
-                <span class="f-chip" data-group="sys" onclick="cnChip(this)">通用系统</span>
-                <span class="f-chip" data-group="sys" onclick="cnChip(this)">TMS</span>
-                <span class="f-chip" data-group="sys" onclick="cnChip(this)">大数据</span>
-                <span class="f-chip" data-group="sys" onclick="cnChip(this)">SRM</span>
-                <span class="f-chip" data-group="sys" onclick="cnChip(this)">MES</span>
-                <span class="f-chip more" onclick="toast('展开更多系统分类（原型演示）')">展开</span>
-              </div>
+            <div class="f-row">
+              <span class="f-lb">应用领域</span>
+              <span class="f-chip on" data-group="domain" onclick="cnChip(this)">全部</span>
+              <span class="f-chip" data-group="domain" onclick="cnChip(this)">营销服</span>
+              <span class="f-chip" data-group="domain" onclick="cnChip(this)">使能类</span>
+              <span class="f-chip" data-group="domain" onclick="cnChip(this)">研发</span>
+              <span class="f-chip" data-group="domain" onclick="cnChip(this)">大供应链</span>
+            </div>
+            <div class="f-row" style="margin-bottom:0">
+              <span class="f-lb">业务系统</span>
+              <span class="f-chip on" data-group="sys" onclick="cnChip(this)">全部</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">通用系统</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">TMS</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">大数据</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">SRM</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">MES</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">智能知识库平台</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">iOT</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">WMS</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">PS</span>
+              <span class="f-chip" data-group="sys" onclick="cnChip(this)">QMS</span>
+              <span class="f-chip more" onclick="toast('展开更多系统分类（原型演示）')">展开 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="m6 9 6 6 6-6"/></svg></span>
             </div>
           </div>
           <div class="cn-grid" id="cnGrid"></div>
@@ -938,13 +927,6 @@ function cnChip(el){
   el.parentElement.querySelectorAll('.f-chip').forEach(c=>c.classList.remove('on'));
   el.classList.add('on');
   renderConn();
-}
-// 高级筛选折叠
-function toggleCnAdv(){
-  const adv=document.getElementById('cnAdv');
-  const btn=document.getElementById('cnAdvBtn');
-  const open=adv.classList.toggle('show');
-  btn.classList.toggle('on',open);
 }
 // 点击状态摘要条：筛选该状态，再点一次取消
 function cnStateFilter(st){
