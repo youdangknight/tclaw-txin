@@ -224,8 +224,10 @@ svg{display:block;}
 .csb.ok i{background:var(--green);}
 .csb.exp i{background:var(--orange);}
 .csb.wait i{background:var(--purple);}
+.csb.off i{background:#9aa0a9;}
 .csb.exp b{color:var(--orange);}
 .csb.wait b{color:var(--purple);}
+.csb.off b{color:#7a8089;}
 
 .cn-filter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:16px;}
 .f-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
@@ -253,13 +255,14 @@ svg{display:block;}
 .cn-auth-flag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;border-radius:7px;padding:3px 9px;white-space:nowrap;flex-shrink:0;}
 .cn-auth-flag.backend{background:#f0faf5;color:#178a58;border:1px solid #cfeedf;}
 .cn-desc{font-size:12.5px;color:#6b727c;margin-top:9px;line-height:1.6;}
-.cn-tags{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;}
+.cn-tags{margin-top:11px;margin-bottom:2px;display:flex;flex-wrap:wrap;gap:6px;}
 .cn-tag{font-size:11px;border-radius:6px;padding:2.5px 9px;background:#eef4ff;color:var(--blue);}
-.cn-foot{display:flex;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #f2f3f5;gap:10px;}
+.cn-foot{display:flex;align-items:center;margin-top:auto;padding-top:14px;border-top:1px solid #f2f3f5;gap:10px;}
 .cn-account{font-size:11.5px;color:var(--sub2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.conn-top>.st{flex-shrink:0;margin-top:2px;}
 .st{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;border-radius:20px;padding:3px 10px;}
 .st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
-.st.ok{color:var(--green);background:#e8f7ef;}
+.st.ok,.st.added{color:var(--green);background:#e8f7ef;}
 .st.exp{color:var(--orange);background:#fff4e5;}
 .st.off{color:#9aa0aa;background:#f2f3f5;}
 .st.wait{color:var(--purple);background:#f1ecfb;}
@@ -270,6 +273,22 @@ svg{display:block;}
 .cn-btn:hover{filter:brightness(.97);}
 .cn-add{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:#fff;color:#8a9099;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
 .cn-add:hover{color:var(--blue);border-color:var(--blue);}
+
+/* 市场安装 MCP 卡片：已添加角标 + 蓝色分类 + 发布者 */
+.cn-added{display:inline-flex;align-items:center;gap:5px;background:#26262b;color:#fff;font-size:11.5px;font-weight:600;border-radius:20px;padding:4px 12px;flex-shrink:0;white-space:nowrap;}
+.cn-mkt-tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+.cn-mkt-tag{font-size:12.5px;color:#4a7bf0;font-weight:600;}
+.cn-pub{font-size:11.5px;color:#9aa0a6;}
+/* 系统集成授权卡（原设置·系统集成·授权管理） */
+.conn-kind-auth{flex-direction:row;align-items:center;gap:15px;padding:18px 20px;cursor:pointer;}
+.conn-kind-auth .cn-ic{width:50px;height:50px;border-radius:13px;}
+.cn-auth-main{flex:1;min-width:0;}
+.cn-auth-name{font-size:15px;font-weight:700;color:#1f2329;display:flex;align-items:center;gap:6px;}
+.cn-auth-desc{font-size:12.5px;color:#8a9099;margin-top:5px;line-height:1.55;}
+.cn-auth-side{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.st.inactive{color:#4a4f78;background:#eceefc;}
+.cn-auth-btn{height:36px;padding:0 30px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:#1c1c1e;color:#fff;font-family:inherit;flex-shrink:0;}
+.cn-auth-btn:hover{background:#000;}
 
 .empty-hint{grid-column:1/-1;text-align:center;color:var(--sub2);font-size:13px;padding:40px 0;display:none;}
 
@@ -354,6 +373,21 @@ svg{display:block;}
 .ci-head-row{grid-template-columns:120px 1fr;}
 .ci-head-row .ci-val{grid-column:2;}
 
+/* 渠道信息 */
+.cd-sec-title.ch{margin-top:20px;}
+.cd-sec-bar{width:4px;height:15px;border-radius:2px;background:#6a5be2;display:inline-block;}
+#cdChannelInfo .ci-row{grid-template-columns:108px 1fr;gap:14px;}
+#cdChannelInfo .ci-lb{color:#4b525c;}
+#cdChannelInfo .ci-lb.req::before{content:"*";color:#f04438;margin-right:5px;}
+.cd-uid-head{display:flex;align-items:center;gap:9px;margin:22px 0 12px;}
+.cd-uid-title{font-size:16px;font-weight:700;color:#1f2329;}
+.cd-sdk-link{margin-left:auto;font-size:13px;font-weight:600;color:#6a5be2;cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
+.cd-sdk-link:hover{text-decoration:underline;}
+.cd-uid-code{position:relative;background:#f4f5f7;border:1px solid var(--border);border-radius:13px;padding:16px 44px 16px 18px;}
+.cd-uid-code pre{margin:0;font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12.5px;color:#4b525c;line-height:1.7;white-space:pre-wrap;word-break:break-all;}
+.cd-uid-copy{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#8a9099;background:#fff;border:1px solid var(--border);cursor:pointer;}
+.cd-uid-copy:hover{color:#6a5be2;border-color:#c9bcf5;}
+
 .cd-tool-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;}
 .cd-tool-tab{flex-shrink:0;font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12.5px;color:#5b616a;background:#f4f5f7;border:1px solid transparent;border-radius:9px;padding:8px 14px;cursor:pointer;white-space:nowrap;}
 .cd-tool-tab.on{color:#6a5be2;background:#f2efff;border-color:#ddd2f8;font-weight:600;}
@@ -369,9 +403,61 @@ svg{display:block;}
 .cd-table .t-type{color:#6a5be2;font-family:ui-monospace,Consolas,Menlo,monospace;white-space:nowrap;}
 .cd-table-empty{text-align:center;color:#9aa0a9;font-size:12.5px;padding:20px !important;}
 
+/* 试试这样用：示例提问气泡 */
+.cd-try-ic{color:#f0a82f;flex-shrink:0;}
+.cd-try-list{display:flex;flex-direction:column;gap:12px;}
+.cd-try-item{display:flex;align-items:center;gap:12px;background:#f6f7f9;border:1px solid #eef0f3;border-radius:14px;padding:16px 18px;cursor:pointer;transition:background .15s,border-color .15s;}
+.cd-try-item:hover{background:#f1f2f6;border-color:#e3e6ec;}
+.cd-try-q{flex:1;min-width:0;font-size:14px;color:#3c424b;line-height:1.5;}
+.cd-try-go{color:#9aa0a9;flex-shrink:0;}
+.cd-try-item:hover .cd-try-go{color:#6a5be2;}
+
 .cd-foot{padding:14px 26px 18px;border-top:1px solid var(--line);}
 .cd-try{width:100%;height:46px;border:none;border-radius:12px;background:#6a5be2;color:#fff;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;}
 .cd-try:hover{background:#5d4ed6;}
+
+/* ===== 连接器授权弹窗 ===== */
+.am-mask{position:fixed;inset:0;background:rgba(15,23,42,.4);display:none;z-index:70;}
+.am-mask.show{display:block;}
+.am-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%) scale(.97);width:560px;max-width:92vw;max-height:88vh;background:#fff;border-radius:18px;z-index:71;display:none;flex-direction:column;box-shadow:0 24px 70px rgba(15,23,42,.28);opacity:0;transition:.22s;}
+.am-modal.show{display:flex;opacity:1;transform:translate(-50%,-50%) scale(1);}
+.am-head{display:flex;align-items:center;justify-content:center;position:relative;padding:20px 24px;border-bottom:1px solid var(--line);}
+.am-head>span:first-child{font-size:18px;font-weight:800;color:#1f2329;}
+.am-close{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#8a9099;cursor:pointer;}
+.am-close:hover{background:#f2f3f5;color:#1f2329;}
+.am-body{flex:1;overflow-y:auto;padding:24px 28px 8px;}
+.am-svc{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.am-svc .cn-ic{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0;}
+.am-svc-name{font-size:21px;font-weight:800;color:#1f2329;display:flex;align-items:center;gap:8px;}
+.am-svc-sub{font-size:13px;color:var(--sub);margin-top:4px;line-height:1.6;}
+.am-field{margin-bottom:18px;}
+.am-field label{display:block;font-size:14px;font-weight:600;color:#1f2329;margin-bottom:9px;}
+.am-field input{width:100%;height:52px;border:1px solid #e8eaef;border-radius:14px;background:#fafbfc;padding:0 18px;font-size:14px;color:#1f2329;font-family:inherit;box-sizing:border-box;transition:border-color .15s,background .15s;}
+.am-field input::placeholder{color:#a8adb6;}
+.am-field input:focus{outline:none;border-color:#7b6cf0;background:#fff;box-shadow:0 0 0 3px rgba(106,91,226,.10);}
+.am-secure{display:flex;align-items:center;gap:8px;color:var(--sub);font-size:13px;margin:4px 0 6px;}
+.am-secure svg{color:#6a5be2;flex-shrink:0;}
+/* 令牌获取指引 */
+.am-guide{background:#f6f8fc;border:1px solid #e6ecf8;border-radius:15px;padding:18px 20px;margin-bottom:20px;}
+.am-guide-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.am-guide-no{width:26px;height:26px;border-radius:50%;background:#6a5be2;color:#fff;font-size:13.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.am-guide-title{font-size:15px;font-weight:700;color:#1f2329;}
+.am-guide-link{margin-left:auto;font-size:12.5px;color:#2f7bf6;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;}
+.am-guide-link:hover{text-decoration:underline;}
+.am-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.am-step{background:#fff;border:1px solid #eef0f5;border-radius:12px;padding:13px 14px;}
+.am-step b{display:block;color:#6a5be2;font-size:12px;font-weight:700;margin-bottom:7px;letter-spacing:.3px;}
+.am-step p{font-size:12.5px;color:#4b525c;line-height:1.7;margin:0;}
+.am-token-sec{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.am-token-sec .am-guide-no{width:26px;height:26px;}
+.am-token-sec label{font-size:15px;font-weight:700;color:#1f2329;}
+.am-foot{display:flex;justify-content:flex-end;gap:12px;padding:16px 28px 22px;border-top:1px solid var(--line);}
+.am-cancel,.am-submit{height:46px;border-radius:13px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:7px;padding:0 26px;}
+.am-cancel{border:1px solid var(--border);background:#fff;color:#3c424b;}
+.am-cancel:hover{background:#f5f7fa;}
+.am-submit{border:none;background:linear-gradient(135deg,#7b6cf0,#6a5be2);color:#fff;}
+.am-submit:hover{filter:brightness(1.05);}
+.am-submit:disabled{opacity:.5;cursor:not-allowed;}
 
 .toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:rgba(31,35,41,.92);color:#fff;font-size:13px;padding:9px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:99;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
@@ -595,6 +681,7 @@ svg{display:block;}
             <span class="csb ok" data-st="ok" onclick="cnStateFilter('ok')"><i></i>已连接 <b id="csbOk">0</b></span>
             <span class="csb exp" data-st="exp" onclick="cnStateFilter('exp')"><i></i>需重新授权 <b id="csbExp">0</b></span>
             <span class="csb wait" data-st="wait" onclick="cnStateFilter('wait')"><i></i>待开通 / 审批中 <b id="csbWait">0</b></span>
+            <span class="csb off" data-st="off" onclick="cnStateFilter('off')"><i></i>待激活 <b id="csbOff">0</b></span>
           </div>
           <div class="cn-filter">
             <!-- 来源与搜索同行 -->
@@ -705,6 +792,16 @@ svg{display:block;}
     <!-- 授权方式提示 -->
     <div class="cd-auth" id="cdAuth"></div>
 
+    <!-- 渠道信息（企业预置·渠道管理） -->
+    <div id="cdChannelWrap" style="display:none">
+      <div class="cd-sec-title ch"><span class="cd-sec-bar"></span>渠道信息</div>
+      <div class="cd-info" id="cdChannelInfo"></div>
+      <div class="cd-uid-head"><span class="cd-sec-bar"></span><span class="cd-uid-title">渠道id</span><span class="cd-sdk-link" onclick="toast('打开 SDK 接入手册（原型演示）')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/><path d="M8 3h8l2 4H6l2-4Z"/><path d="M9 13h6"/></svg> SDK接入手册</span></div>
+      <div class="cd-uid-code"><span class="cd-uid-copy" title="复制" onclick="toast('渠道id 已复制（原型演示）')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span><pre id="cdChannelUid"></pre></div>
+    </div>
+
+    <!-- MCP 基本信息（市场安装） -->
+    <div id="cdMcpWrap">
     <div class="cd-sec-title">基本信息</div>
     <div class="cd-info">
       <div class="ci-row"><span class="ci-lb">服务器标识符</span><span class="ci-val" id="ciId"></span></div>
@@ -715,13 +812,44 @@ svg{display:block;}
       <div class="ci-row"><span class="ci-lb">提供者网址</span><span class="ci-val" id="ciProviderUrl"></span></div>
       <div class="ci-row ci-head-row"><span class="ci-lb">请求头</span><span class="ci-val mono" id="ciHeaders"></span></div>
     </div>
+    </div>
 
-    <div class="cd-sec-title">工具 <span class="cd-tool-n" id="cdToolN"></span></div>
+    <!-- 授权系统基本信息（企业预置·个人授权） -->
+    <div id="cdAuthInfoWrap" style="display:none">
+    <div class="cd-sec-title">基本信息</div>
+    <div class="cd-info">
+      <div class="ci-row"><span class="ci-lb">来源</span><span class="ci-val">企业预置</span></div>
+      <div class="ci-row"><span class="ci-lb">授权方式</span><span class="ci-val" id="caiMethod"></span></div>
+      <div class="ci-row"><span class="ci-lb">凭据类型</span><span class="ci-val" id="caiType"></span></div>
+      <div class="ci-row"><span class="ci-lb">授权范围</span><span class="ci-val" id="caiScope"></span></div>
+      <div class="ci-row"><span class="ci-lb">安全说明</span><span class="ci-val" id="caiCred"></span></div>
+    </div>
+    </div>
+
+    <div class="cd-sec-title" id="cdToolTitle">工具 <span class="cd-tool-n" id="cdToolN"></span></div>
     <div class="cd-tool-tabs" id="cdToolTabs"></div>
     <div class="cd-tool-card" id="cdToolCard"></div>
+
+    <!-- 试试这样用：无工具/参数的连接器，用示例提问引导 -->
+    <div id="cdTryWrap" style="display:none">
+      <div class="cd-sec-title"><svg class="cd-try-ic" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3Z"/></svg>试试这样用</div>
+      <div class="cd-try-list" id="cdTryList"></div>
+    </div>
   </div>
-  <div class="cd-foot">
-    <button class="cd-try" onclick="toast('已带入该连接器，在聊天中尝试（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg> 在聊天中尝试</button>
+  <div class="cd-foot" id="cdFoot"></div>
+</div>
+
+<!-- 连接器授权弹窗（原系统集成·授权管理） -->
+<div class="am-mask" id="amMask" onclick="closeAuthModal()"></div>
+<div class="am-modal" id="amModal">
+  <div class="am-head">
+    <span id="amTitle">授权管理</span>
+    <span class="am-close" onclick="closeAuthModal()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>
+  </div>
+  <div class="am-body" id="amBody"></div>
+  <div class="am-foot">
+    <button class="am-cancel" onclick="closeAuthModal()">取消</button>
+    <button class="am-submit" id="amSubmit" onclick="cnAuthSubmit()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 11a4 4 0 1 0-8 0"/><path d="M5 11h14l-1 9H6l-1-9Z"/></svg> <span id="amSubmitText">验证并连接</span></button>
   </div>
 </div>
 
@@ -742,7 +870,7 @@ const EMPLOYEES=[
   style:'先确认目标再动手；信息不足时主动提问。',
   sign:'把复杂留给我，把简单还给你。'},
  {id:'niumo2',name:'牛魔2',no:'99014782',dept:'前端开发',owner:'傅略维',account:'lvewei.fu',status:'已上岗',av:'assets/av-niumo.png',
-  skills:['init','meeting','weekly','ppt'],conns:['mail','txin'],
+  skills:['init','meeting','weekly','ppt'],conns:['mail','tpros'],
   tags:['前端','原型'],days:64,
   duty:'负责前端页面开发与交互原型落地，配合设计稿完成组件化实现。',
   style:'结构清晰、命名规范；改动兼顾兼容性。',
@@ -770,35 +898,122 @@ const SKILLS=[
  {id:'contract',name:'合同风险检查',cat:'法务',desc:'识别合同中的风险条款并给出修改建议，输出风险清单。',builtin:false,enabled:false,users:0}
 ];
 const CONNECTORS=[
- {id:'mail',name:'TCL 邮箱代发服务',ver:'v2',tools:6,src:'企业预置',status:'ok',statusText:'已连接',authMode:'user',desc:'用于发送通知及接收系统消息的邮箱服务，支持代发与回执跟踪。',account:'ex_min4.wang@tcl.com',users:4,tags:['通用系统','使能类'],bg:'#E2EFFE',c:'#2F7BF6',letter:'M'},
- {id:'confluence',name:'Confluence 知识库',ver:'v1',tools:14,src:'企业预置',status:'exp',statusText:'已过期',authMode:'user',desc:'绑定个人访问令牌后可使用知识库的读写与全文检索。',account:'令牌已于 08/20 过期',users:1,tags:['研发/研发','智能知识库平台'],bg:'#E8ECFB',c:'#4A5FBF',letter:'C'},
- {id:'txin',name:'T信 消息',ver:'v3',tools:9,src:'企业预置',status:'ok',statusText:'已连接',authMode:'backend',desc:'在群聊与单聊中收发消息、读取附件，并支持机器人推送。',account:'后台已配置 · 工号免密',users:1,tags:['通用系统','营销服'],bg:'#DDF3EC',c:'#19B08A',letter:'T'},
- {id:'qcc',name:'企查查',ver:'v1',tools:11,src:'市场安装',status:'ok',statusText:'已连接',authMode:'backend',desc:'查询企业工商、股权、涉诉与经营风险信息。',account:'API Key · 团队共享',users:2,tags:['营销服','大数据'],bg:'#FFF4E5',c:'#E8932B',letter:'企'},
- {id:'amap',name:'高德地图',ver:'v2',tools:8,src:'市场安装',status:'off',statusText:'未连接',authMode:'user',desc:'查询地点、路线规划、周边检索与地理编码。',account:'',users:0,tags:['使能类','通用系统'],bg:'#E4F4F6',c:'#1596A8',letter:'A'},
- {id:'wecom',name:'企业微信',ver:'v1',tools:7,src:'市场安装',status:'wait',statusText:'待开通',authMode:'user',desc:'同步通讯录、发送应用消息与审批回调，需管理员开通。',account:'等待管理员审批',users:0,tags:['通用系统','营销服'],bg:'#EAF2FF',c:'#3E7BD6',letter:'W'}
+ /* ===== 企业预置：AI 运营管理平台·渠道管理注册的真实业务渠道（后台统一托管，用户免授权） ===== */
+ {id:'ch-wukong',name:'空调中山物控智能工作台',ver:'企业渠道',tools:3,src:'企业预置',kind:'channel',status:'ok',statusText:'已激活',authMode:'backend',authType:'none',desc:'TCL 实业供应链物控工作台渠道，由 AI 运营管理平台统一接入，支持物料库存查询、采购申请与到货跟踪。',account:'张睿豪（ruihao7.zhang）',users:6,tags:['大供应链','iOT'],bg:'#E3F1EA',c:'#1F9D6E',letter:'物',
+  channel:{uid:'b9c4f6e9f665422980dbb25720e5cab1',sysName:'空调中山物控智能工作台',group:'TCL实业',env:'用户验收测试环境(UAT)',owner:'张睿豪(ruihao7.zhang)',domain:'https://scm.tclac.com',authApi:'https://scm.tclac.com/wk/api/auth/sdk-user',tokenField:'Authorization',userIdField:'username',lang:'中文'}},
+ {id:'ch-gpm-prod',name:'GPM 项目管理平台',ver:'企业渠道',tools:3,src:'企业预置',kind:'channel',status:'off',statusText:'待激活',authMode:'backend',authType:'none',desc:'GPM 全球项目管理渠道（生产环境），渠道已注册尚未激活，激活后可查询项目、里程碑与进度上报。',account:'待激活 · 负责人李韧',users:0,tags:['研发/研发','项目管理'],bg:'#E8ECFB',c:'#4A5FBF',letter:'G',
+  channel:{uid:'c9a5af81797f4728ac555aacf98fff66',sysName:'GPM 全球项目管理系统',group:'TCL实业',env:'生产环境(PROD)',owner:'李韧(ren14.li)',domain:'https://gpm.tclac.com',authApi:'https://gpm.tclac.com/api/auth/sdk-user',tokenField:'Authorization',userIdField:'username',lang:'中文'}},
+ {id:'ch-gpm-uat',name:'GPM 项目管理平台（UAT）',ver:'企业渠道',tools:3,src:'企业预置',kind:'channel',status:'ok',statusText:'已激活',authMode:'backend',authType:'none',desc:'GPM 全球项目管理渠道（用户验收环境），用于项目信息查询、里程碑跟踪与进度数据联调验证。',account:'李韧（ren14.li）',users:2,tags:['研发/研发','项目管理'],bg:'#E9EDFB',c:'#3854C9',letter:'G',
+  channel:{uid:'cce6230a75f54a6888ab74ee5aa92cae',sysName:'GPM 全球项目管理系统',group:'TCL实业',env:'用户验收测试环境(UAT)',owner:'李韧(ren14.li)',domain:'https://gpm-uat.tclac.com',authApi:'https://gpm-uat.tclac.com/api/auth/sdk-user',tokenField:'Authorization',userIdField:'username',lang:'中文'}},
+ {id:'ch-globalmkt',name:'全球市场营销平台',ver:'企业渠道',tools:3,src:'企业预置',kind:'channel',status:'ok',statusText:'已激活',authMode:'backend',authType:'none',desc:'全球市场渠道，由 AI 运营管理平台统一接入，支持全球销售数据、市场份额与网点客户检索。',account:'尹蕾（lei3.yin）',users:4,tags:['营销服','大数据'],bg:'#FDEEE9',c:'#E0654B',letter:'市',
+  channel:{uid:'0068c89c65024ddbae8bbed2a10456f',sysName:'全球市场营销平台',group:'TCL实业',env:'用户验收测试环境(UAT)',owner:'尹蕾(lei3.yin)',domain:'https://mkt.tclac.com',authApi:'https://mkt.tclac.com/api/auth/sdk-user',tokenField:'Authorization',userIdField:'username',lang:'中文'}},
+
+ /* ===== 市场安装：仅两个 MCP 工具（均已添加） ===== */
+ {id:'mcp-confluence',name:'mcp-confluence',ver:'v1',tools:14,src:'市场安装',kind:'mcp',status:'added',statusText:'已添加',authMode:'user',authType:'token',authRef:'confluence',desc:'mcp-confluence 操作confluence的读写',account:'王芳(fang2.wang) ｜ 2026-09-08 11:13:53',publisher:'王芳(fang2.wang)',publishTime:'2026-09-08 11:13:53',users:12,tags:['研发/研发','智能知识库平台'],bg:'#EFE8FB',c:'#7A54D9',letter:'M'},
+ {id:'tpros',name:'TPROS问答',ver:'v1',tools:1,src:'市场安装',kind:'mcp',status:'added',statusText:'已添加',authMode:'backend',authType:'none',desc:'TPROS 企业级智能问答，检索 TPROS 平台知识并给出引用来源的解答。',account:'陈泽昌(zechang.chen) ｜ 2026-09-01 13:37:31',publisher:'陈泽昌(zechang.chen)',publishTime:'2026-09-01 13:37:31',users:8,tags:['使能类/IT','通用系统'],bg:'#E6ECFB',c:'#3E63D6',letter:'T'},
+
+ /* ===== 企业预置·个人授权：三种内部系统授权（原设置·系统集成·授权管理，默认未激活） ===== */
+ {id:'mail',name:'TCL 邮箱代发服务',ver:'v2',tools:0,src:'企业预置',kind:'auth',icon:'mail',status:'off',statusText:'未激活',authMode:'user',authType:'form',desc:'配置用于发送通知及接收系统消息的邮箱服务。',account:'',users:0,tags:['通用系统','使能类'],bg:'#5B4FE0',c:'#ffffff'},
+ {id:'confluence',name:'Confluence知识库',ver:'v1',tools:0,src:'企业预置',kind:'auth',icon:'book',status:'off',statusText:'未激活',authMode:'user',authType:'token',desc:'绑定 Confluence 个人访问令牌后，可使用知识库检索能力',account:'',users:0,tags:['研发/研发','智能知识库平台'],bg:'#5B4FE0',c:'#ffffff'},
+ {id:'jira',name:'Jira 缺陷与任务管理',ver:'v1',tools:0,src:'企业预置',kind:'auth',icon:'layers',status:'off',statusText:'未激活',authMode:'user',authType:'token',desc:'绑定 Jira 账号，授权 TCLaw 快捷创建、查询及同步 Jira 任务状态',account:'',users:0,tags:['研发/研发','项目管理'],bg:'#5B4FE0',c:'#ffffff'}
 ];
 
 /* 连接器详情：服务器基本信息 + 工具清单（对应原 MCP 详情） */
 const CONN_DETAIL={
- mail:{serverId:'tcl-mail-sender',type:'服务器发送事件(sse)',url:'https://mcp.tcl.com/mail-sse',timeout:'30S',provider:'TCL 信息技术中心',providerUrl:'https://it.tcl.com',headers:'{"Authorization":"Bearer eyJhbGciOi…"}',tools:[
-  {n:'mail_send',d:'以当前用户身份代发邮件，支持抄送、附件与回执跟踪。',p:[{n:'to',t:'string',d:'收件人邮箱，多个用逗号分隔'},{n:'subject',t:'string',d:'邮件主题'},{n:'body',t:'string',d:'邮件正文，支持 HTML'}]},
-  {n:'mail_query_reply',d:'按邮件 ID 查询收件人回执与回复内容。',p:[{n:'mail_id',t:'string',d:'邮件唯一标识'}]}]},
- confluence:{serverId:'mcp-confluence',type:'服务器发送事件(sse)',url:'https://chat-ape-mcp-se.tclking.com/sse',timeout:'30S',provider:'',providerUrl:'',headers:'{"X-Confluence-URL":"https://confluence.tclking.com","X-Confluence-TOKEN":"MTc1Mjg3NjE0…"}',tools:[
+ /* —— 企业渠道：由渠道管理平台托管，详情字段来自「编辑渠道」 —— */
+ 'ch-wukong':{kind:'channel',tools:[
+  {n:'scm_material_stock_query',d:'按物料编码/名称查询空调中山工厂实时库存、库位与可用数量。',p:[{n:'material_code',t:'string',d:'物料编码，支持模糊匹配'},{n:'warehouse',t:'string',d:'仓库/库位，可选，默认全部'}],o:[{n:'stock_list',t:'array',d:'库存明细列表（物料、库位、数量、批次）'}]},
+  {n:'scm_purchase_request_create',d:'代用户创建物料采购申请单并返回单号，走渠道鉴权提交到物控系统。',p:[{n:'material_code',t:'string',d:'物料编码'},{n:'qty',t:'number',d:'申请数量'},{n:'reason',t:'string',d:'申请事由'}]},
+  {n:'scm_delivery_track',d:'按采购单号跟踪供应商发货、在途与到货签收状态。',p:[{n:'po_no',t:'string',d:'采购订单号'}]}],examples:[
+  '帮我查一下物料 MTR-2024 在中山工厂的实时库存、库位和可用数量',
+  '帮我创建一张 R410A 冷媒的采购申请，数量 200，用于产线补料',
+  '采购订单 PO-20260918 现在发到哪了？帮我跟踪在途和到货状态',
+  '中山工厂里物料名称含「压缩机」的库存还有多少？'
+]},
+ 'ch-gpm-prod':{kind:'channel',tools:[
+  {n:'gpm_project_query',d:'按项目编号/名称查询 GPM 项目基础信息、项目经理与当前阶段。',p:[{n:'keyword',t:'string',d:'项目编号或名称'}]},
+  {n:'gpm_milestone_list',d:'查询项目里程碑计划与实际完成时间、延期标记。',p:[{n:'project_id',t:'string',d:'项目唯一标识'}]},
+  {n:'gpm_progress_report',d:'读取项目进度周报及关键风险项。',p:[{n:'project_id',t:'string',d:'项目唯一标识'},{n:'week',t:'string',d:'周次，如 2026-W37，可选'}]}],examples:[
+  '查一下「智能座舱二期」项目的项目经理和当前阶段',
+  '帮我看看 GPM-PJ-1024 项目的里程碑计划，哪些延期了？',
+  '拉一下 GPM-PJ-1024 这周的项目进度周报和关键风险',
+  '我负责的项目现在都卡在哪些里程碑上？'
+]},
+ 'ch-gpm-uat':{kind:'channel',tools:[
+  {n:'gpm_project_query',d:'【UAT】按项目编号/名称查询 GPM 项目信息，用于联调验证。',p:[{n:'keyword',t:'string',d:'项目编号或名称'}]},
+  {n:'gpm_milestone_list',d:'【UAT】查询项目里程碑计划与完成情况测试数据。',p:[{n:'project_id',t:'string',d:'项目唯一标识'}]},
+  {n:'gpm_progress_report',d:'【UAT】读取项目进度联调数据。',p:[{n:'project_id',t:'string',d:'项目唯一标识'}]}],examples:[
+  '【UAT】查一下联调项目 GPM-UAT-007 的基础信息和当前阶段',
+  '【UAT】帮我看下测试项目的里程碑完成情况是否正常',
+  '【UAT】拉一条项目进度联调数据，验证渠道是否调通'
+]},
+ 'ch-globalmkt':{kind:'channel',tools:[
+  {n:'mkt_sales_data_query',d:'按区域/产品线/时间范围查询全球销售出货与达成数据。',p:[{n:'region',t:'string',d:'销售大区'},{n:'product_line',t:'string',d:'产品线'},{n:'date_range',t:'string',d:'统计区间，如 2026Q2'}],o:[{n:'sales_list',t:'array',d:'销售数据明细（区域、机型、数量、金额、达成率）'}]},
+  {n:'mkt_share_analysis',d:'获取指定区域各品牌市场份额与同比变化。',p:[{n:'region',t:'string',d:'国家/区域'},{n:'period',t:'string',d:'统计周期'}]},
+  {n:'mkt_outlet_customer_search',d:'检索全球网点与渠道客户档案、分级与覆盖状态。',p:[{n:'keyword',t:'string',d:'客户名称/网点编码'},{n:'region',t:'string',d:'所属区域，可选'}]}],examples:[
+  '查一下 2026 年 Q2 欧洲大区空调产品线的出货量和达成率',
+  '东南亚市场最近一个季度各品牌的市场份额和同比变化如何？',
+  '帮我检索拉美区域名称含「Casa」的渠道客户及其分级',
+  '北美大区今年以来的销售数据和目标达成情况怎么样？'
+]},
+ /* —— 市场安装 MCP：服务器基本信息 + 工具清单（卡片→详情页） —— */
+ 'mcp-confluence':{serverId:'mcp-confluence',type:'服务器发送事件(sse)',url:'https://chat-ape-mcp-se.tclking.com/sse',timeout:'30S',provider:'王芳(fang2.wang)',providerUrl:'',version:'v1',headers:'{"X-Confluence-URL":"https://confluence.tclking.com","X-Confluence-TOKEN":"MTc1Mjg3NjE0…"}',tools:[
   {n:'confluence_search',d:'Search Confluence content using simple terms or CQL. Returns a JSON list of simplified page objects.',p:[{n:'query',t:'string',d:'Search query - can be either a simple text or a CQL query string'},{n:'limit',t:'integer',d:'Maximum number of results (1-6), default to 3'},{n:'spaces_filter',t:'string',d:'(Optional) Comma-separated list of space keys to filter by'}],o:[{n:'results',t:'array',d:'匹配的 Confluence 页面对象列表'}]},
   {n:'confluence_get_page_content_by_url',d:'按页面 URL 获取单个 Confluence 页面的完整正文内容。',p:[{n:'url',t:'string',d:'Confluence 页面链接'}]},
-  {n:'confluence_get_pages_content_by_url',d:'批量获取多个页面内容，用于跨页面汇总。',p:[{n:'urls',t:'array',d:'页面 URL 列表'}]}]},
- txin:{serverId:'tcl-txin-msg',type:'服务器发送事件(sse)',url:'https://mcp.tcl.com/txin-sse',timeout:'30S',provider:'TCL 信息技术中心',providerUrl:'https://it.tcl.com',headers:'{"X-SSO-Token":"工号免密（后台托管）"}',tools:[
-  {n:'txin_send_message',d:'向个人或群聊发送文本/卡片消息。',p:[{n:'chat_id',t:'string',d:'会话 ID'},{n:'content',t:'string',d:'消息内容'}]},
-  {n:'txin_read_attachments',d:'读取指定会话中的附件并返回下载地址。',p:[{n:'chat_id',t:'string',d:'会话 ID'}]}]},
- qcc:{serverId:'qcc-openapi',type:'HTTP 流式',url:'https://mcp.tcl.com/qcc/sse',timeout:'30S',provider:'企查查开放平台',providerUrl:'https://open.qcc.com',headers:'{"X-Api-Key":"团队共享密钥（后台托管）"}',tools:[
-  {n:'qcc_search_company',d:'按企业名称/统一社会信用代码查询工商基础信息。',p:[{n:'keyword',t:'string',d:'企业名称或信用代码'}]},
-  {n:'qcc_risk_info',d:'查询企业涉诉、被执行与经营风险信息。',p:[{n:'keyword',t:'string',d:'企业名称'},{n:'risk_type',t:'string',d:'风险类型：lawsuit / executed / abnormal'}]}]},
- amap:{serverId:'amap-mcp',type:'HTTP 流式',url:'https://restapi.amap.com/mcp',timeout:'20S',provider:'高德开放平台',providerUrl:'https://lbs.amap.com',headers:'{"key":"个人申请的 Web 服务 Key"}',tools:[
-  {n:'maps_geo',d:'将详细地址转换为经纬度坐标（地理编码）。',p:[{n:'address',t:'string',d:'待解析的结构化地址'},{n:'city',t:'string',d:'城市名，可选'}]},
-  {n:'maps_around_search',d:'基于中心点周边检索 POI。',p:[{n:'location',t:'string',d:'中心点经纬度 lng,lat'},{n:'keywords',t:'string',d:'检索关键词'},{n:'radius',t:'integer',d:'搜索半径（米），默认 3000'}]}]},
- wecom:{serverId:'wecom-corp',type:'服务器发送事件(sse)',url:'https://qyapi.weixin.qq.com/mcp',timeout:'30S',provider:'腾讯企业微信',providerUrl:'https://work.weixin.qq.com',headers:'{"corpsecret":"需企业管理员在后台开通应用"}',tools:[
-  {n:'wecom_sync_contacts',d:'同步企业通讯录部门与成员。',p:[{n:'dept_id',t:'integer',d:'部门 ID，默认根部门'}]},
-  {n:'wecom_send_app_msg',d:'发送企业微信应用消息并支持审批回调。',p:[{n:'to_user',t:'string',d:'接收成员 UserID 列表'},{n:'content',t:'string',d:'消息内容'}]}]}
+  {n:'confluence_get_pages_content_by_url',d:'批量获取多个页面内容，用于跨页面汇总。',p:[{n:'urls',t:'array',d:'页面 URL 列表'}]}],examples:[
+  '帮我在 Confluence 里搜一下「MCP 接入规范」相关的文档',
+  '总结一下这篇 Confluence 页面的核心内容和结论',
+  '把这几篇知识库页面的要点汇总成一份对比说明',
+  '研发空间里关于 SSO 单点登录的文档有哪些？'
+]},
+ tpros:{serverId:'tpros',type:'可流式传输的HTTP(streamable)',url:'https://aigc-gateway.tcl.com',timeout:'30S',provider:'',providerUrl:'',version:'v1',headers:'{"Authorization":"*****","Jwttoken":"","X-App-Api-Key":"app-Bi7kwVDCtnHeFolU0KD4GYAf"}',tools:[],examples:[
+  'TPROS 系统的账号权限要怎么申请？',
+  '帮我查一下 TPROS 平台支持哪些功能模块？',
+  'TPROS 登录时提示无权限，该怎么处理？',
+  '如何在 TPROS 里找到某条制度规范的最新版本？'
+]},
+
+ /* —— 企业预置·个人授权系统：基本信息（个人授权）+ 示例引导 —— */
+ mail:{authMethod:'账号密码授权',authTypeLabel:'邮箱账号 + 密码',scope:'通知发送、系统消息接收',credential:'凭据加密存储，仅用于企业邮件代发',tools:[],examples:[
+  '帮我给张睿豪发一封邮件，通知他采购申请单已审批通过',
+  '查一下今天收件箱里有哪些未读的系统通知邮件',
+  '把这份会议纪要整理后用我的企业邮箱发给项目组',
+  '帮我回复刚才那封供应商确认邮件'
+]},
+ confluence:{authMethod:'个人访问令牌',authTypeLabel:'Confluence Personal Access Token',scope:'知识库检索、页面内容读取',credential:'令牌加密存储，仅授予读取相关权限',tools:[],examples:[
+  '帮我在 Confluence 里搜一下「报销制度」最新版文档',
+  '总结一下这篇知识库页面的核心内容和责任人',
+  '研发空间里关于上线发布流程的规范有哪些？',
+  '把这几篇 Confluence 页面的要点汇总给我'
+]},
+ jira:{authMethod:'个人访问令牌',authTypeLabel:'Jira Personal Access Token',scope:'缺陷/任务创建、查询与状态同步',credential:'令牌加密存储，建议有效期 90 天以上',tools:[],examples:[
+  '帮我查一下分配给我的、还没关闭的 Jira 缺陷',
+  '在 Jira 上创建一个高优先级缺陷并指派给测试组',
+  'PROJ-1024 这个任务现在是什么状态？卡在哪一步？',
+  '本周我负责的 Jira 任务完成情况汇总一下'
+]}
+};
+
+/* 连接器授权表单：对应原系统集成·授权管理弹窗，按 authType 渲染 */
+const CONN_AUTH={
+ mail:{title:'授权管理',subtitle:'授权 AI 助手代您收发及管理企业邮件',secure:'数据加密存储，确保企业信息安全',submit:'验证并连接',accountLabel:c=>c.account||'',fields:[
+  {label:'邮箱账号',type:'text',ph:'请输入邮箱账号',val:''},
+  {label:'邮箱密码',type:'password',ph:'请输入您的邮箱密码',val:''}],
+  onDone:'ex_min4.wang@tcl.com'},
+ confluence:{title:'Confluence知识库',subtitle:'绑定 Confluence 个人访问令牌后，可使用知识库检索能力',submit:'验证并保存',
+  guideTitle:'在 Confluence 中生成个人访问令牌',guideLink:'点击跳转到 Confluence 令牌管理',steps:[
+   {t:'进入个人访问令牌页面，点击「创建令牌」'},
+   {t:'令牌名称建议填写 TCL-AI-Assistant，勾选「读取」相关权限，建议取消勾选自动过期'},
+   {t:'复制令牌，粘贴到下方输入框中提交验证'}],
+  tokenLabel:'个人访问令牌',tokenPh:'请粘贴您的 Confluence 个人访问令牌...',
+  onDone:'个人访问令牌 · 有效'},
+ jira:{title:'Jira 缺陷与任务管理',subtitle:'绑定 Jira 个人访问令牌后，可创建、查询及同步任务',submit:'验证并保存',
+  guideTitle:'在 Jira 中生成个人访问令牌',guideLink:'点击跳转到 Jira 个人令牌管理',steps:[
+   {t:'进入「个人资料 → 个人访问令牌」，点击「创建令牌」'},
+   {t:'令牌名称填写 TCL-AI-Assistant，有效期建议设为 90 天以上'},
+   {t:'复制生成的令牌，粘贴到下方输入框中提交验证'}],
+  tokenLabel:'个人访问令牌',tokenPh:'请粘贴您的 Jira 个人访问令牌...',
+  onDone:'个人访问令牌 · 有效'}
 };
 
 /* ================= 页面切换 ================= */
@@ -1079,85 +1294,152 @@ function cnView(el){
   document.querySelectorAll('.csb').forEach(b=>b.classList.remove('sel'));
   renderConn();
 }
+function connIcon(c,size){
+  const s=size||22,sw=1.8,p='<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+sw+'" stroke-linecap="round" stroke-linejoin="round">';
+  if(c.icon==='mail') return p+'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>';
+  if(c.icon==='book') return p+'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/></svg>';
+  if(c.icon==='layers') return p+'<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg>';
+  return c.letter||'';
+}
 function renderConn(){
   const kw=(document.getElementById('cnSearch').value||'').trim().toLowerCase();
   const src=cnActiveChip('source'), dom=cnActiveChip('domain'), sys=cnActiveChip('sys');
-  // 我的连接只显示已建立关系的连接器（已连接/已过期/待开通）
-  let list=CONNECTORS.filter(c=>cnViewMode==='all' || c.status!=='off');
+  // 我的连接：企业预置（渠道+个人授权项）+ 已添加的市场 MCP
+  const inMine=c=>c.kind==='channel'||c.kind==='auth'||c.status==='added';
+  // 来源已合并为「企业预置 / 市场安装」两类，全部连接器与我的连接均展示全部连接器
+  let list=CONNECTORS.slice();
   list=list.filter(c=>!src||src==='全部'||c.src===src);
   list=list.filter(c=>!dom||dom==='全部'||c.tags.some(t=>t.includes(dom)));
   list=list.filter(c=>!sys||sys==='全部'||c.tags.some(t=>t===sys||t.includes(sys)));
-  if(cnStateSel) list=list.filter(c=>c.status===cnStateSel);
+  if(cnStateSel) list=list.filter(c=>(cnStateSel==='ok'?(c.status==='ok'||c.status==='added'):c.status===cnStateSel));
   list=list.filter(c=>c.name.toLowerCase().includes(kw)||c.desc.toLowerCase().includes(kw));
-  // 我的连接：异常优先（已过期 > 待开通 > 已连接）
+  // 我的连接：异常优先（已过期 > 待开通 > 未激活 > 已连接）
   if(cnViewMode==='mine'){
-    const rank={exp:0,wait:1,ok:2};
+    const rank={exp:0,wait:1,off:2,added:3,ok:3};
     list.sort((a,b)=>(rank[a.status]??9)-(rank[b.status]??9));
   }
-  // 计数：分段角标与状态摘要
-  const mine=CONNECTORS.filter(c=>c.status!=='off');
+  // 计数：分段角标与状态摘要（已添加的 MCP 计入已连接）
+  const mine=CONNECTORS.filter(inMine);
+  const isUp=c=>c.status==='ok'||c.status==='added';
   document.getElementById('cnMineN').textContent=mine.length;
-  document.getElementById('csbOk').textContent=mine.filter(c=>c.status==='ok').length;
+  document.getElementById('csbOk').textContent=mine.filter(isUp).length;
   document.getElementById('csbExp').textContent=mine.filter(c=>c.status==='exp').length;
   document.getElementById('csbWait').textContent=mine.filter(c=>c.status==='wait').length;
+  document.getElementById('csbOff').textContent=mine.filter(c=>c.status==='off').length;
 
   document.getElementById('cnGrid').innerHTML = list.length ? list.map(c=>{
-    let btn='';
-    if(c.status==='ok') btn=`<span class="st ok">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();openConnDrawer('${c.id}')">管理</button>`;
-    else if(c.status==='exp') btn=`<span class="st exp">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();openConnDrawer('${c.id}')">重新授权</button>`;
-    else if(c.status==='wait') btn=`<span class="st wait">${c.statusText}</span><button class="cn-btn" onclick="event.stopPropagation();toast('已提交开通申请（原型演示）')">查看审批</button>`;
-    else btn=`<span class="st off">${c.statusText}</span><button class="cn-btn pri" onclick="event.stopPropagation();openConnDrawer('${c.id}')">授权连接</button>`;
-    const srcCls=c.src==='企业预置'?'preset':(c.src==='市场安装'?'market':'');
-    // 后台已配置：在卡片上标记，无需用户授权
-    const backendTag=c.authMode==='backend'?'<span class="cn-auth-flag backend">后台已配置</span>':'';
+    const d=CONN_DETAIL[c.id]||{};
+    const icon=c.icon?connIcon(c):(c.letter||'');
+    // 副标题：渠道 / MCP / 个人授权（统一不再展示工具数量）
+    const sub=c.kind==='channel'?'企业渠道':(c.kind==='auth'?'个人授权':(c.ver||'MCP'));
+    const srcCls=c.src==='市场安装'?'market':'preset';
+    // 底部左侧信息：渠道=负责人/激活状态；MCP=发布者；个人授权=授权方式或已授权账号
+    let meta='';
+    if(c.kind==='channel') meta=c.account||'渠道待激活';
+    else if(c.kind==='mcp') meta=(c.publisher?c.publisher+' ｜ '+c.publishTime:'');
+    else meta=c.status==='ok'?(c.account||'已授权'):(d.authMethod||'个人授权');
+    // 右下角主操作：个人授权未激活→去授权（主按钮）；已授权→管理授权；其余→查看详情
+    let action;
+    if(c.kind==='auth'&&c.status!=='ok'){
+      action=`<button class="cn-btn pri" onclick="event.stopPropagation();openAuthModal('${c.id}')">去授权</button>`;
+    }else if(c.kind==='auth'){
+      action=`<button class="cn-btn" onclick="event.stopPropagation();cnAuthAct('${c.id}')">管理授权</button>`;
+    }else{
+      action=`<button class="cn-btn" onclick="event.stopPropagation();openConnDrawer('${c.id}')">查看详情</button>`;
+    }
     return `<div class="conn st-${c.status}" onclick="openConnDrawer('${c.id}')">
       <div class="conn-top">
-        <div class="cn-ic" style="background:${c.bg};color:${c.c}">${c.letter}</div>
+        <div class="cn-ic" style="background:${c.bg};color:${c.c}">${icon}</div>
         <div class="cn-main">
-          <div class="cn-name">${c.name} <span class="cn-ver">${c.ver} ｜ ${c.tools}个工具</span></div>
+          <div class="cn-name">${c.name} <span class="cn-ver">${sub}</span></div>
           <span class="cn-src ${srcCls}">${c.src}</span>
         </div>
-        ${backendTag}
+        <span class="st ${c.status}">${c.statusText}</span>
       </div>
       <div class="cn-desc">${c.desc}</div>
       <div class="cn-tags">${c.tags.map(t=>'<span class="cn-tag">'+t+'</span>').join('')}</div>
       <div class="cn-foot">
-        <span class="cn-account">${c.account||'尚未绑定账号'}</span>
-        ${btn}
+        <span class="cn-account">${meta}</span>
+        ${action}
       </div>
     </div>`;
-  }).join('') : '<div class="empty-hint" style="display:block">'+(cnViewMode==='mine'?'还没有已授权的连接器，切到「全部连接器」去添加':'没有匹配的连接器')+'</div>';
+  }).join('') : '<div class="empty-hint" style="display:block">'+(cnViewMode==='mine'?'我的连接中没有匹配的连接器':'没有匹配的连接器')+'</div>';
 }
 renderConn();
 
 /* ---------- 连接器（MCP）详情抽屉 ---------- */
+/* 渠道信息（对应 AI 运营管理平台·渠道管理·编辑渠道） */
+function renderChannelInfo(c){
+  const ch=c.channel;
+  const row=(lb,val,req,mono)=>`<div class="ci-row"><span class="ci-lb${req?' req':''}">${lb}</span><span class="ci-val ${mono?'mono':''}">${val||''}</span></div>`;
+  document.getElementById('cdChannelInfo').innerHTML=
+    row('渠道名称',ch.sysName,true)+
+    row('系统名称',ch.sysName,true)+
+    row('管理组',ch.group)+
+    row('环境类型',ch.env,true)+
+    row('负责人',ch.owner,true)+
+    row('授权域名',ch.domain,true,true)+
+    row('鉴权接口',ch.authApi,false,true)+
+    row('Token字段名',ch.tokenField,false,true)+
+    row('UserId字段名',ch.userIdField,false,true)+
+    row('渠道语言',ch.lang);
+  document.getElementById('cdChannelUid').textContent='{\n  "channelUid": "'+ch.uid+'"\n}';
+}
 function openConnDrawer(id){
   const c=CONNECTORS.find(x=>x.id===id);
   const d=CONN_DETAIL[id];
   if(!c||!d) return;
-  document.getElementById('cdIc').style.background=c.bg;
-  document.getElementById('cdIc').style.color=c.c;
-  document.getElementById('cdIc').textContent=c.letter;
+  const ic=document.getElementById('cdIc');
+  ic.style.background=c.bg;
+  ic.style.color=c.c;
+  ic.innerHTML=c.kind==='mcp'?(c.letter||''):connIcon(c);
   document.getElementById('cdName').textContent=c.name;
   document.getElementById('cdTags').innerHTML=c.tags.map(t=>'<span class="ct">'+t+'</span>').join('');
-  document.getElementById('cdVer').textContent=c.ver+'　｜　'+c.tools+' 个工具';
+  document.getElementById('cdVer').textContent=c.kind==='channel'?'企业预置　｜　企业渠道':(c.kind==='auth'?'企业预置　｜　个人授权':c.src+'　｜　'+c.ver);
   const st=document.getElementById('cdStatus');
   st.className='st '+c.status;
   st.textContent=c.statusText;
   document.getElementById('cdDesc').textContent=c.desc;
-  document.getElementById('ciId').textContent=d.serverId;
-  document.getElementById('ciType').textContent=d.type;
-  document.getElementById('ciUrl').textContent=d.url;
-  document.getElementById('ciTimeout').textContent=d.timeout;
-  document.getElementById('ciProvider').textContent=d.provider||'';
-  document.getElementById('ciProviderUrl').textContent=d.providerUrl||'';
-  document.getElementById('ciHeaders').textContent=d.headers;
+  // 区块切换：企业渠道（渠道管理） / 个人授权系统 / MCP 连接器
+  const isChannel=c.kind==='channel';
+  const isAuth=c.kind==='auth';
+  document.querySelector('.cd-head .cd-title').textContent=isChannel?'渠道详情':(isAuth?'连接器详情':'MCP 详情');
+  document.getElementById('cdChannelWrap').style.display=isChannel?'block':'none';
+  document.getElementById('cdMcpWrap').style.display=(!isChannel&&!isAuth)?'block':'none';
+  document.getElementById('cdAuthInfoWrap').style.display=isAuth?'block':'none';
+  if(isChannel){
+    renderChannelInfo(c);
+  }else if(isAuth){
+    document.getElementById('caiMethod').textContent=d.authMethod;
+    document.getElementById('caiType').textContent=d.authTypeLabel;
+    document.getElementById('caiScope').textContent=d.scope;
+    document.getElementById('caiCred').textContent=d.credential;
+  }else{
+    document.getElementById('ciId').textContent=d.serverId;
+    document.getElementById('ciType').textContent=d.type;
+    document.getElementById('ciUrl').textContent=d.url;
+    document.getElementById('ciTimeout').textContent=d.timeout;
+    document.getElementById('ciProvider').textContent=d.provider||'';
+    document.getElementById('ciProviderUrl').textContent=d.providerUrl||'';
+    document.getElementById('ciHeaders').textContent=d.headers;
+  }
   document.getElementById('cdToolN').textContent='('+d.tools.length+')';
-  // 授权方式提示条：后台已配置 / 需用户授权（过期用 warn）
+  // 授权方式提示条：企业渠道（后台托管） / 需用户授权（过期用 warn）
   const auth=document.getElementById('cdAuth');
-  if(c.authMode==='backend'){
+  if(isChannel){
+    if(c.status==='off'){
+      auth.className='cd-auth warn';
+      auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span>该渠道已在渠道管理注册，当前<b>待激活</b>，激活由企业管理员在 AI 运营管理平台完成。</span><span class="cd-auth-act" onclick="toast(\'联系渠道负责人：'+(c.channel.owner.replace(/'/g,''))+'（原型演示）\')">联系负责人</span>';
+    }else{
+      auth.className='cd-auth backend';
+      auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span><b>企业预置渠道</b>：由 AI 运营管理平台·渠道管理统一接入与托管，当前账号免授权即可使用。</span>';
+    }
+  }else if(c.authMode==='backend'){
     auth.className='cd-auth backend';
-    auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span><b>后台已配置</b>：凭据由 IT 统一托管，当前账号免授权即可使用，无需个人操作。</span>';
+    auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span><b>已添加</b>：该 MCP 已添加到工作区，凭据由平台统一托管，当前账号可直接调用其工具。</span>';
+  }else if(c.status==='added'){
+    auth.className='cd-auth user';
+    auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>该 MCP <b>已添加</b>到工作区，可直接调用其 '+c.tools+' 个工具。</span>';
   }else if(c.status==='exp'){
     auth.className='cd-auth warn';
     auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span>授权已过期，需<b>重新授权</b>后才能继续调用该连接器的工具。</span><span class="cd-auth-act" onclick="cnAuthAct(\''+c.id+'\')">重新授权</span>';
@@ -1171,10 +1453,26 @@ function openConnDrawer(id){
     auth.className='cd-auth user';
     auth.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span><b>需要授权</b>：连接后硅基员工才能调用该工具。</span><span class="cd-auth-act" onclick="cnAuthAct(\''+c.id+'\')">去授权</span>';
   }
-  // 工具 Tab
-  document.getElementById('cdToolTabs').innerHTML=d.tools.map((t,i)=>'<div class="cd-tool-tab '+(i===0?'on':'')+'" onclick="cdToolTab(this,'+i+')">'+t.n+'</div>').join('');
-  window.__cdTools=d.tools;
-  cdRenderTool(0);
+  // 统一不再展示工具与输入/输出参数，所有连接器详情均用「试试这样用」示例引导
+  const fallback=['帮我介绍一下这个连接器能做什么？','我可以让它帮我处理哪些事情？','带我在聊天中试用一下这个连接器'];
+  const examples=(Array.isArray(d.examples)&&d.examples.length)?d.examples:fallback;
+  document.getElementById('cdToolTitle').style.display='none';
+  document.getElementById('cdToolTabs').style.display='none';
+  document.getElementById('cdToolCard').style.display='none';
+  document.getElementById('cdTryWrap').style.display='block';
+  document.getElementById('cdTryList').innerHTML=examples.map(q=>
+    '<div class="cd-try-item" onclick="toast(\'已带入示例问题，在聊天中尝试（原型演示）\')"><span class="cd-try-q">“'+q+'”</span><svg class="cd-try-go" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.7L3 21l1.8-5.8A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 11h.01M12.5 11h.01M16 11h.01"/></svg></div>'
+  ).join('');
+  // 底部主操作：个人授权项未激活→去授权；渠道待激活→在聊天中尝试（后台激活）；其余可用→在聊天中尝试
+  const foot=document.getElementById('cdFoot');
+  const chatIcon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>';
+  const lockIcon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
+  if(isAuth&&c.status!=='ok'){
+    foot.innerHTML='<button class="cd-try primary" onclick="closeConnDrawer();openAuthModal(\''+c.id+'\')">'+lockIcon+' 去授权</button>';
+  }else{
+    foot.innerHTML='<button class="cd-try" onclick="toast(\'已带入该连接器，在聊天中尝试（原型演示）\')">'+chatIcon+' 在聊天中尝试</button>';
+  }
+  document.querySelector('#cnDrawer .dr-body').scrollTop=0;
   document.getElementById('cnMask').classList.add('show');
   document.getElementById('cnDrawer').classList.add('show');
 }
@@ -1202,22 +1500,81 @@ function cdRenderTool(i){
     <div class="cd-ptitle">输出参数</div>
     ${rows(t.o,'参数')}`;
 }
+let __authId=null;
+function openAuthModal(id){
+  const c=CONNECTORS.find(x=>x.id===id);
+  const a=CONN_AUTH[id];
+  if(!c||!a){
+    // 无独立表单（后台托管/申请制）给提示
+    if(c&&c.authType==='apply') toast('该连接器需企业管理员开通，已在审批中');
+    else if(c) toast('后台已配置，无需个人授权');
+    return;
+  }
+  __authId=id;
+  document.getElementById('amTitle').textContent=a.title;
+  document.getElementById('amSubmitText').textContent=a.submit;
+  let form='';
+  if(a.fields){
+    // 账密 / Key 型
+    form=a.fields.map((f,i)=>`<div class="am-field">
+        <label>${f.label}</label>
+        <input type="${f.type}" data-f="${i}" placeholder="${f.ph}" value="${f.val||''}">
+      </div>`).join('') + (a.secure?`<div class="am-secure"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>${a.secure}</div>`:'');
+  }else if(a.steps){
+    // 令牌指引型
+    form=`<div class="am-guide">
+        <div class="am-guide-head">
+          <span class="am-guide-no">1</span><span class="am-guide-title">${a.guideTitle}</span>
+          <span class="am-guide-link" onclick="toast('跳转到外部令牌管理页（原型演示）')">${a.guideLink} <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></span>
+        </div>
+        <div class="am-steps">${a.steps.map((s,i)=>`<div class="am-step"><b>STEP ${i+1}</b><p>${s.t}</p></div>`).join('')}</div>
+      </div>
+      <div class="am-token-sec"><span class="am-guide-no">2</span><label>${a.tokenLabel}</label></div>
+      <div class="am-field"><input type="text" data-token="1" placeholder="${a.tokenPh}"></div>`;
+  }
+  document.getElementById('amBody').innerHTML=`
+    <div class="am-svc">
+      <div class="cn-ic" style="background:${c.bg};color:${c.c}">${connIcon(c,24)}</div>
+      <div><div class="am-svc-name">${c.name}</div><div class="am-svc-sub">${a.subtitle}</div></div>
+    </div>
+    ${form}`;
+  document.getElementById('amMask').classList.add('show');
+  document.getElementById('amModal').classList.add('show');
+}
+function closeAuthModal(){
+  document.getElementById('amMask').classList.remove('show');
+  document.getElementById('amModal').classList.remove('show');
+  __authId=null;
+}
+function cnAuthSubmit(){
+  const id=__authId;
+  const c=CONNECTORS.find(x=>x.id===id);
+  const a=CONN_AUTH[id];
+  if(!c||!a) return;
+  // 原型校验：至少填一个非空
+  const vals=[...document.querySelectorAll('#amBody input')].map(i=>i.value.trim());
+  if(vals.some(v=>!v)){ toast('请先填写完整授权信息'); return; }
+  c.status='ok'; c.statusText=c.kind==='auth'?'已激活':'已连接'; c.account=a.onDone;
+  closeAuthModal();
+  renderConn();
+  toast('验证成功，已激活「'+c.name+'」');
+}
+// 卡片/详情的授权入口：系统集成授权项始终走授权弹窗；已连接项提供解除授权
 function cnAuthAct(id){
   const c=CONNECTORS.find(x=>x.id===id);
   if(!c) return;
-  if(c.status==='ok'){ toast('管理授权：解除/更换账号（原型演示）'); return; }
-  if(c.status==='exp'){
-    c.status='ok'; c.statusText='已连接';
-    c.account=c.id==='confluence'?'个人访问令牌 · 有效':c.account;
-    renderConn(); openConnDrawer(id);
-    toast('已重新授权「'+c.name+'」');
+  if(c.kind==='auth'){ openAuthModal(id); return; }
+  if(c.status==='ok'||c.status==='added'){
+    // 已连接：提供解除授权的管理动作（原型演示）
+    if(confirm('解除「'+c.name+'」的授权？（原型演示）')){
+      c.status='off'; c.statusText=c.kind==='channel'?'待激活':'未连接'; c.account='';
+      renderConn();
+      if(document.getElementById('cnDrawer').classList.contains('show')) openConnDrawer(id);
+      toast('已解除授权');
+    }
     return;
   }
-  // 未连接 → 授权成功
-  c.status='ok'; c.statusText='已连接';
-  c.account=c.id==='amap'?'Web 服务 Key · 已绑定':'账号已连接';
-  renderConn(); openConnDrawer(id);
-  toast('已授权连接「'+c.name+'」');
+  openAuthModal(id);
 }
 
 // URL 参数：?tab=conn&view=mine 直达连接器·我的连接（供设置·系统集成跳转）
