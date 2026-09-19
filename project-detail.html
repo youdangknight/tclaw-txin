@@ -35,33 +35,27 @@ svg{display:block;}
 .nav-item.on{background:#e8effc;color:var(--blue);font-weight:500;}
 .nav-item.on .ic{color:var(--blue);}
 
-/* 项目树（融合导航模式，参考截图） */
-.proj-tree{flex:1;overflow-y:auto;padding:4px 10px 8px;}
-.pt-head{display:flex;align-items:center;padding:8px 10px 6px;font-size:12px;color:var(--sub);}
-.pt-head .pt-title{font-weight:600;color:#5b616a;}
-.pt-head .pt-add{margin-left:auto;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#8a9099;cursor:pointer;}
-.pt-head .pt-add:hover{background:#eceef1;color:var(--text);}
-.pt-pj{display:flex;align-items:center;gap:7px;height:36px;padding:0 8px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;}
-.pt-pj:hover{background:#eceef1;}
-.pt-pj.on{background:#e3eaf6;color:#1f2329;}
-.pt-pj .car{color:#9aa0aa;display:flex;transition:.2s;}
-.pt-pj.open .car{transform:rotate(90deg);}
-.pt-pj .pji{color:#6a7078;display:flex;}
-.pt-pj .pnm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pt-sub{padding:2px 0 4px 26px;}
-.pt-chat{display:flex;align-items:center;gap:8px;height:32px;padding:0 8px;border-radius:8px;font-size:12.5px;color:#5b616a;cursor:pointer;white-space:nowrap;}
-.pt-chat:hover{background:#eceef1;}
-.pt-chat .cnm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pt-chat .ct{font-size:11px;color:var(--sub2);flex-shrink:0;}
-.pt-chat.on{background:#fff;color:var(--blue);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.05);}
-.pt-pj2{display:flex;align-items:center;gap:7px;height:34px;padding:0 8px 0 16px;border-radius:9px;font-size:13px;color:#3a3f47;cursor:pointer;}
-.pt-pj2:hover{background:#eceef1;}
-.pt-pj2 .car{color:#9aa0aa;display:flex;}
-.pt-pj2 .pnm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pt-sep{height:1px;background:var(--line);margin:10px 12px;}
-.pt-recent{padding:2px 10px;}
-.pt-recent .r-t{font-size:12px;color:var(--sub);padding:4px 8px;display:flex;align-items:center;}
-.pt-recent .r-t .q{margin-left:auto;color:#aab0b9;cursor:pointer;}
+.nav-item.new{font-weight:500;color:#1f2329;}
+
+/* IM 融合栏（与项目管理页完全一致） */
+.im{flex:1;display:flex;min-height:0;border-top:1px solid var(--line);}
+.rail{width:54px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;}
+.rail .r-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#5b616a;cursor:pointer;}
+.rail .r-icon:hover{background:#eceef1;color:var(--text);}
+.rail .r-sp{flex:1;}
+.conv{flex:1;display:flex;flex-direction:column;min-width:0;}
+.tabs{height:46px;flex-shrink:0;display:flex;align-items:center;gap:14px;padding:0 10px 0 2px;font-size:12.5px;color:var(--sub);white-space:nowrap;}
+.tabs .t{cursor:pointer;}
+.tabs .t.on{color:var(--text);font-weight:600;}
+.conv-list{flex:1;overflow-y:auto;padding:0 6px 6px;}
+.conv-item{display:flex;align-items:center;gap:9px;padding:8px;border-radius:10px;cursor:pointer;}
+.conv-item:hover{background:#eceef1;}
+.conv-item .face{width:40px;height:40px;border-radius:50%;flex-shrink:0;object-fit:cover;}
+.conv-item .meta{flex:1;min-width:0;}
+.conv-item .row1{display:flex;align-items:baseline;justify-content:space-between;gap:6px;}
+.conv-item .nm{font-size:13.5px;font-weight:500;}
+.conv-item .time{font-size:11.5px;color:var(--sub2);}
+.conv-item .preview{font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 .userbar{height:58px;flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 12px;border-top:1px solid var(--line);}
 .userbar .u-face{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#2b6de8,#4d8dff);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;position:relative;}
@@ -178,50 +172,38 @@ tbody tr:hover{background:#fafbfc;}
   </div>
 
   <div class="body">
-    <!-- 左侧融合导航：项目树 -->
+    <!-- 左侧融合导航：与项目管理页完全一致 -->
     <aside class="side">
       <nav class="nav">
-        <a class="nav-item" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>新对话</a>
+        <a class="nav-item new" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>新建任务</a>
+        <a class="nav-item" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg></span>历史任务</a>
         <div class="nav-item" onclick="toast('定时任务（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 2M9 2h6M12 5V2"/></svg></span>定时任务</div>
-        <div class="nav-item" onclick="toast('AI 资产（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5c2.2-1.4 4.4-2 8-2s5.8.6 8 2v13c-2.2-1.4-4.4-2-8-2s-5.8.6-8 2Z"/><path d="M12 3.5v13"/></svg></span>AI资产</div>
-        <div class="nav-item" onclick="toast('我的应用（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span>我的应用</div>
+        <a class="nav-item on" href="projects.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.2 7.3 15.8 10.7M8.2 16.7l7.6-3.4"/></svg></span>项目</a>
+        <a class="nav-item" href="employees.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/><path d="M18.5 16.5 19 18l1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5Z" stroke-width="1.3"/></svg></span>技能·硅基员工</a>
+        <div class="nav-item" onclick="toast('AI 资产库（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5c2.2-1.4 4.4-2 8-2s5.8.6 8 2v13c-2.2-1.4-4.4-2-8-2s-5.8.6-8 2Z"/><path d="M12 3.5v13"/></svg></span>AI资产库</div>
+        <div class="nav-item" onclick="toast('更多（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></span>更多</div>
       </nav>
 
-      <div class="proj-tree">
-        <div class="pt-head"><span class="pt-title">项目</span>
-          <span class="pt-add" onclick="location.href='projects.html'" title="项目管理"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      <div class="im">
+        <div class="rail">
+          <div class="r-icon" onclick="toast('工作台（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5 3 7l5 5-5 5 2 2 7-7Z"/><path d="m12 5 7 7-7 7"/></svg></div>
+          <div class="r-icon" onclick="toast('图片（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.7"/><path d="m4.5 17.5 5-5 3.5 3.5 2.5-2.5 4 4"/></svg></div>
+          <div class="r-icon" onclick="toast('待办（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2.5"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5M3.5 12.5h17"/></svg></div>
+          <div class="r-icon" onclick="toast('视频会议（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="m16 10 5-2.5v9L16 14"/></svg></div>
+          <div class="r-icon" onclick="toast('收藏（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 4h10v16l-5-3.2L7 20Z"/></svg></div>
+          <div class="r-icon" onclick="toast('应用（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7.5" cy="7.5" r="2.2"/><circle cx="16.5" cy="7.5" r="2.2"/><circle cx="7.5" cy="16.5" r="2.2"/><circle cx="16.5" cy="16.5" r="2.2"/></svg></div>
+          <div class="r-icon" onclick="toast('云盘（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 18a4 4 0 1 1 .7-7.9A5.5 5.5 0 0 1 18.3 12 3.5 3.5 0 0 1 17.5 18Z"/></svg></div>
+          <div class="r-sp"></div>
+          <div class="r-icon" onclick="toast('更多（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="18" cy="12" r="1.7"/></svg></div>
         </div>
-        <!-- 当前项目 -->
-        <div class="pt-pj open on" id="treePj1" onclick="togglePj(this)">
-          <span class="car"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-          <span class="pji"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 9.5h17"/></svg></span>
-          <span class="pnm" id="treePjName">2026 Q3 产品规划</span>
-        </div>
-        <div class="pt-sub" id="treeSub1">
-          <div class="pt-chat on"><span class="cnm">竞品对比</span><span class="ct">09/03</span></div>
-          <div class="pt-chat"><span class="cnm">需求池整理</span><span class="ct">09/02</span></div>
-          <div class="pt-chat"><span class="cnm">季度目标拆解</span><span class="ct">09/01</span></div>
-        </div>
-        <!-- 其他项目 -->
-        <div class="pt-pj2" onclick="toast('切换项目（原型演示）')">
-          <span class="car"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-          <span class="pnm">龙虾系统集成优化</span>
-        </div>
-        <div class="pt-pj2" onclick="toast('切换项目（原型演示）')">
-          <span class="car"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-          <span class="pnm">X11H Mini LED 上市…</span>
-        </div>
-
-        <div class="pt-sep"></div>
-        <div class="pt-recent">
-          <div class="r-t">最近的对话 <span class="q"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></span></div>
-          <div class="pt-chat"><span class="cnm">你的新批量 OpenCl…</span><span class="ct">09/03</span></div>
-          <div class="pt-chat"><span class="cnm">主岗网页触 AI 对话…</span><span class="ct">09/02</span></div>
+        <div class="conv">
+          <div class="tabs"><span class="t on" onclick="toast('全部对话（原型演示）')">全部对话</span><span class="t" onclick="toast('未读（原型演示）')">未读99+</span><span class="t" onclick="toast('待处理（原型演示）')">待处理</span><span class="t" onclick="toast('@我（原型演示）')">@我</span></div>
+          <div class="conv-list" id="convList"></div>
         </div>
       </div>
 
       <div class="userbar">
-        <div class="u-face">王</div><span class="u-name">王婵</span>
+        <div class="u-face">哈</div><span class="u-name">阿拉丁</span>
         <div class="u-more"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
       </div>
     </aside>
@@ -348,11 +330,17 @@ tbody tr:hover{background:#fafbfc;}
   const name=p.get('name');
   if(name){
     document.getElementById('dTitle').textContent=name;
-    document.getElementById('treePjName').textContent=name;
     document.getElementById('dIc').textContent=name[0];
     document.title=name+' · TCLaw 龙虾';
   }
 })();
+
+// 左侧 IM 会话列表（与项目管理页一致）
+document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
+  <div class="conv-item" onclick="toast('打开会话（原型演示）')">
+    <img class="face" src="assets/avatar.png">
+    <div class="meta"><div class="row1"><span class="nm">梁梦欣</span><span class="time">12:00</span></div><div class="preview">[5条]发给你了噢~</div></div>
+  </div>`).join('');
 
 // Tab 切换
 function switchTab(el){
@@ -361,9 +349,6 @@ function switchTab(el){
   el.classList.add('on');
   document.getElementById('pane-'+el.dataset.pane).classList.add('on');
 }
-
-// 侧栏项目折叠
-function togglePj(el){ el.classList.toggle('open'); document.getElementById('treeSub1').style.display=el.classList.contains('open')?'block':'none'; }
 
 // 对话数据
 const CHATS=[
