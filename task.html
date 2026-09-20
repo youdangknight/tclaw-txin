@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>任务对话 · TCLaw 龙虾 AI 工作台</title>
+<style>
+:root{
+  --side-bg:#f6f7f9; --panel:#ffffff; --border:#e8e9ed; --line:#ededf0;
+  --text:#1f2329; --sub:#8a9099; --sub2:#a6abb4; --chip:#f3f4f6;
+  --blue:#2f7bf6; --blue-d:#2568dd; --ink:#1f2329;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:#fff;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;}
+.app{display:flex;flex-direction:column;height:100vh;}
+svg{display:block;}
+
+.titlebar{height:38px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;}
+.traffic{display:flex;gap:8px;}
+.traffic i{width:12px;height:12px;border-radius:50%;display:block;}
+.traffic i:nth-child(1){background:#ff5f57;}.traffic i:nth-child(2){background:#febc2e;}.traffic i:nth-child(3){background:#28c840;}
+.tb-tools{display:flex;align-items:center;gap:6px;margin-left:32px;}
+.tb-icon{width:30px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#6b7078;cursor:pointer;text-decoration:none;}
+.tb-icon:hover{background:#f1f2f4;color:var(--text);}
+
+.body{flex:1;display:flex;min-height:0;}
+
+/* 左侧栏 */
+.side{width:296px;flex-shrink:0;background:var(--side-bg);display:flex;flex-direction:column;min-height:0;}
+.nav{padding:10px 12px 6px;flex-shrink:0;}
+.nav-item{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:9px;color:#3a3f47;font-size:14px;cursor:pointer;text-decoration:none;white-space:nowrap;}
+.nav-item .ic{color:#5b616a;display:flex;flex-shrink:0;}
+.nav-item:hover{background:#eceef1;}
+.nav-item.on{background:#e8effc;color:var(--blue);font-weight:500;}
+.nav-item.on .ic{color:var(--blue);}
+.nav-item.new{font-weight:500;color:#1f2329;}
+
+.im{flex:1;display:flex;min-height:0;border-top:1px solid var(--line);}
+.rail{width:54px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;}
+.rail .r-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#5b616a;cursor:pointer;}
+.rail .r-icon:hover{background:#eceef1;color:var(--text);}
+.rail .r-sp{flex:1;}
+.conv{flex:1;display:flex;flex-direction:column;min-width:0;}
+.tabs{height:46px;flex-shrink:0;display:flex;align-items:center;gap:14px;padding:0 10px 0 2px;font-size:12.5px;color:var(--sub);white-space:nowrap;}
+.tabs .t{cursor:pointer;}
+.tabs .t.on{color:var(--text);font-weight:600;}
+.conv-list{flex:1;overflow-y:auto;padding:0 6px 6px;}
+.conv-item{display:flex;align-items:center;gap:9px;padding:8px;border-radius:10px;cursor:pointer;}
+.conv-item:hover{background:#eceef1;}
+.conv-item .face{width:40px;height:40px;border-radius:50%;flex-shrink:0;object-fit:cover;}
+.conv-item .meta{flex:1;min-width:0;}
+.conv-item .row1{display:flex;align-items:baseline;justify-content:space-between;gap:6px;}
+.conv-item .nm{font-size:13.5px;font-weight:500;}
+.conv-item .time{font-size:11.5px;color:var(--sub2);}
+.conv-item .preview{font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.userbar{height:58px;flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 12px;border-top:1px solid var(--line);}
+.userbar .u-face{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#2b6de8,#4d8dff);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;position:relative;}
+.userbar .u-face::after{content:"";position:absolute;right:-2px;bottom:-2px;width:12px;height:12px;border-radius:50%;background:#28c840;border:2px solid var(--side-bg);}
+.userbar .u-name{font-size:13.5px;font-weight:500;}
+.userbar .u-more{margin-left:auto;color:#8a9099;cursor:pointer;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.userbar .u-more:hover{background:#eceef1;}
+
+/* 主区 */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#fff;}
+
+/* 面包屑栏 */
+.crumbbar{flex-shrink:0;height:52px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:8px;}
+.crumbbar .cb-ic{color:#8a9099;display:flex;margin-right:2px;}
+.crumb{font-size:13.5px;color:var(--sub);cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
+.crumb:hover{color:var(--blue);}
+.crumb.cur{color:var(--text);font-weight:600;cursor:default;}
+.crumb.cur:hover{color:var(--text);}
+.crumb .sep{color:#c9cdd4;}
+
+/* 对话滚动区 */
+.chat-scroll{flex:1;overflow-y:auto;}
+.chat-wrap{max-width:900px;margin:0 auto;padding:26px 28px 30px;display:flex;flex-direction:column;gap:18px;}
+
+/* 文件卡（右对齐） */
+.files-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;max-width:760px;margin-left:auto;}
+.file-card{display:flex;align-items:center;gap:9px;width:172px;border:1px solid var(--border);border-radius:11px;padding:10px 12px;background:#fff;cursor:pointer;transition:.15s;}
+.file-card:hover{border-color:#d4dae4;box-shadow:0 4px 14px rgba(31,35,41,.06);}
+.file-card .f-ic{width:30px;height:30px;border-radius:8px;background:#f2f4f8;color:#8a9099;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
+.file-card .f-ic .plus{position:absolute;right:-3px;bottom:-3px;width:14px;height:14px;border-radius:4px;background:#fff;color:#9aa0aa;display:flex;align-items:center;justify-content:center;border:1px solid #e6e8ed;}
+.file-card .f-meta{min-width:0;}
+.file-card .f-nm{font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.file-card .f-sub{font-size:11px;color:var(--sub2);margin-top:2px;}
+
+/* 用户气泡 */
+.user-row{display:flex;justify-content:flex-end;}
+.user-bubble{max-width:72%;background:#e9edfd;border:1px solid #e0e7fc;border-radius:14px 14px 4px 14px;padding:13px 17px;font-size:14px;line-height:1.7;color:#2b3245;}
+
+/* AI 列 */
+.ai-col{display:flex;flex-direction:column;gap:14px;max-width:760px;}
+
+/* 步骤折叠卡 */
+.steps{border:1px solid var(--border);border-radius:12px;background:#fff;overflow:hidden;}
+.steps-head{display:flex;align-items:center;gap:8px;height:42px;padding:0 16px;font-size:13px;color:#6b7078;cursor:pointer;user-select:none;}
+.steps-head:hover{background:#fafbfc;}
+.steps-head .chev{color:#9aa0aa;display:flex;transition:.2s;}
+.steps.collapsed .chev{transform:rotate(-90deg);}
+.steps-body{border-top:1px solid #f2f3f5;padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;}
+.steps.collapsed .steps-body{display:none;}
+.step-line{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:#444b55;}
+.step-line .s-ic{color:#8a9099;flex-shrink:0;margin-top:2px;display:flex;}
+.skill-chips{display:flex;flex-direction:column;gap:7px;margin:2px 0 0 26px;}
+.chip-code{align-self:flex-start;max-width:100%;background:#f2f3f5;color:#5b616a;font-size:11.5px;border-radius:7px;padding:4px 10px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all;}
+
+/* AI 文本 */
+.ai-text{font-size:14px;line-height:1.9;color:#2b3245;}
+
+/* PDF 结果卡 */
+.result-card{display:flex;align-items:center;gap:13px;border:1px solid var(--border);border-radius:12px;background:#fff;padding:15px 18px;}
+.result-card .pdf-ic{width:40px;height:40px;border-radius:10px;background:#fdeef0;color:#e05a4f;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.result-card .r-meta{min-width:0;}
+.result-card .r-nm{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.result-card .r-type{font-size:11.5px;color:var(--sub2);margin-top:2px;}
+.result-card .r-acts{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.r-btn{height:32px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12.5px;color:#3a3f47;display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-family:inherit;}
+.r-btn:hover{background:#f5f6f8;}
+
+/* 消息操作条 */
+.msg-actions{display:flex;align-items:center;gap:2px;}
+.msg-actions .ma-date{font-size:12px;color:var(--sub2);margin-right:8px;}
+.ma-btn{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9aa0aa;cursor:pointer;}
+.ma-btn:hover{background:#f2f3f5;color:var(--text);}
+
+/* 底部 dock */
+.chat-dock{flex-shrink:0;border-top:1px solid var(--line);background:#fff;padding:12px 28px 10px;}
+.dock-inner{max-width:900px;margin:0 auto;}
+.chat-composer{border:1px solid var(--border);border-radius:14px;background:#fff;padding:12px 14px 8px;box-shadow:0 2px 10px rgba(30,50,90,.05);}
+.chat-composer:focus-within{border-color:#bcd2fb;box-shadow:0 0 0 3px rgba(47,123,246,.10);}
+.chat-composer textarea{width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:14px;line-height:1.6;color:var(--text);max-height:140px;}
+.chat-composer textarea::placeholder{color:#b4b9c1;}
+.cc-tools{display:flex;align-items:center;gap:6px;margin-top:8px;}
+.cc-tool{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 10px;border-radius:8px;font-size:12.5px;color:var(--sub);cursor:pointer;}
+.cc-tool:hover{background:#f3f5f8;color:var(--text);}
+.cc-sp{flex:1;}
+.cc-voice{height:34px;padding:0 16px;border-radius:9px;border:1px solid var(--border);background:#fff;color:#3a3f47;font-size:13px;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+.cc-voice:hover{background:#f5f6f8;}
+.cc-send{height:34px;padding:0 18px;border:none;border-radius:9px;background:var(--ink);color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
+.cc-send:hover{background:#000;}
+.cc-hint{text-align:center;font-size:11.5px;color:var(--sub2);margin-top:8px;}
+
+.toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:rgba(31,35,41,.92);color:#fff;font-size:13px;padding:9px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:99;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-thumb{background:#d8dbe0;border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="titlebar">
+    <div class="traffic"><i></i><i></i><i></i></div>
+    <div class="tb-tools">
+      <a class="tb-icon" href="index.html" title="搜索"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></a>
+      <a class="tb-icon" href="index.html" title="侧边栏"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M9 4v16"/></svg></a>
+    </div>
+  </div>
+
+  <div class="body">
+    <aside class="side">
+      <nav class="nav">
+        <a class="nav-item new" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>新建任务</a>
+        <a class="nav-item" href="history.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg></span>任务记录</a>
+        <div class="nav-item" onclick="toast('定时任务（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 2M9 2h6M12 5V2"/></svg></span>定时任务</div>
+        <a class="nav-item on" href="projects.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.2 7.3 15.8 10.7M8.2 16.7l7.6-3.4"/></svg></span>项目</a>
+        <a class="nav-item" href="employees.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/><path d="M18.5 16.5 19 18l1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5Z" stroke-width="1.3"/></svg></span>硅基员工·技能·连接器</a>
+        <div class="nav-item" onclick="toast('AI 资产库（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5c2.2-1.4 4.4-2 8-2s5.8.6 8 2v13c-2.2-1.4-4.4-2-8-2s-5.8.6-8 2Z"/><path d="M12 3.5v13"/></svg></span>AI资产库</div>
+        <div class="nav-item" onclick="toast('更多（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></span>更多</div>
+      </nav>
+
+      <div class="im">
+        <div class="rail">
+          <div class="r-icon" onclick="toast('工作台（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5 3 7l5 5-5 5 2 2 7-7Z"/><path d="m12 5 7 7-7 7"/></svg></div>
+          <div class="r-icon" onclick="toast('图片（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.7"/><path d="m4.5 17.5 5-5 3.5 3.5 2.5-2.5 4 4"/></svg></div>
+          <div class="r-icon" onclick="toast('待办（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2.5"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5M3.5 12.5h17"/></svg></div>
+          <div class="r-icon" onclick="toast('视频会议（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="m16 10 5-2.5v9L16 14"/></svg></div>
+          <div class="r-icon" onclick="toast('收藏（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 4h10v16l-5-3.2L7 20Z"/></svg></div>
+          <div class="r-icon" onclick="toast('应用（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7.5" cy="7.5" r="2.2"/><circle cx="16.5" cy="7.5" r="2.2"/><circle cx="7.5" cy="16.5" r="2.2"/><circle cx="16.5" cy="16.5" r="2.2"/></svg></div>
+          <div class="r-icon" onclick="toast('云盘（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 18a4 4 0 1 1 .7-7.9A5.5 5.5 0 0 1 18.3 12 3.5 3.5 0 0 1 17.5 18Z"/></svg></div>
+          <div class="r-sp"></div>
+          <div class="r-icon" onclick="toast('更多（原型演示）')"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="18" cy="12" r="1.7"/></svg></div>
+        </div>
+        <div class="conv">
+          <div class="tabs"><span class="t on" onclick="toast('全部对话（原型演示）')">全部对话</span><span class="t" onclick="toast('未读（原型演示）')">未读99+</span><span class="t" onclick="toast('待处理（原型演示）')">待处理</span><span class="t" onclick="toast('@我（原型演示）')">@我</span></div>
+          <div class="conv-list" id="convList"></div>
+        </div>
+      </div>
+
+      <div class="userbar">
+        <div class="u-face">哈</div><span class="u-name">阿拉丁</span>
+        <div class="u-more"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+      </div>
+    </aside>
+
+    <!-- 主区 -->
+    <main class="main">
+      <!-- 三级面包屑：项目 / 项目名 / 任务名 -->
+      <div class="crumbbar">
+        <span class="cb-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.5 6.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/></svg></span>
+        <a class="crumb" href="projects.html">项目</a>
+        <span class="sep">/</span>
+        <a class="crumb" id="crumbProject" href="project-detail.html">项目名项目名</a>
+        <span class="sep">/</span>
+        <span class="crumb cur" id="crumbTask">五一安徽旅游推荐</span>
+      </div>
+
+      <div class="chat-scroll">
+        <div class="chat-wrap">
+          <!-- 上传文件卡 -->
+          <div class="files-row" id="filesRow"></div>
+
+          <!-- 用户提问 -->
+          <div class="user-row">
+            <div class="user-bubble">帮我根据【型号】、【型号】和【型号】对比，生成参数对比和AI评分。</div>
+          </div>
+
+          <!-- AI 回复 -->
+          <div class="ai-col">
+            <!-- 步骤折叠 -->
+            <div class="steps" id="stepsCard">
+              <div class="steps-head" onclick="toggleSteps()">
+                <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 6-6 6 6"/></svg></span>
+                查看其他8个步骤
+              </div>
+              <div class="steps-body">
+                <div class="step-line">
+                  <span class="s-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5.5c2.2-1.4 4.4-2 8-2s5.8.6 8 2v13c-2.2-1.4-4.4-2-8-2s-5.8.6-8 2Z"/><path d="M12 3.5v13"/></svg></span>
+                  读取知识库技能检索技能文件
+                </div>
+                <div class="skill-chips">
+                  <span class="chip-code">读取知识库技能检索技能文件</span>
+                  <span class="chip-code">/mnt/skills/public/knowledge-base-document-retrieval</span>
+                  <span class="chip-code">/mnt/skills/public/knowledge-base-document-retrieval</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 补充信息 -->
+            <div class="ai-text">已收到您的任务描述，在开始生成对比分析之前，还需要您补充以下信息：<br>
+              1.XXXXXXXXXXXXXX<br>
+              2.XXXXXXXXXXXXXX<br>
+              3.XXXXXXXXXXXXXX
+            </div>
+
+            <!-- PDF 结果卡 -->
+            <div class="result-card">
+              <div class="pdf-ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h5"/></svg>
+              </div>
+              <div class="r-meta">
+                <div class="r-nm">这是一个文件名</div>
+                <div class="r-type">PDF</div>
+              </div>
+              <div class="r-acts">
+                <button class="r-btn" onclick="toast('开始下载（原型演示）')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 19h14"/></svg>
+                  下载
+                </button>
+                <button class="r-btn" onclick="toast('已归档到项目资料（原型演示）')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="5" rx="1.5"/><path d="M4.5 10v8.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V10"/><path d="M10 13h4"/></svg>
+                  归档
+                </button>
+              </div>
+            </div>
+
+            <!-- 消息操作条 -->
+            <div class="msg-actions">
+              <span class="ma-date">2026-10-24</span>
+              <div class="ma-btn" title="赞" onclick="toast('已点赞（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 10v10H4.5a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1Z"/><path d="M7 10l4.5-6.5a2 2 0 0 1 3.4 1.9L14 9h5a2 2 0 0 1 2 2.3l-1 6A2 2 0 0 1 18 19H7"/></svg></div>
+              <div class="ma-btn" title="踩" onclick="toast('已反馈（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 14V4h2.5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1Z"/><path d="M7 14l4.5 6.5a2 2 0 0 0 3.4-1.9L14 15h5a2 2 0 0 0 2-2.3l-1-6A2 2 0 0 0 18 5H7"/></svg></div>
+              <div class="ma-btn" title="复制" onclick="toast('已复制内容（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></div>
+              <div class="ma-btn" title="下载" onclick="toast('下载（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 19h14"/></svg></div>
+              <div class="ma-btn" title="图片" onclick="toast('查看图片（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.7"/><path d="m4.5 17.5 5-5 3.5 3.5 2.5-2.5 4 4"/></svg></div>
+              <div class="ma-btn" title="分享" onclick="toast('分享（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5"/><path d="M19 5l-8.5 8.5"/><path d="M18 13.5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4.5"/></svg></div>
+              <div class="ma-btn" title="更多" onclick="toast('更多操作（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部输入 dock -->
+      <div class="chat-dock">
+        <div class="dock-inner">
+          <div class="chat-composer">
+            <textarea id="ccInput" rows="1" placeholder="今天我能为你做些什么？"></textarea>
+            <div class="cc-tools">
+              <div class="cc-tool" onclick="toast('添加附件（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5 12.5 19a5 5 0 0 1-7-7l7.5-7.5a3.3 3.3 0 0 1 4.7 4.7L10.2 16.7a1.6 1.6 0 0 1-2.3-2.3l6.8-6.8"/></svg>
+              </div>
+              <div class="cc-tool" onclick="toast('截图（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="m8.1 7.4 7.8 9.2M15.9 7.4 8.1 16.6"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
+                截图
+              </div>
+              <div class="cc-tool" onclick="toast('选择技能（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><path d="M9 4.5v15M4.5 9h15"/></svg>
+                技能
+              </div>
+              <div class="cc-tool" onclick="toast('推理深度设置（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+                推理深度
+              </div>
+              <span class="cc-sp"></span>
+              <button class="cc-voice" onclick="toast('语音输入（原型演示）')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg>
+                语音
+              </button>
+              <button class="cc-send" onclick="sendMsg()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+                发送
+              </button>
+            </div>
+          </div>
+          <div class="cc-hint">内容由AI生成，请仔细甄别</div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+<script>
+// URL 参数：pid/project（项目）、tid/task（任务）
+const q=new URLSearchParams(location.search);
+const pid=q.get('pid')||'p1';
+const projectName=q.get('project')||'项目名项目名';
+const taskName=q.get('task')||'五一安徽旅游推荐';
+document.getElementById('crumbProject').textContent=projectName;
+document.getElementById('crumbProject').href='project-detail.html?id='+encodeURIComponent(pid)+'&name='+encodeURIComponent(projectName);
+document.getElementById('crumbTask').textContent=taskName;
+document.title=taskName+' · TCLaw 龙虾';
+
+// 左侧 IM 会话列表
+document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
+  <div class="conv-item" onclick="toast('打开会话（原型演示）')">
+    <img class="face" src="assets/avatar.png">
+    <div class="meta"><div class="row1"><span class="nm">梁梦欣</span><span class="time">12:00</span></div><div class="preview">[5条]发给你了噢~</div></div>
+  </div>`).join('');
+
+// 文件卡
+const FILES=Array.from({length:5},()=>({nm:'这是一个文件标题这是…',sub:'doc | 20kb'}));
+document.getElementById('filesRow').innerHTML=FILES.map(f=>`
+  <div class="file-card" onclick="toast('预览文件（原型演示）')">
+    <div class="f-ic">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h5"/></svg>
+      <span class="plus"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+    </div>
+    <div class="f-meta"><div class="f-nm">${f.nm}</div><div class="f-sub">${f.sub}</div></div>
+  </div>`).join('');
+
+// 步骤折叠
+function toggleSteps(){ document.getElementById('stepsCard').classList.toggle('collapsed'); }
+
+// 发送：原型演示，追加一条用户气泡并清空
+function sendMsg(){
+  const ta=document.getElementById('ccInput');
+  const v=ta.value.trim();
+  if(!v){ ta.focus(); return; }
+  const row=document.createElement('div');
+  row.className='user-row';
+  row.innerHTML='<div class="user-bubble"></div>';
+  row.querySelector('.user-bubble').textContent=v;
+  const scroll=document.querySelector('.chat-scroll .chat-wrap');
+  const dock=document.querySelector('.chat-dock');
+  scroll.insertBefore(row,dock);
+  ta.value=''; ta.style.height='auto'; ta.rows=1;
+  document.querySelector('.chat-scroll').scrollTop=document.querySelector('.chat-scroll').scrollHeight;
+  toast('已发送，AI 将继续补充信息后生成结果');
+}
+(function(){
+  const ta=document.getElementById('ccInput');
+  ta.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendMsg(); }
+  });
+  ta.addEventListener('input',()=>{
+    ta.style.height='auto';
+    ta.style.height=Math.min(ta.scrollHeight,140)+'px';
+  });
+})();
+
+let toastTimer;
+function toast(msg){const el=document.getElementById('toastEl');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),1800);}
+</script>
+</body>
+</html>

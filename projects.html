@@ -9,6 +9,7 @@
   --side-bg:#f6f7f9; --panel:#ffffff; --border:#e8e9ed; --line:#ededf0;
   --text:#1f2329; --sub:#8a9099; --sub2:#a6abb4; --chip:#f3f4f6;
   --blue:#2f7bf6; --blue-d:#2568dd; --ink:#1f2329;
+  --purple:#6a5be2;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
@@ -22,7 +23,7 @@ svg{display:block;}
 .traffic i{width:12px;height:12px;border-radius:50%;display:block;}
 .traffic i:nth-child(1){background:#ff5f57;}.traffic i:nth-child(2){background:#febc2e;}.traffic i:nth-child(3){background:#28c840;}
 .tb-tools{display:flex;align-items:center;gap:6px;margin-left:32px;}
-.tb-icon{width:30px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#6b7078;cursor:pointer;}
+.tb-icon{width:30px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#6b7078;cursor:pointer;text-decoration:none;}
 .tb-icon:hover{background:#f1f2f4;color:var(--text);}
 
 .body{flex:1;display:flex;min-height:0;}
@@ -63,47 +64,58 @@ svg{display:block;}
 
 /* ============ 主区 ============ */
 .main{flex:1;overflow-y:auto;background:#fff;}
-.wrap{max-width:1080px;margin:0 auto;padding:26px 36px 60px;}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 36px 60px;}
 
-/* Hero */
-.hero{display:flex;align-items:center;gap:16px;background:linear-gradient(100deg,#f2f6ff 0%,#f6f4ff 55%,#f3f8ff 100%);border:1px solid #edf1fa;border-radius:14px;padding:16px 24px;position:relative;overflow:hidden;}
-.hero .h-left{display:flex;align-items:baseline;gap:14px;flex:1;min-width:0;z-index:1;}
-.hero h1{font-size:20px;font-weight:700;letter-spacing:.3px;white-space:nowrap;}
-.hero p{font-size:13px;color:#7a8290;}
-.btn-new{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 18px;border-radius:10px;background:var(--ink);color:#fff;font-size:14px;font-weight:500;cursor:pointer;border:none;}
-.btn-new:hover{background:#000;}
-
-/* 区块标题行 */
-.sec-head{display:flex;align-items:center;margin:30px 2px 14px;gap:12px;}
-.sec-head h2{font-size:16.5px;font-weight:700;}
-.sec-head .sp{flex:1;}
-.search{display:flex;align-items:center;gap:7px;width:260px;height:36px;border:1px solid var(--border);border-radius:10px;padding:0 12px;color:var(--sub2);}
+/* 页头：标题 + 搜索 + 创建 */
+.page-head{display:flex;align-items:center;gap:14px;}
+.page-head h1{font-size:18px;font-weight:700;white-space:nowrap;}
+.page-head .sp{flex:1;}
+.search{display:flex;align-items:center;gap:7px;width:262px;height:38px;border:1px solid var(--border);border-radius:10px;padding:0 12px;color:var(--sub2);background:#fff;}
+.search:focus-within{border-color:#bcd2fb;box-shadow:0 0 0 3px rgba(47,123,246,.10);}
 .search input{border:none;outline:none;flex:1;font-size:13px;font-family:inherit;color:var(--text);background:transparent;}
 .search input::placeholder{color:#b4b9c1;}
+.btn-new{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 18px;border-radius:10px;background:var(--ink);color:#fff;font-size:13.5px;font-weight:500;cursor:pointer;border:none;font-family:inherit;}
+.btn-new:hover{background:#000;}
 
-/* 我的项目 */
-.my-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.pcard{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 16px 14px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:12px;}
-.pcard:hover{box-shadow:0 6px 20px rgba(31,35,41,.07);border-color:#dde1e8;transform:translateY(-1px);}
-.pcard .p-ic{width:42px;height:42px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
-.pcard .p-meta{flex:1;min-width:0;}
-.pcard .p-name{font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pcard .p-sub{font-size:12px;color:var(--sub);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pcard .p-more{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#b3bac7;flex-shrink:0;}
+/* Banner */
+.banner{margin-top:18px;border-radius:16px;padding:26px 32px;position:relative;overflow:hidden;
+  background:linear-gradient(105deg,#eef1ff 0%,#f4f1ff 48%,#eef4ff 100%);
+  border:1px solid #e8ecfb;min-height:132px;display:flex;align-items:center;}
+.banner .b-in{position:relative;z-index:2;}
+.banner .b-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:1.2px;color:var(--purple);text-transform:uppercase;}
+.banner h2{font-size:25px;font-weight:800;letter-spacing:.3px;margin-top:10px;color:#1f2329;}
+.banner h2 .hl{color:var(--purple);}
+.banner p{font-size:12.5px;color:#8b91a3;margin-top:9px;}
+.banner .b-deco{position:absolute;right:34px;top:50%;transform:translateY(-50%);z-index:1;opacity:.95;}
+
+/* 项目网格 */
+.my-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px;}
+.pcard{position:relative;background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:.15s;min-height:86px;}
+.pcard:hover{box-shadow:0 8px 22px rgba(31,35,41,.08);border-color:#d9dee7;transform:translateY(-1px);}
+.pcard .p-row{display:flex;align-items:center;gap:10px;}
+.pcard .p-ic{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:#f2f4f7;color:#9aa1ad;display:flex;align-items:center;justify-content:center;}
+.pcard .p-name{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0;}
+.pcard .p-more{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#b9bfc9;flex-shrink:0;}
 .pcard .p-more:hover{background:#f2f3f5;color:var(--text);}
-.pcard.archived{opacity:.72;}
-.tag-arch{font-size:10.5px;color:var(--sub);background:#f2f3f5;border-radius:5px;padding:1px 6px;margin-left:6px;vertical-align:1px;}
+.pcard .p-time{font-size:11.5px;color:var(--sub2);margin:10px 0 0 44px;white-space:nowrap;}
 
-/* 模板 */
-.tpl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
-.tpl{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:13px;transition:.15s;}
-.tpl:hover{box-shadow:0 6px 20px rgba(31,35,41,.07);border-color:#cfd9ee;background:#fbfcff;}
-.tpl .t-ic{width:42px;height:42px;border-radius:11px;flex-shrink:0;background:#eef2f8;color:#5b6b85;display:flex;align-items:center;justify-content:center;}
-.tpl .t-meta{flex:1;min-width:0;}
-.tpl .t-name{font-size:14px;font-weight:600;}
-.tpl .t-desc{font-size:12px;color:var(--sub);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tpl .t-go{color:#c2c7cf;flex-shrink:0;display:flex;}
-.tpl:hover .t-go{color:var(--blue);}
+/* 创建项目卡 */
+.pcard-create{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background:#f3f4f6;border:1px solid #eceef1;border-radius:14px;cursor:pointer;min-height:86px;
+  color:#6b7078;font-size:14px;font-weight:500;transition:.15s;}
+.pcard-create:hover{background:#eceef1;color:var(--text);}
+.pcard-create .plus{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#8a9099;}
+
+/* 卡片下拉菜单 */
+.menu{position:fixed;z-index:60;width:148px;background:#fff;border-radius:12px;box-shadow:0 10px 32px rgba(15,23,42,.16);border:1px solid #f0f1f4;padding:6px;display:none;}
+.menu.show{display:block;}
+.menu .mi{display:flex;align-items:center;gap:9px;height:38px;padding:0 12px;border-radius:8px;font-size:13.5px;color:#3a3f47;cursor:pointer;}
+.menu .mi:hover{background:#f4f6f9;}
+.menu .mi.danger{color:#f0524a;}
+.menu .mi .m-ic{display:flex;color:inherit;}
+
+/* 重命名行内输入 */
+.rename-input{width:100%;border:1px solid var(--blue);border-radius:7px;padding:2px 6px;font-size:13.5px;font-family:inherit;outline:none;}
 
 .empty-hint{grid-column:1/-1;text-align:center;color:var(--sub2);font-size:13px;padding:34px 0;display:none;}
 
@@ -115,12 +127,9 @@ svg{display:block;}
 .modal .m-sub{font-size:12.5px;color:var(--sub);margin-top:5px;}
 .fld{margin-top:18px;}
 .fld label{display:block;font-size:13px;font-weight:500;margin-bottom:7px;}
-.fld input[type=text],.fld textarea,.fld select{width:100%;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;outline:none;color:var(--text);background:#fff;}
-.fld input:focus,.fld textarea:focus,.fld select:focus{border-color:var(--blue);}
+.fld input[type=text],.fld textarea{width:100%;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;outline:none;color:var(--text);background:#fff;}
+.fld input:focus,.fld textarea:focus{border-color:var(--blue);}
 .fld textarea{resize:none;height:68px;}
-.tpl-pick{display:flex;flex-wrap:wrap;gap:8px;}
-.tpl-chip{font-size:12.5px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);cursor:pointer;color:#5b616a;background:#fff;}
-.tpl-chip.on{border-color:var(--blue);background:#f0f6ff;color:var(--blue);font-weight:500;}
 .m-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:24px;}
 .btn{height:38px;padding:0 20px;border-radius:10px;font-size:13.5px;cursor:pointer;border:1px solid var(--border);background:#fff;color:#3a3f47;font-family:inherit;}
 .btn:hover{background:#f5f6f8;}
@@ -147,7 +156,7 @@ svg{display:block;}
     <aside class="side">
       <nav class="nav">
         <a class="nav-item new" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>新建任务</a>
-        <a class="nav-item" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg></span>历史任务</a>
+        <a class="nav-item" href="history.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg></span>任务记录</a>
         <div class="nav-item" onclick="toast('定时任务（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 2M9 2h6M12 5V2"/></svg></span>定时任务</div>
         <a class="nav-item on" href="projects.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.2 7.3 15.8 10.7M8.2 16.7l7.6-3.4"/></svg></span>项目</a>
         <a class="nav-item" href="employees.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/><path d="M18.5 16.5 19 18l1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5Z" stroke-width="1.3"/></svg></span>硅基员工·技能·连接器</a>
@@ -179,54 +188,80 @@ svg{display:block;}
 
     <main class="main">
       <div class="wrap">
-        <!-- Hero -->
-        <div class="hero">
-          <div class="h-left">
-            <h1>项目</h1>
-            <p>多人协同，把会话、文件与任务收口到同一空间，打造超级团队</p>
-          </div>
-          <button class="btn-new" onclick="openCreate()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            新建项目
-          </button>
-        </div>
-
-        <!-- 我的项目 -->
-        <div class="sec-head">
-          <h2>我的项目</h2>
-          <span style="font-size:12.5px;color:var(--sub2)" id="myCount"></span>
+        <!-- 页头 -->
+        <div class="page-head">
+          <h1>我的项目</h1>
           <span class="sp"></span>
           <div class="search">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
-            <input id="searchInput" placeholder="搜索项目" oninput="renderMine()">
+            <input id="searchInput" placeholder="搜索项目名称" oninput="renderMine()">
           </div>
+          <button class="btn-new" onclick="openCreate()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            创建项目
+          </button>
         </div>
-        <div class="my-grid" id="myGrid"></div>
 
-        <!-- 模板 -->
-        <div class="sec-head"><h2>从模板创建</h2><span style="font-size:12.5px;color:var(--sub2)">预置协作结构，一键起项</span></div>
-        <div class="tpl-grid" id="tplGrid"></div>
+        <!-- Banner -->
+        <div class="banner">
+          <div class="b-in">
+            <span class="b-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5 14.6 9 21.5 9.6 16.2 14 17.9 20.8 12 17.1 6.1 20.8 7.8 14 2.5 9.6 9.4 9Z"/></svg>
+              TCLAW PROJECTS
+            </span>
+            <h2>创建<span class="hl">项目任务</span>，让回答更贴合项目需要。</h2>
+            <p>对话共享项目背景和上下文，资料与任务产出物集中管理</p>
+          </div>
+          <svg class="b-deco" width="150" height="110" viewBox="0 0 150 110" fill="none">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#c9d4ff"/><stop offset="1" stop-color="#8ea2f0"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe6ff"/>
+              </linearGradient>
+            </defs>
+            <rect x="40" y="30" width="78" height="62" rx="12" fill="url(#g1)" opacity=".55"/>
+            <rect x="28" y="18" width="78" height="62" rx="12" fill="url(#g2)" stroke="#cdd8fb"/>
+            <circle cx="46" cy="40" r="4" fill="#8ea2f0"/><circle cx="60" cy="40" r="4" fill="#aab8f4"/>
+            <rect x="42" y="52" width="50" height="6" rx="3" fill="#c3cdf5"/>
+            <rect x="42" y="64" width="36" height="6" rx="3" fill="#d4dcf8"/>
+            <rect x="96" y="8" width="40" height="30" rx="9" fill="#aab8ff" opacity=".8"/>
+            <circle cx="108" cy="23" r="3.2" fill="#fff"/><circle cx="120" cy="23" r="3.2" fill="#fff"/><circle cx="132" cy="23" r="3.2" fill="#fff" opacity=".6"/>
+          </svg>
+        </div>
+
+        <!-- 项目网格 -->
+        <div class="my-grid" id="myGrid"></div>
       </div>
     </main>
+  </div>
+</div>
+
+<!-- 卡片更多菜单 -->
+<div class="menu" id="cardMenu">
+  <div class="mi" onclick="onRename()">
+    <span class="m-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+    重命名
+  </div>
+  <div class="mi danger" onclick="onDelete()">
+    <span class="m-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></span>
+    删除
   </div>
 </div>
 
 <!-- 新建项目弹窗 -->
 <div class="mask" id="mask" onclick="if(event.target===this)closeCreate()">
   <div class="modal">
-    <h3>新建项目</h3>
-    <div class="m-sub">创建后可在首页输入卡「选择项目」中关联任务</div>
+    <h3>创建项目</h3>
+    <div class="m-sub">创建后将进入项目空间，可在项目内发起任务、管理资料与产出物</div>
     <div class="fld">
       <label>项目名称</label>
-      <input type="text" id="fName" placeholder="例如：2026 Q4 产品规划" maxlength="30">
+      <input type="text" id="fName" placeholder="例如：五一安徽旅游推荐" maxlength="30">
     </div>
     <div class="fld">
       <label>项目说明 <span style="color:var(--sub2);font-weight:400">（选填）</span></label>
       <textarea id="fDesc" placeholder="项目目标、背景或成员约定…" maxlength="120"></textarea>
-    </div>
-    <div class="fld">
-      <label>套用模板 <span style="color:var(--sub2);font-weight:400">（选填）</span></label>
-      <div class="tpl-pick" id="tplPick"></div>
     </div>
     <div class="m-foot">
       <button class="btn" onclick="closeCreate()">取消</button>
@@ -237,67 +272,87 @@ svg{display:block;}
 
 <div class="toast" id="toastEl"></div>
 <script>
-// 配色（粉彩图标）
-const COLORS=[['#eef2ff','#4a5fbf'],['#e6f7ee','#18a058'],['#fff4e5','#e8932b'],['#fdeef4','#d6487e'],['#e4f4f6','#1596a8'],['#f1ecfb','#6a5be2']];
-
 let PROJECTS=[
-  {id:'guide',name:'项目新手指引',sub:'添加于 1 个月前',t:'指',archived:false,tpl:''},
-  {id:'q3',name:'2026 Q3 产品规划',sub:'3 个对话 · 4 个文件 · 更新于 09/03',t:'Q',archived:false,tpl:''},
-  {id:'lobster',name:'龙虾 Projects 模块',sub:'12 个对话 · 8 个文件 · 3 个定时任务',t:'龙',archived:false,tpl:''},
-  {id:'comp',name:'Q3 竞品分析专项',sub:'5 个对话 · 2 个文档',t:'竞',archived:false,tpl:''},
-  {id:'conf',name:'开发者大会支持',sub:'9 个对话 · 已归档',t:'会',archived:true,tpl:''},
-  {id:'mini',name:'X11H Mini LED 上市…',sub:'7 个对话 · 11 个文件',t:'X',archived:false,tpl:''}
+  {id:'p1',name:'这是一个项目标题这是一个项目',created:'2026-10-12'},
+  {id:'p2',name:'这是一个项目标题',created:'2026-10-12'},
+  {id:'p3',name:'这是一个项目标题',created:'2026-10-12'},
+  {id:'p4',name:'这是一个项目标题',created:'2026-10-12'},
+  {id:'p5',name:'这是一个项目标题',created:'2026-10-12'},
+  {id:'p6',name:'这是一个项目标题',created:'2026-10-12'}
 ];
-const TEMPLATES=[
-  {id:'t1',name:'产品需求全流程',desc:'从需求规划、PRD 到研发测试验收'},
-  {id:'t2',name:'市场调研与竞品分析',desc:'深度调研、竞品拆解、报告评审'},
-  {id:'t3',name:'团队知识库',desc:'持续沉淀 SOP、经验和 FAQ'},
-  {id:'t4',name:'项目交付',desc:'管理客户需求、计划、风险和周报'},
-  {id:'t5',name:'Bug 跟踪/测试验收',desc:'持续跟踪 Bug，统一测试用例和验收结论'}
-];
-
-function colorOf(name){ let h=0; name.split('').forEach(c=>h=(h*31+c.charCodeAt(0))>>>0); return COLORS[h%COLORS.length]; }
 
 function renderMine(){
   const kw=(document.getElementById('searchInput').value||'').trim().toLowerCase();
   const list=PROJECTS.filter(p=>p.name.toLowerCase().includes(kw));
-  document.getElementById('myCount').textContent='共 '+PROJECTS.length+' 个';
   const grid=document.getElementById('myGrid');
-  grid.innerHTML = list.length ? list.map((p,i)=>{
-    const [bg,c]=colorOf(p.name);
-    return `<div class="pcard ${p.archived?'archived':''}" onclick="openProject('${p.id}','${p.name.replace(/'/g,"\\'")}')">
-      <div class="p-ic" style="background:${bg};color:${c}">${p.t}</div>
-      <div class="p-meta">
-        <div class="p-name">${p.name}${p.archived?'<span class="tag-arch">已归档</span>':''}</div>
-        <div class="p-sub">${p.sub}</div>
+  grid.innerHTML = (list.length ? list.map(p=>`
+    <div class="pcard" data-id="${p.id}" onclick="openProject('${p.id}')">
+      <div class="p-row">
+        <div class="p-ic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14-5.3L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14 5.3L20 16"/><path d="M20 20v-4h-4"/></svg>
+        </div>
+        <div class="p-name" data-name>${p.name}</div>
+        <div class="p-more" onclick="event.stopPropagation();toggleMenu(event,'${p.id}')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>
+        </div>
       </div>
-      <div class="p-more" onclick="event.stopPropagation();toast('项目更多操作（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg></div>
-    </div>`;
-  }).join('') : '<div class="empty-hint" style="display:block">没有匹配的项目</div>';
-}
-function renderTpl(){
-  document.getElementById('tplGrid').innerHTML=TEMPLATES.map(t=>`
-    <div class="tpl" onclick="openCreate('${t.id}')">
-      <div class="t-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M8 7.2 15.8 10.8M8 16.8l7.8-3.6"/></svg></div>
-      <div class="t-meta"><div class="t-name">${t.name}</div><div class="t-desc">${t.desc}</div></div>
-      <span class="t-go"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-    </div>`).join('');
+      <div class="p-time">创建时间：${p.created}</div>
+    </div>`).join('') : '<div class="empty-hint" style="display:block">没有匹配的项目</div>')
+    + `<div class="pcard-create" onclick="openCreate()">
+         <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+         创建项目
+       </div>`;
 }
 
-// 新建弹窗
-let pickedTpl='';
-function openCreate(tplId){
-  pickedTpl=tplId||'';
+/* 卡片菜单：重命名 / 删除 */
+let menuId=null;
+function toggleMenu(e,id){
+  const menu=document.getElementById('cardMenu');
+  const card=document.querySelector(`.pcard[data-id="${id}"]`);
+  const r=card.getBoundingClientRect();
+  menu.classList.add('show');
+  const mw=menu.offsetWidth, mh=menu.offsetHeight;
+  menu.style.left=Math.min(r.right-mw+8, window.innerWidth-mw-12)+'px';
+  menu.style.top=Math.min(r.bottom+4, window.innerHeight-mh-12)+'px';
+  menuId=id;
+}
+function closeMenu(){ document.getElementById('cardMenu').classList.remove('show'); menuId=null; }
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#cardMenu') && !e.target.closest('.p-more')) closeMenu();
+});
+function onRename(){
+  const p=PROJECTS.find(x=>x.id===menuId); if(!p) return;
+  const card=document.querySelector(`.pcard[data-id="${menuId}"]`);
+  const nameEl=card.querySelector('[data-name]');
+  if(card.querySelector('.rename-input')) return;
+  const old=p.name;
+  nameEl.innerHTML=`<input class="rename-input" value="${old.replace(/"/g,'&quot;')}">`;
+  const input=nameEl.querySelector('input');
+  input.focus(); input.select();
+  let done=false;
+  const commit=()=>{
+    if(done) return; done=true;
+    const v=input.value.trim();
+    if(v && v!==old){ p.name=v; toast('已重命名'); }
+    renderMine();
+  };
+  input.addEventListener('keydown',ev=>{
+    if(ev.key==='Enter'){ev.preventDefault();commit();}
+    if(ev.key==='Escape'){done=true;renderMine();}
+  });
+  input.addEventListener('blur',()=>setTimeout(commit,120));
+  closeMenu();
+}
+function onDelete(){
+  const p=PROJECTS.find(x=>x.id===menuId); if(!p) return;
+  PROJECTS=PROJECTS.filter(x=>x.id!==menuId);
+  renderMine(); closeMenu(); toast('已删除项目「'+p.name+'」');
+}
+
+/* 新建弹窗 */
+function openCreate(){
   document.getElementById('fName').value='';
   document.getElementById('fDesc').value='';
-  document.getElementById('tplPick').innerHTML =
-    '<div class="tpl-chip '+(pickedTpl===''?'on':'')+'" data-id="">空白项目</div>'+
-    TEMPLATES.map(t=>`<div class="tpl-chip ${pickedTpl===t.id?'on':''}" data-id="${t.id}">${t.name}</div>`).join('');
-  document.querySelectorAll('#tplPick .tpl-chip').forEach(el=>el.onclick=()=>{
-    pickedTpl=el.dataset.id;
-    document.querySelectorAll('#tplPick .tpl-chip').forEach(x=>x.classList.remove('on'));
-    el.classList.add('on');
-  });
   document.getElementById('mask').classList.add('show');
   setTimeout(()=>document.getElementById('fName').focus(),50);
 }
@@ -305,18 +360,19 @@ function closeCreate(){ document.getElementById('mask').classList.remove('show')
 function createProject(){
   const name=document.getElementById('fName').value.trim();
   if(!name){ toast('请输入项目名称'); document.getElementById('fName').focus(); return; }
-  const desc=document.getElementById('fDesc').value.trim();
-  const tpl=TEMPLATES.find(t=>t.id===pickedTpl);
+  const d=new Date();
   const id='p'+Date.now();
-  PROJECTS.unshift({id,name,sub:(tpl?'来自模板「'+tpl.name+'」 · ':'刚刚创建')+(desc?'':' '),t:name[0],archived:false,tpl:pickedTpl});
+  const created=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
   closeCreate();
-  renderMine();
-  // 创建即进入项目空间，在项目内开始第一个对话
+  // 创建后直接进入项目详情
   location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(name)+'&fresh=1';
 }
-function openProject(id,name){ location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(name); }
+function openProject(id){
+  const p=PROJECTS.find(x=>x.id===id);
+  location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(p?p.name:'项目');
+}
 
-// 会话列表
+/* 会话列表 */
 document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
   <div class="conv-item" onclick="toast('打开会话（原型演示）')">
     <img class="face" src="assets/avatar.png">
@@ -326,7 +382,7 @@ document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
 let toastTimer;
 function toast(msg){const el=document.getElementById('toastEl');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),1800);}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCreate();});
-renderMine();renderTpl();
+renderMine();
 </script>
 </body>
 </html>

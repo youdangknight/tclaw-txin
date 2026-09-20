@@ -9,6 +9,7 @@
   --side-bg:#f6f7f9; --panel:#ffffff; --border:#e8e9ed; --line:#ededf0;
   --text:#1f2329; --sub:#8a9099; --sub2:#a6abb4; --chip:#f3f4f6;
   --blue:#2f7bf6; --blue-d:#2568dd; --ink:#1f2329;
+  --red:#f0524a;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
@@ -34,10 +35,8 @@ svg{display:block;}
 .nav-item:hover{background:#eceef1;}
 .nav-item.on{background:#e8effc;color:var(--blue);font-weight:500;}
 .nav-item.on .ic{color:var(--blue);}
-
 .nav-item.new{font-weight:500;color:#1f2329;}
 
-/* IM 融合栏（与项目管理页完全一致） */
 .im{flex:1;display:flex;min-height:0;border-top:1px solid var(--line);}
 .rail{width:54px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;}
 .rail .r-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#5b616a;cursor:pointer;}
@@ -66,78 +65,58 @@ svg{display:block;}
 
 /* 主区 */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#f7f8fa;}
+
+/* 面包屑栏 */
+.crumbbar{flex-shrink:0;height:52px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:8px;}
+.crumbbar .cb-ic{color:#8a9099;display:flex;margin-right:2px;}
+.crumb{font-size:13.5px;color:var(--sub);cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
+.crumb:hover{color:var(--blue);}
+.crumb.cur{color:var(--text);font-weight:600;cursor:default;}
+.crumb.cur:hover{color:var(--text);}
+.crumb .sep{color:#c9cdd4;}
+
 .main-scroll{flex:1;overflow-y:auto;}
-.wrap{max-width:900px;margin:0 auto;padding:28px 36px 36px;}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 28px 28px;}
 
-/* 底部全局对话 dock：任意 Tab 下均可直接开口 */
-.chat-dock{flex-shrink:0;border-top:1px solid var(--line);background:#f7f8fa;padding:12px 36px 12px;}
-.dock-inner{max-width:900px;margin:0 auto;}
+/* Tab 行 */
+.tab-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.seg{display:flex;background:#eceef1;border-radius:10px;padding:3px;}
+.seg .s{height:32px;padding:0 18px;display:flex;align-items:center;border-radius:8px;font-size:13.5px;color:var(--sub);cursor:pointer;white-space:nowrap;}
+.seg .s.on{background:#fff;color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.tab-row .sp{flex:1;}
+.tab-more{width:34px;height:34px;border-radius:9px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:#8a9099;cursor:pointer;}
+.tab-more:hover{background:#f5f6f8;color:var(--text);}
 
-.back{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--sub);cursor:pointer;text-decoration:none;margin-bottom:14px;}
-.back:hover{color:var(--blue);}
-
-.detail{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;}
-/* 项目头 */
-.d-head{display:flex;align-items:center;gap:14px;padding:22px 26px 16px;}
-.d-ic{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#eef2ff,#e4ecff);color:#4a5fbf;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0;}
-.d-title{font-size:20px;font-weight:700;}
-.d-sub{font-size:12.5px;color:var(--sub);margin-top:3px;display:flex;align-items:center;gap:8px;}
-.d-actions{margin-left:auto;display:flex;align-items:center;gap:10px;}
-.btn-start{height:38px;padding:0 18px;border-radius:10px;background:var(--blue);color:#fff;font-size:13.5px;font-weight:500;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
-.btn-start:hover{background:var(--blue-d);}
-.icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;color:#6b7078;cursor:pointer;}
-.icon-btn:hover{background:#f5f6f8;}
-
-/* Tabs */
-.d-tabs{display:flex;gap:26px;padding:0 26px;border-bottom:1px solid var(--line);}
-.d-tab{position:relative;height:46px;display:flex;align-items:center;font-size:14px;color:var(--sub);cursor:pointer;}
-.d-tab:hover{color:var(--text);}
-.d-tab.on{color:var(--text);font-weight:600;}
-.d-tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2.5px;border-radius:2px;background:var(--blue);}
-.d-body{padding:22px 26px 28px;}
 .pane{display:none;}
 .pane.on{display:block;}
 
-/* 对话 Tab */
-.chat-search{display:flex;align-items:center;gap:8px;width:290px;height:38px;border:1px solid var(--border);border-radius:10px;padding:0 13px;color:var(--sub2);margin-bottom:6px;}
-.chat-search input{border:none;outline:none;flex:1;font-size:13px;font-family:inherit;background:transparent;}
-.chat-mascot{float:right;width:52px;height:52px;border-radius:50%;object-fit:cover;margin:-6px 6px 0 0;}
-table{width:100%;border-collapse:collapse;clear:both;}
-thead th{text-align:left;font-size:12.5px;font-weight:500;color:var(--sub);padding:12px 10px;border-bottom:1px solid var(--line);}
-thead th:nth-child(2),thead th:nth-child(3){text-align:center;width:130px;}
-tbody td{padding:13px 10px;border-bottom:1px solid #f2f3f5;font-size:13.5px;}
-tbody td:nth-child(2),tbody td:nth-child(3){text-align:center;color:var(--sub);font-size:13px;}
-tbody tr:last-child td{border-bottom:none;}
-tbody tr:hover{background:#fafbfc;}
-.chat-name{display:flex;align-items:center;gap:9px;font-weight:500;}
-.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;}
-.link-btn{color:var(--blue);cursor:pointer;font-size:13px;}
-.link-btn:hover{text-decoration:underline;}
-.tb-empty{text-align:center;color:var(--sub2);font-size:13px;padding:30px 0;}
+/* 卡片通用 */
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;}
 
-/* 项目内对话：空态 + 内嵌输入框 */
-.chat-empty{text-align:center;padding:40px 0 30px;}
-.chat-empty .ce-ic{width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 14px;}
-.chat-empty .ce-t{font-size:15px;font-weight:600;}
-.chat-empty .ce-d{font-size:12.5px;color:var(--sub);margin-top:7px;line-height:1.7;}
-.chat-composer{border:1px solid var(--border);border-radius:14px;background:#fff;padding:12px 14px 10px;box-shadow:0 2px 10px rgba(30,50,90,.05);}
-.chat-composer:focus-within{border-color:#bcd2fb;box-shadow:0 0 0 3px rgba(47,123,246,.10);}
-.chat-composer textarea{width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:14px;line-height:1.6;color:var(--text);max-height:140px;}
-.chat-composer textarea::placeholder{color:#b4b9c1;}
-.cc-tools{display:flex;align-items:center;gap:6px;margin-top:8px;}
-.cc-tool{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 10px;border-radius:8px;font-size:12.5px;color:var(--sub);cursor:pointer;}
-.cc-tool:hover{background:#f3f5f8;color:var(--text);}
-.cc-sp{flex:1;}
-.cc-send{height:32px;padding:0 18px;border:none;border-radius:9px;background:var(--blue);color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
-.cc-send:hover{background:var(--blue-d);}
-.cc-hint{text-align:center;font-size:12px;color:var(--sub2);margin-top:12px;}
-.cc-hint b{color:#5a6adf;font-weight:600;}
+/* 任务 Tab */
+.task-head{display:flex;align-items:center;padding:18px 22px 12px;}
+.task-head h3{font-size:15px;font-weight:700;}
+.task-head .sp{flex:1;}
+.task-search{display:flex;align-items:center;gap:7px;width:224px;height:34px;border:1px solid var(--border);border-radius:9px;padding:0 11px;color:var(--sub2);}
+.task-search:focus-within{border-color:#bcd2fb;box-shadow:0 0 0 3px rgba(47,123,246,.10);}
+.task-search input{border:none;outline:none;flex:1;font-size:13px;font-family:inherit;background:transparent;}
+.task-search input::placeholder{color:#b4b9c1;}
+
+.task-list{padding:0 10px 6px;}
+.task-row{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;cursor:pointer;}
+.task-row:hover{background:#f6f7f9;}
+.task-row .tk-name{flex:1;min-width:0;font-size:13.5px;color:#3a3f47;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.task-row .tk-date{font-size:12px;color:var(--sub2);flex-shrink:0;}
+.task-row .tk-act{display:flex;align-items:center;gap:2px;flex-shrink:0;}
+.tk-btn{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#90969f;cursor:pointer;}
+.tk-btn:hover{background:#ebedf0;color:var(--text);}
+.tk-btn.del:hover{background:#fdeceb;color:var(--red);}
+.task-empty{text-align:center;color:var(--sub2);font-size:13px;padding:44px 0 40px;line-height:1.9;}
+.rename-input{border:1px solid var(--blue);border-radius:7px;padding:3px 8px;font-size:13.5px;font-family:inherit;outline:none;width:100%;}
 
 /* 项目资料 */
 .mat-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.seg{display:flex;background:#f2f3f5;border-radius:10px;padding:3px;}
-.seg .s{height:30px;padding:0 16px;display:flex;align-items:center;border-radius:8px;font-size:13px;color:var(--sub);cursor:pointer;}
-.seg .s.on{background:#fff;color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.mat-toolbar .seg{background:#eceef1;}
 .up-btn{margin-left:auto;height:34px;padding:0 14px;border-radius:9px;border:1px solid var(--border);background:#fff;font-size:13px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:#3a3f47;font-family:inherit;}
 .up-btn:hover{background:#f5f6f8;}
 .mat-list{border:1px solid var(--line);border-radius:12px;overflow:hidden;}
@@ -152,14 +131,14 @@ tbody tr:hover{background:#fafbfc;}
 .m-more:hover{background:#f0f1f4;color:var(--text);}
 
 /* 项目说明 */
-.desc-card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+.desc-card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:#fff;}
 .desc-card .d-tool{display:flex;align-items:center;margin-bottom:10px;}
 .desc-card .d-tool .t{font-size:13px;font-weight:600;}
 .desc-card .d-tool .e{margin-left:auto;font-size:12.5px;color:var(--blue);cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
 .desc-text{font-size:13.5px;line-height:1.9;color:#444b55;white-space:pre-wrap;}
 .desc-text[contenteditable=true]{outline:2px solid #cfe0ff;outline-offset:6px;border-radius:6px;}
 .desc-hint{margin-top:14px;font-size:12px;color:var(--sub2);display:flex;gap:7px;align-items:flex-start;}
-.kv{display:grid;grid-template-columns:90px 1fr;gap:12px 16px;margin-top:18px;}
+.kv{display:grid;grid-template-columns:90px 1fr;gap:12px 16px;margin-top:18px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
 .kv .k{font-size:12.5px;color:var(--sub);padding-top:2px;}
 .kv .v{font-size:13px;}
 .member{display:inline-flex;align-items:center;gap:6px;background:#f5f7fa;border-radius:20px;padding:3px 10px 3px 4px;margin:0 6px 6px 0;font-size:12.5px;}
@@ -168,7 +147,7 @@ tbody tr:hover{background:#fafbfc;}
 /* 项目记忆 */
 .mem-tip{display:flex;gap:10px;background:#f5f8ff;border:1px solid #e3edff;border-radius:12px;padding:13px 16px;font-size:12.5px;color:#5a6a85;line-height:1.7;margin-bottom:16px;}
 .mem-list{display:flex;flex-direction:column;gap:10px;}
-.mem{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;}
+.mem{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;background:#fff;}
 .mem .mi{width:32px;height:32px;border-radius:9px;background:#f1ecfb;color:#6a5be2;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .mem .mc{flex:1;min-width:0;}
 .mem .mt{font-size:13px;font-weight:600;margin-bottom:4px;}
@@ -176,8 +155,25 @@ tbody tr:hover{background:#fafbfc;}
 .mem .mf{font-size:11.5px;color:var(--sub2);margin-top:7px;display:flex;gap:10px;}
 .mem .mx{color:#c2c7cf;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .mem .mx:hover{color:#d4493b;}
-.mem-add{margin-top:12px;border:1px dashed #d3d8e0;border-radius:12px;padding:14px;text-align:center;font-size:13px;color:var(--sub);cursor:pointer;}
+.mem-add{margin-top:12px;border:1px dashed #d3d8e0;border-radius:12px;padding:14px;text-align:center;font-size:13px;color:var(--sub);cursor:pointer;background:#fff;}
 .mem-add:hover{border-color:var(--blue);color:var(--blue);background:#fafcff;}
+
+/* 底部全局对话 dock */
+.chat-dock{flex-shrink:0;border-top:1px solid var(--line);background:#fff;padding:12px 28px 10px;}
+.dock-inner{max-width:1080px;margin:0 auto;}
+.chat-composer{border:1px solid var(--border);border-radius:14px;background:#fff;padding:12px 14px 8px;box-shadow:0 2px 10px rgba(30,50,90,.05);}
+.chat-composer:focus-within{border-color:#bcd2fb;box-shadow:0 0 0 3px rgba(47,123,246,.10);}
+.chat-composer textarea{width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:14px;line-height:1.6;color:var(--text);max-height:140px;}
+.chat-composer textarea::placeholder{color:#b4b9c1;}
+.cc-tools{display:flex;align-items:center;gap:6px;margin-top:8px;}
+.cc-tool{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 10px;border-radius:8px;font-size:12.5px;color:var(--sub);cursor:pointer;}
+.cc-tool:hover{background:#f3f5f8;color:var(--text);}
+.cc-sp{flex:1;}
+.cc-voice{height:34px;padding:0 16px;border-radius:9px;border:1px solid var(--border);background:#fff;color:#3a3f47;font-size:13px;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+.cc-voice:hover{background:#f5f6f8;}
+.cc-send{height:34px;padding:0 18px;border:none;border-radius:9px;background:var(--ink);color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
+.cc-send:hover{background:#000;}
+.cc-hint{text-align:center;font-size:11.5px;color:var(--sub2);margin-top:8px;}
 
 .toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:rgba(31,35,41,.92);color:#fff;font-size:13px;padding:9px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:99;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
@@ -195,11 +191,10 @@ tbody tr:hover{background:#fafbfc;}
   </div>
 
   <div class="body">
-    <!-- 左侧融合导航：与项目管理页完全一致 -->
     <aside class="side">
       <nav class="nav">
         <a class="nav-item new" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>新建任务</a>
-        <a class="nav-item" href="index.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg></span>历史任务</a>
+        <a class="nav-item" href="history.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg></span>任务记录</a>
         <div class="nav-item" onclick="toast('定时任务（原型演示）')"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 2M9 2h6M12 5V2"/></svg></span>定时任务</div>
         <a class="nav-item on" href="projects.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.2 7.3 15.8 10.7M8.2 16.7l7.6-3.4"/></svg></span>项目</a>
         <a class="nav-item" href="employees.html"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/><path d="M18.5 16.5 19 18l1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5Z" stroke-width="1.3"/></svg></span>硅基员工·技能·连接器</a>
@@ -226,188 +221,163 @@ tbody tr:hover{background:#fafbfc;}
       </div>
 
       <div class="userbar">
-        <div class="u-face">王</div><span class="u-name">王婵</span>
+        <div class="u-face">哈</div><span class="u-name">阿拉丁</span>
         <div class="u-more"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
       </div>
     </aside>
 
     <!-- 主区 -->
     <main class="main">
-     <div class="main-scroll">
-      <div class="wrap">
-        <a class="back" href="projects.html">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg>
-          返回项目
-        </a>
-        <div class="detail">
-          <!-- 项目头 -->
-          <div class="d-head">
-            <div class="d-ic" id="dIc">Q</div>
-            <div>
-              <div class="d-title" id="dTitle">2026 Q3 产品规划</div>
-              <div class="d-sub"><span id="chatCount">3 个对话</span><span>·</span><span>4 个文件</span><span>·</span><span>创建于 2026-07-15</span></div>
-            </div>
-            <div class="d-actions">
-              <button class="btn-start" onclick="startChat()">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-5.4A8 8 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>
-                开始对话
-              </button>
-              <button class="icon-btn" onclick="toast('项目设置（原型演示）')" title="更多">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>
-              </button>
-            </div>
-          </div>
+      <!-- 面包屑：「项目」可点击跳回项目列表 -->
+      <div class="crumbbar">
+        <span class="cb-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.5 6.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/></svg></span>
+        <a class="crumb" href="projects.html">项目</a>
+        <span class="sep" style="color:#c9cdd4">/</span>
+        <span class="crumb cur" id="crumbName">项目名项目名</span>
+      </div>
 
+      <div class="main-scroll">
+        <div class="wrap">
           <!-- Tabs -->
-          <div class="d-tabs">
-            <div class="d-tab on" data-pane="chat" onclick="switchTab(this)">对话</div>
-            <div class="d-tab" data-pane="files" onclick="switchTab(this)">项目资料</div>
-            <div class="d-tab" data-pane="desc" onclick="switchTab(this)">项目说明</div>
-            <div class="d-tab" data-pane="mem" onclick="switchTab(this)">项目记忆</div>
+          <div class="tab-row">
+            <div class="seg">
+              <div class="s on" data-pane="task" onclick="switchTab(this)">任务</div>
+              <div class="s" data-pane="files" onclick="switchTab(this)">项目资料</div>
+              <div class="s" data-pane="desc" onclick="switchTab(this)">项目说明</div>
+              <div class="s" data-pane="mem" onclick="switchTab(this)">项目记忆</div>
+            </div>
+            <span class="sp"></span>
+            <div class="tab-more" onclick="toast('项目更多操作（原型演示）')">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>
+            </div>
           </div>
 
-          <div class="d-body">
-            <!-- 对话 -->
-            <section class="pane on" id="pane-chat">
-              <!-- 空态：新项目还没有对话 -->
-              <div class="chat-empty" id="chatEmpty">
-                <img class="ce-ic" src="assets/mascot.png" alt="龙虾助手">
-                <div class="ce-t">和团队助手开启第一个对话</div>
-                <div class="ce-d">对话会自动携带本项目的说明、资料与记忆，产出的内容也会归档到本项目<br>在下方直接输入第一句话即可</div>
-              </div>
-              <!-- 已有对话列表 -->
-              <div id="chatListBlock">
-                <div class="chat-search">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
-                  <input placeholder="搜索本项目对话" oninput="filterChat(this.value)">
+          <!-- 任务 -->
+          <section class="pane on" id="pane-task">
+            <div class="card">
+              <div class="task-head">
+                <h3>全部任务</h3>
+                <span class="sp"></span>
+                <div class="task-search">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+                  <input id="taskSearch" placeholder="搜索" oninput="renderTasks()">
                 </div>
-                <table>
-                  <thead><tr><th>对话</th><th>最近更新</th><th>操作</th></tr></thead>
-                  <tbody id="chatTbody"></tbody>
-                </table>
               </div>
-            </section>
+              <div class="task-list" id="taskList"></div>
+            </div>
+          </section>
 
-            <!-- 项目资料 -->
-            <section class="pane" id="pane-files">
-              <div class="mat-toolbar">
-                <div class="seg">
-                  <div class="s on" onclick="matSeg(this,'all')">全部</div>
-                  <div class="s" onclick="matSeg(this,'doc')">文档</div>
-                  <div class="s" onclick="matSeg(this,'sheet')">表格</div>
-                  <div class="s" onclick="matSeg(this,'media')">媒体</div>
-                </div>
-                <button class="up-btn" onclick="toast('上传资料（原型演示）')">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M4 16v2.5A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V16"/></svg>
-                  上传资料
-                </button>
+          <!-- 项目资料 -->
+          <section class="pane" id="pane-files">
+            <div class="mat-toolbar">
+              <div class="seg">
+                <div class="s on" onclick="matSeg(this,'all')">全部</div>
+                <div class="s" onclick="matSeg(this,'doc')">文档</div>
+                <div class="s" onclick="matSeg(this,'sheet')">表格</div>
+                <div class="s" onclick="matSeg(this,'media')">媒体</div>
               </div>
-              <div class="mat-list" id="matList"></div>
-            </section>
+              <button class="up-btn" onclick="toast('上传资料（原型演示）')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M4 16v2.5A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V16"/></svg>
+                上传资料
+              </button>
+            </div>
+            <div class="mat-list" id="matList"></div>
+          </section>
 
-            <!-- 项目说明 -->
-            <section class="pane" id="pane-desc">
-              <div class="desc-card">
-                <div class="d-tool">
-                  <span class="t">项目背景与目标</span>
-                  <span class="e" id="editBtn" onclick="toggleEdit()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>编辑</span>
-                </div>
-                <div class="desc-text" id="descText">本项目聚焦 2026 年 Q3 产品线规划，围绕显示主业与新能源光伏双主业，输出季度产品路线图与重点项目排期。
+          <!-- 项目说明 -->
+          <section class="pane" id="pane-desc">
+            <div class="desc-card">
+              <div class="d-tool">
+                <span class="t">项目背景与目标</span>
+                <span class="e" id="editBtn" onclick="toggleEdit()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>编辑</span>
+              </div>
+              <div class="desc-text" id="descText">本项目聚焦季度重点工作，围绕项目目标统筹任务与资料，输出可归档的产出物。
 
 核心目标：
-1. 完成 Q3 新品节奏与竞品对标，明确差异化卖点；
-2. 拉通需求池，按优先级冻结研发投入范围；
-3. 将季度目标拆解到月，形成可跟踪的里程碑。
+1. 明确任务范围与关键节点，统一项目内协作口径；
+2. 资料、对话与产出物在项目内集中管理，可追溯；
+3. 关键结论沉淀为项目记忆，助手在后续任务中自动参考。
 
-说明内容会作为项目内所有对话的共享背景，助手据此保持口径一致。</div>
-                <div class="desc-hint">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a9099" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg>
-                  <span>项目说明由成员共同维护，用于给 AI 提供稳定的项目背景；临时性结论请写入「项目记忆」。</span>
-                </div>
+说明内容会作为项目内所有任务的共享背景，助手据此保持口径一致。</div>
+              <div class="desc-hint">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a9099" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg>
+                <span>项目说明由成员共同维护，用于给 AI 提供稳定的项目背景；临时性结论请写入「项目记忆」。</span>
               </div>
-              <div class="kv">
-                <span class="k">项目成员</span>
-                <span class="v">
-                  <span class="member"><i>王</i>王婵</span>
-                  <span class="member"><i>傅</i>傅略维</span>
-                  <span class="member"><i>陈</i>陈政霖</span>
-                  <span class="member" style="cursor:pointer;color:var(--blue);background:#f0f6ff" onclick="toast('邀请成员（原型演示）')"><i style="background:#dce9ff;color:var(--blue)">+</i>邀请</span>
-                </span>
-                <span class="k">创建时间</span><span class="v">2026-07-15 10:24</span>
-                <span class="k">关联模板</span><span class="v">产品需求全流程</span>
-              </div>
-            </section>
+            </div>
+            <div class="kv">
+              <span class="k">项目成员</span>
+              <span class="v">
+                <span class="member"><i>哈</i>阿拉丁</span>
+                <span class="member"><i>梁</i>梁梦欣</span>
+                <span class="member" style="cursor:pointer;color:var(--blue);background:#f0f6ff" onclick="toast('邀请成员（原型演示）')"><i style="background:#dce9ff;color:var(--blue)">+</i>邀请</span>
+              </span>
+              <span class="k">创建时间</span><span class="v" id="kvCreated">2026-09-19 10:24</span>
+              <span class="k">关联模板</span><span class="v">空白项目</span>
+            </div>
+          </section>
 
-            <!-- 项目记忆 -->
-            <section class="pane" id="pane-mem">
-              <div class="mem-tip">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5a6a85" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg>
-                <span>项目记忆是从项目对话中沉淀的关键事实与决策，助手在本项目内对话时会自动参考，保证上下文连续。</span>
-              </div>
-              <div class="mem-list" id="memList"></div>
-              <div class="mem-add" onclick="addMem()">＋ 手动添加一条项目记忆</div>
-            </section>
-          </div>
+          <!-- 项目记忆 -->
+          <section class="pane" id="pane-mem">
+            <div class="mem-tip">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5a6a85" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg>
+              <span>项目记忆是从项目任务中沉淀的关键事实与决策，助手在本项目内对话时会自动参考，保证上下文连续。</span>
+            </div>
+            <div class="mem-list" id="memList"></div>
+            <div class="mem-add" onclick="addMem()">＋ 手动添加一条项目记忆</div>
+          </section>
         </div>
       </div>
-     </div><!-- /main-scroll -->
 
-     <!-- 底部全局对话 dock：任意 Tab 下都可直接发起项目对话 -->
-     <div class="chat-dock">
-       <div class="dock-inner">
-         <div class="chat-composer">
-           <textarea id="ccInput" rows="1" placeholder="今天帮你做些什么？ @ 引用资产文件、项目待办或调用技能"></textarea>
-           <div class="cc-tools">
-             <div class="cc-tool" onclick="toast('附件 / 截图 / 语音（原型演示）')">
-               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-             </div>
-             <div class="cc-tool" onclick="toast('引用项目资料 / 待办（原型演示）')">
-               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg>
-               @引用
-             </div>
-             <div class="cc-tool" onclick="toast('选择技能（原型演示）')">
-               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><path d="M9 4.5v15M4.5 9h15"/></svg>
-               技能
-             </div>
-             <div class="cc-tool" onclick="toast('切换云端 / 本地任务模式（原型演示）')">
-               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/><circle cx="12" cy="12" r="3.4"/></svg>
-               本地任务
-             </div>
-             <span class="cc-sp"></span>
-             <button class="cc-send" onclick="sendProjectChat()">
-               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
-               发送
-             </button>
-           </div>
-         </div>
-         <div class="cc-hint">当前为 <b>项目对话</b>，自动携带项目说明 · 项目资料 · 项目记忆上下文</div>
-       </div>
-     </div>
+      <!-- 底部全局对话 dock -->
+      <div class="chat-dock">
+        <div class="dock-inner">
+          <div class="chat-composer">
+            <textarea id="ccInput" rows="1" placeholder="今天我能为你做些什么？"></textarea>
+            <div class="cc-tools">
+              <div class="cc-tool" onclick="toast('添加附件（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5 12.5 19a5 5 0 0 1-7-7l7.5-7.5a3.3 3.3 0 0 1 4.7 4.7L10.2 16.7a1.6 1.6 0 0 1-2.3-2.3l6.8-6.8"/></svg>
+              </div>
+              <div class="cc-tool" onclick="toast('截图（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="m8.1 7.4 7.8 9.2M15.9 7.4 8.1 16.6"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
+                截图
+              </div>
+              <div class="cc-tool" onclick="toast('选择技能（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><path d="M9 4.5v15M4.5 9h15"/></svg>
+                技能
+              </div>
+              <div class="cc-tool" onclick="toast('推理深度设置（原型演示）')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+                推理深度
+              </div>
+              <span class="cc-sp"></span>
+              <button class="cc-voice" onclick="toast('语音输入（原型演示）')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg>
+                语音
+              </button>
+              <button class="cc-send" onclick="sendTask()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+                发送
+              </button>
+            </div>
+          </div>
+          <div class="cc-hint">内容由AI生成，请仔细甄别</div>
+        </div>
+      </div>
     </main>
   </div>
 </div>
 
 <div class="toast" id="toastEl"></div>
 <script>
-// URL 参数：从项目列表点进来时带上项目名；fresh=1 表示刚创建的新项目
+// URL 参数：id/项目名；fresh=1 表示刚创建的新项目（零任务空态）
 const q=new URLSearchParams(location.search);
 const isFresh=q.get('fresh')==='1';
-(function(){
-  const name=q.get('name');
-  if(name){
-    document.getElementById('dTitle').textContent=name;
-    document.getElementById('dIc').textContent=name[0];
-    document.title=name+' · TCLaw 龙虾';
-  }
-  if(isFresh){
-    // 新项目：清零演示数据，创建时间显示今天
-    document.getElementById('chatCount').textContent='0 个对话';
-    const subs=document.querySelectorAll('.d-head .d-sub span');
-    subs[subs.length-1].textContent='创建于 2026-09-19';
-  }
-})();
+const projectName=q.get('name')||'项目名项目名';
+const projectId=q.get('id')||'p1';
+document.getElementById('crumbName').textContent=projectName;
+document.title=projectName+' · TCLaw 龙虾';
 
-// 左侧 IM 会话列表（与项目管理页一致）
+// 左侧 IM 会话列表
 document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
   <div class="conv-item" onclick="toast('打开会话（原型演示）')">
     <img class="face" src="assets/avatar.png">
@@ -416,80 +386,116 @@ document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
 
 // Tab 切换
 function switchTab(el){
-  document.querySelectorAll('.d-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.tab-row .seg .s').forEach(t=>t.classList.remove('on'));
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
   el.classList.add('on');
   document.getElementById('pane-'+el.dataset.pane).classList.add('on');
 }
 
-// 对话数据（新项目初始为空）
-let CHATS=isFresh ? [] : [
-  {name:'竞品对比',date:'09/03'},
-  {name:'需求池整理',date:'09/02'},
-  {name:'季度目标拆解',date:'09/01'}
+/* ============ 任务列表 ============ */
+let TASKS=isFresh ? [] : [
+  {id:'t1',name:'这是一条对话记录这是一',date:'12/12'},
+  {id:'t2',name:'这是一条对话记录这是一',date:'12/12'},
+  {id:'t3',name:'这是一条对话记录这是一这是一条对话记录这是一',date:'12/12'},
+  {id:'t4',name:'这是一条对话记录这是一',date:'12/12'},
+  {id:'t5',name:'这是一条对话记录这是一',date:'12/12'}
 ];
-function today(){const d=new Date();return String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0');}
-function renderChat(kw){
-  const list=CHATS.filter(c=>!kw||c.name.includes(kw));
-  document.getElementById('chatTbody').innerHTML = list.length ? list.map(c=>`
-    <tr>
-      <td><div class="chat-name"><span class="chat-dot"></span>${c.name}</div></td>
-      <td>${c.date}</td>
-      <td><span class="link-btn" onclick="toast('打开对话：${c.name}（原型演示）')">打开</span></td>
-    </tr>`).join('') : '<tr><td colspan="3" class="tb-empty">'+(CHATS.length?'没有匹配的对话':'')+'</td></tr>';
-  // 空态 / 列表显隐 + 头部对话数
-  document.getElementById('chatEmpty').style.display=CHATS.length?'none':'block';
-  document.getElementById('chatListBlock').style.display=CHATS.length?'block':'none';
-  document.getElementById('chatCount').textContent=CHATS.length+' 个对话';
-}
-function filterChat(kw){ renderChat(kw.trim()); }
-renderChat('');
 
-// 开始对话：切到对话 Tab 并聚焦输入框（不离开项目空间）
-function startChat(){
-  const tab=document.querySelector('.d-tab[data-pane="chat"]');
-  switchTab(tab);
-  const ta=document.getElementById('ccInput');
-  ta.placeholder='直接输入，和团队助手开始对话…  @ 引用资产文件、项目待办或调用技能';
-  setTimeout(()=>ta.focus(),60);
-}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-// 发送：在项目内生成一条新对话（原型演示），不跳转新建任务页
-function sendProjectChat(){
+function renderTasks(){
+  const kw=(document.getElementById('taskSearch').value||'').trim();
+  const list=TASKS.filter(t=>!kw||t.name.includes(kw));
+  const box=document.getElementById('taskList');
+  if(!TASKS.length){
+    box.innerHTML=`<div class="task-empty">还没有任务，在下方输入框直接描述需求即可发起第一个任务<br>任务会自动携带项目说明、项目资料与项目记忆</div>`;
+    return;
+  }
+  box.innerHTML = list.length ? list.map(t=>`
+    <div class="task-row" data-id="${t.id}" onclick="openTask('${t.id}')">
+      <div class="tk-name" data-name>${esc(t.name)}</div>
+      <span class="tk-date">${t.date}</span>
+      <div class="tk-act">
+        <div class="tk-btn" title="重命名" onclick="event.stopPropagation();renameTask('${t.id}',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        </div>
+        <div class="tk-btn" title="跳转对话" onclick="event.stopPropagation();openTask('${t.id}')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5"/><path d="M19 5l-8.5 8.5"/><path d="M18 13.5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4.5"/></svg>
+        </div>
+        <div class="tk-btn del" title="删除" onclick="event.stopPropagation();delTask('${t.id}')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg>
+        </div>
+      </div>
+    </div>`).join('') : '<div class="task-empty">没有匹配的任务</div>';
+}
+function openTask(id){
+  const t=TASKS.find(x=>x.id===id);
+  location.href='task.html?pid='+encodeURIComponent(projectId)+'&project='+encodeURIComponent(projectName)+'&tid='+encodeURIComponent(id)+'&task='+encodeURIComponent(t?t.name:'任务');
+}
+function renameTask(id,btn){
+  const row=document.querySelector(`.task-row[data-id="${id}"]`);
+  const nameEl=row.querySelector('[data-name]');
+  const t=TASKS.find(x=>x.id===id);
+  if(row.querySelector('.rename-input')) return;
+  const old=t.name;
+  nameEl.innerHTML=`<input class="rename-input" value="${esc(old)}">`;
+  const input=nameEl.querySelector('input');
+  input.focus(); input.select();
+  let done=false;
+  const commit=()=>{
+    if(done) return; done=true;
+    const v=input.value.trim();
+    if(v && v!==old){ t.name=v; toast('已重命名'); }
+    renderTasks();
+  };
+  input.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){e.preventDefault();commit();}
+    if(e.key==='Escape'){done=true;renderTasks();}
+  });
+  input.addEventListener('blur',()=>setTimeout(commit,120));
+}
+function delTask(id){
+  const t=TASKS.find(x=>x.id===id);
+  TASKS=TASKS.filter(x=>x.id!==id);
+  renderTasks();
+  toast('已删除任务「'+(t?t.name:'')+'」');
+}
+renderTasks();
+
+/* 发送：在项目内生成一条新任务并进入任务对话 */
+function sendTask(){
   const ta=document.getElementById('ccInput');
   const v=ta.value.trim();
   if(!v){ ta.focus(); return; }
-  // 对话标题取首句，过长截断
-  const name=v.length>16?v.slice(0,16)+'…':v;
-  CHATS.unshift({name,date:today()});
+  const d=new Date();
+  const date=String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0');
+  const id='t'+Date.now();
+  TASKS.unshift({id,name:v,date});
   ta.value=''; ta.style.height='auto'; ta.rows=1;
-  renderChat('');
-  // 无论在哪个 Tab 发起，发送后切到对话 Tab 展示新对话
-  switchTab(document.querySelector('.d-tab[data-pane="chat"]'));
-  toast('已开启项目对话：'+name);
+  // 直接进入该任务的对话页
+  openTask(id);
 }
-// 输入框：Enter 发送，Shift+Enter 换行；自适应高度
 (function(){
   const ta=document.getElementById('ccInput');
   ta.addEventListener('keydown',e=>{
-    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendProjectChat(); }
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendTask(); }
   });
   ta.addEventListener('input',()=>{
     ta.style.height='auto';
     ta.style.height=Math.min(ta.scrollHeight,140)+'px';
   });
-  // 刚创建的新项目进入后自动聚焦，方便直接开口
+  // 刚创建的新项目自动聚焦输入框
   if(isFresh) setTimeout(()=>ta.focus(),300);
 })();
 
-// 项目资料
+/* ============ 项目资料 ============ */
 const MATERIALS=[
-  {nm:'Q3产品规划-v2.pptx',info:'傅略维 · 09/03 更新',size:'4.2 MB',type:'ppt'},
-  {nm:'竞品对比矩阵.xlsx',info:'王婵 · 09/03 更新',size:'860 KB',type:'sheet'},
-  {nm:'Q3需求池（冻结版）.xlsx',info:'陈政霖 · 09/02 更新',size:'1.1 MB',type:'sheet'},
-  {nm:'季度目标拆解说明.docx',info:'王婵 · 09/01 更新',size:'320 KB',type:'doc'},
-  {nm:'用户调研访谈纪要-0828.docx',info:'傅略维 · 08/28 更新',size:'256 KB',type:'doc'},
-  {nm:'产品路线图.png',info:'王婵 · 08/25 更新',size:'1.8 MB',type:'media'}
+  {nm:'项目资料-需求说明.pptx',info:'阿拉丁 · 09/03 更新',size:'4.2 MB',type:'ppt'},
+  {nm:'任务清单与排期.xlsx',info:'梁梦欣 · 09/03 更新',size:'860 KB',type:'sheet'},
+  {nm:'参考资料汇总.xlsx',info:'阿拉丁 · 09/02 更新',size:'1.1 MB',type:'sheet'},
+  {nm:'会议纪要-启动会.docx',info:'梁梦欣 · 09/01 更新',size:'320 KB',type:'doc'},
+  {nm:'调研访谈纪要.docx',info:'阿拉丁 · 08/28 更新',size:'256 KB',type:'doc'},
+  {nm:'现场图片.png',info:'梁梦欣 · 08/25 更新',size:'1.8 MB',type:'media'}
 ];
 const M_STYLE={
   ppt:['#fdeef4','#d6487e','<path d="M4 4h16v12H4z"/><path d="M8 20h8M12 16v4" stroke-linecap="round"/>'],
@@ -512,11 +518,11 @@ function renderMat(){
       <span class="m-size">${m.size}</span>
       <span class="m-more" onclick="event.stopPropagation();toast('文件更多操作（原型演示）')"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg></span>
     </div>`;
-  }).join('') : '<div class="tb-empty">该分类下暂无资料</div>';
+  }).join('') : '<div class="task-empty">该分类下暂无资料</div>';
 }
 renderMat();
 
-// 项目说明编辑
+/* ============ 项目说明编辑 ============ */
 function toggleEdit(){
   const box=document.getElementById('descText');
   const btn=document.getElementById('editBtn');
@@ -532,19 +538,19 @@ function toggleEdit(){
   }
 }
 
-// 项目记忆
-let MEMORIES=[
-  {t:'关键决策：Q3 优先级冻结',d:'Mini LED 高端线资源优先，商显线顺延至 Q4；需求池已于 09/02 冻结，新增需求走变更评审。',src:'来自对话「需求池整理」',time:'09/02 16:40'},
-  {t:'竞品结论',d:'主要竞品在 75/85 寸段价差约 8%，我方差异化主打高刷与护眼，营销话术需避开纯价格对比。',src:'来自对话「竞品对比」',time:'09/03 11:12'},
-  {t:'口径：季度目标',d:'Q3 出货目标对内拆解为月度 3:3:4 节奏，对外披露统一使用"稳健增长"表述，不承诺具体数字。',src:'来自对话「季度目标拆解」',time:'09/01 15:02'}
+/* ============ 项目记忆 ============ */
+let MEMORIES=isFresh ? [] : [
+  {t:'关键决策：任务范围冻结',d:'本季度优先任务范围已冻结，新增需求统一走变更评审，避免影响既有排期。',src:'来自任务「需求梳理」',time:'09/02 16:40'},
+  {t:'资料口径',d:'对外材料统一使用最新版资料，历史版本仅作存档，引用时注意核对版本号。',src:'来自任务「资料汇总」',time:'09/03 11:12'},
+  {t:'协作约定',d:'任务产出物统一归档到项目资料，结论性内容同步沉淀为项目记忆。',src:'来自任务「启动会纪要」',time:'09/01 15:02'}
 ];
 function renderMem(){
-  document.getElementById('memList').innerHTML=MEMORIES.map((m,i)=>`
+  document.getElementById('memList').innerHTML=MEMORIES.length ? MEMORIES.map((m,i)=>`
     <div class="mem">
       <div class="mi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 13.7 9.3 19.5 11 13.7 12.7 12 18.5 10.3 12.7 4.5 11 10.3 9.3Z"/></svg></div>
       <div class="mc"><div class="mt">${m.t}</div><div class="md">${m.d}</div><div class="mf"><span>${m.src}</span><span>${m.time}</span></div></div>
       <span class="mx" onclick="delMem(${i})" title="删除"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></span>
-    </div>`).join('');
+    </div>`).join('') : '<div class="task-empty">还没有项目记忆，任务完成后关键结论会自动沉淀到这里</div>';
 }
 function addMem(){
   const t=prompt('记忆标题：');
