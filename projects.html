@@ -66,16 +66,34 @@ svg{display:block;}
 .main{flex:1;overflow-y:auto;background:#fff;}
 .wrap{max-width:1080px;margin:0 auto;padding:22px 36px 60px;}
 
-/* 页头：标题 + 搜索 + 创建 */
-.page-head{display:flex;align-items:center;gap:14px;}
-.page-head h1{font-size:18px;font-weight:700;white-space:nowrap;}
+/* 一级 Tab：项目 / 待办 */
+.top-tabs{display:flex;align-items:center;gap:4px;}
+.top-tabs .tt{height:34px;padding:0 16px;display:flex;align-items:center;border-radius:9px;font-size:14.5px;font-weight:600;color:var(--sub);cursor:pointer;white-space:nowrap;}
+.top-tabs .tt .tt-n{font-size:11.5px;font-weight:500;color:#b4b9c1;margin-left:5px;}
+.top-tabs .tt.on{background:var(--ink);color:#fff;}
+.top-tabs .tt.on .tt-n{color:rgba(255,255,255,.7);}
+
+/* 页头：搜索 + 创建 */
+.page-head{display:flex;align-items:center;gap:14px;margin-top:18px;}
 .page-head .sp{flex:1;}
 .search{display:flex;align-items:center;gap:7px;width:262px;height:38px;border:1px solid var(--border);border-radius:10px;padding:0 12px;color:var(--sub2);background:#fff;}
 .search:focus-within{border-color:#bcd2fb;box-shadow:0 0 0 3px rgba(47,123,246,.10);}
 .search input{border:none;outline:none;flex:1;font-size:13px;font-family:inherit;color:var(--text);background:transparent;}
 .search input::placeholder{color:#b4b9c1;}
-.btn-new{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 18px;border-radius:10px;background:var(--ink);color:#fff;font-size:13.5px;font-weight:500;cursor:pointer;border:none;font-family:inherit;}
+
+/* 创建按钮组 */
+.btn-new{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 18px;border-radius:10px;background:var(--ink);color:#fff;font-size:13.5px;font-weight:500;cursor:pointer;border:none;font-family:inherit;position:relative;}
 .btn-new:hover{background:#000;}
+.btn-new .caret{font-size:10px;opacity:.7;}
+.create-menu{position:absolute;top:44px;right:0;z-index:60;width:200px;background:#fff;border-radius:12px;box-shadow:0 10px 32px rgba(15,23,42,.16);border:1px solid #f0f1f4;padding:6px;display:none;}
+.create-menu.show{display:block;}
+.create-menu .cm-i{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border-radius:8px;cursor:pointer;}
+.create-menu .cm-i:hover{background:#f4f6f9;}
+.create-menu .cm-ic{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.create-menu .cm-ic.simple{background:#e8effc;color:var(--blue);}
+.create-menu .cm-ic.enterprise{background:#f0ecfa;color:var(--purple);}
+.create-menu .cm-t{font-size:13.5px;font-weight:600;}
+.create-menu .cm-d{font-size:11.5px;color:var(--sub);margin-top:2px;}
 
 /* Banner */
 .banner{margin-top:18px;border-radius:16px;padding:26px 32px;position:relative;overflow:hidden;
@@ -94,10 +112,42 @@ svg{display:block;}
 .pcard:hover{box-shadow:0 8px 22px rgba(31,35,41,.08);border-color:#d9dee7;transform:translateY(-1px);}
 .pcard .p-row{display:flex;align-items:center;gap:10px;}
 .pcard .p-ic{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:#f2f4f7;color:#9aa1ad;display:flex;align-items:center;justify-content:center;}
+.pcard .p-ic.enterprise{background:#f0ecfa;color:var(--purple);}
 .pcard .p-name{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0;}
 .pcard .p-more{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#b9bfc9;flex-shrink:0;}
 .pcard .p-more:hover{background:#f2f3f5;color:var(--text);}
-.pcard .p-time{font-size:11.5px;color:var(--sub2);margin:10px 0 0 44px;white-space:nowrap;}
+.pcard .p-time{font-size:11.5px;color:var(--sub2);margin:10px 0 0 44px;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+.p-badge{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:600;border-radius:5px;padding:1px 6px;}
+.p-badge.simple{background:#e8effc;color:var(--blue);}
+.p-badge.enterprise{background:#f0ecfa;color:var(--purple);}
+
+/* 待办列表 */
+.todo-pane{display:none;margin-top:18px;}
+.todo-pane.on{display:block;}
+.todo-stats{display:flex;gap:12px;margin-bottom:16px;}
+.todo-stat{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 18px;flex:1;}
+.todo-stat .ts-n{font-size:22px;font-weight:800;}
+.todo-stat .ts-l{font-size:12px;color:var(--sub);margin-top:2px;}
+.todo-stat .ts-n.done{color:#18a058;}
+.todo-stat .ts-n.pending{color:var(--blue);}
+.todo-stat .ts-n.over{color:#f0524a;}
+.todo-list{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.todo-group-h{padding:12px 16px;font-size:12.5px;font-weight:700;color:var(--sub);background:#fafbfc;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px;}
+.todo-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #f2f3f5;}
+.todo-item:last-child{border-bottom:none;}
+.todo-item:hover{background:#fafbfc;}
+.todo-ck{width:18px;height:18px;border-radius:5px;border:2px solid #d4d8df;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s;}
+.todo-ck.done{background:var(--blue);border-color:var(--blue);color:#fff;}
+.todo-item.done .todo-text{text-decoration:line-through;color:var(--sub2);}
+.todo-body{flex:1;min-width:0;}
+.todo-text{font-size:13.5px;color:var(--text);}
+.todo-meta{font-size:11.5px;color:var(--sub2);margin-top:3px;display:flex;align-items:center;gap:8px;}
+.todo-meta .tm-proj{color:var(--blue);}
+.todo-meta .tm-dl.over{color:#f0524a;}
+.todo-assignee{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--sub);flex-shrink:0;}
+.todo-assignee .a-av{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:#fff;}
+.todo-assignee .a-av.ai{background:linear-gradient(135deg,#2b6de8,#4d8dff);}
+.todo-assignee .a-av.bot{background:linear-gradient(135deg,#6a5be2,#8b7af0);}
 
 /* 创建项目卡 */
 .pcard-create{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
@@ -122,7 +172,7 @@ svg{display:block;}
 /* 新建项目弹窗 */
 .mask{position:fixed;inset:0;background:rgba(15,23,42,.42);display:none;align-items:center;justify-content:center;z-index:50;}
 .mask.show{display:flex;}
-.modal{width:480px;max-width:92vw;background:#fff;border-radius:18px;padding:26px 26px 22px;box-shadow:0 24px 60px rgba(15,23,42,.25);}
+.modal{width:480px;max-width:92vw;max-height:86vh;overflow-y:auto;background:#fff;border-radius:18px;padding:26px 26px 22px;box-shadow:0 24px 60px rgba(15,23,42,.25);}
 .modal h3{font-size:18px;font-weight:700;}
 .modal .m-sub{font-size:12.5px;color:var(--sub);margin-top:5px;}
 .fld{margin-top:18px;}
@@ -135,6 +185,29 @@ svg{display:block;}
 .btn:hover{background:#f5f6f8;}
 .btn-pri{background:var(--ink);color:#fff;border-color:var(--ink);}
 .btn-pri:hover{background:#000;}
+
+/* 企业项目：节点配置 */
+.node-section{border:1px solid var(--line);border-radius:12px;margin-top:12px;overflow:hidden;}
+.node-head{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#fafbfc;border-bottom:1px solid var(--line);cursor:pointer;}
+.node-head .nh-ic{width:22px;height:22px;border-radius:6px;background:#f0ecfa;color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.node-head .nh-t{font-size:13px;font-weight:600;flex:1;}
+.node-head .nh-del{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#c2c7cf;cursor:pointer;}
+.node-head .nh-del:hover{color:#f0524a;background:#fdeceb;}
+.node-body{padding:10px 14px 14px;display:flex;flex-direction:column;gap:8px;}
+.task-mini{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #f0f1f4;border-radius:9px;background:#fff;}
+.task-mini .tm-input{flex:1;border:none;outline:none;font-size:13px;font-family:inherit;background:transparent;color:var(--text);}
+.task-mini .tm-input::placeholder{color:#b4b9c1;}
+.assignee-select{display:flex;align-items:center;gap:5px;font-size:12px;border:1px solid var(--border);border-radius:7px;padding:0 8px;height:28px;cursor:pointer;flex-shrink:0;color:var(--sub);white-space:nowrap;}
+.assignee-select:hover{border-color:var(--blue);color:var(--blue);}
+.assignee-select .as-av{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:600;color:#fff;}
+.assignee-select .as-av.ai{background:linear-gradient(135deg,#2b6de8,#4d8dff);}
+.assignee-select .as-av.bot{background:linear-gradient(135deg,#6a5be2,#8b7af0);}
+.task-mini .tm-del{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#c2c7cf;cursor:pointer;flex-shrink:0;}
+.task-mini .tm-del:hover{color:#f0524a;}
+.node-add-task{font-size:12px;color:var(--blue);cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:4px 0;}
+.node-add-task:hover{text-decoration:underline;}
+.btn-add-node{margin-top:12px;width:100%;height:36px;border:1px dashed #d3d8e0;border-radius:10px;background:#fff;font-size:13px;color:var(--sub);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px;}
+.btn-add-node:hover{border-color:var(--blue);color:var(--blue);background:#fafcff;}
 
 /* toast */
 .toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:rgba(31,35,41,.92);color:#fff;font-size:13px;padding:9px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:99;}
@@ -188,18 +261,36 @@ svg{display:block;}
 
     <main class="main">
       <div class="wrap">
+        <!-- 一级 Tab：项目 / 待办 -->
+        <div class="top-tabs">
+          <div class="tt on" onclick="switchTopTab(this,'proj')">项目<span class="tt-n" id="projCount">0</span></div>
+          <div class="tt" onclick="switchTopTab(this,'todo')">待办<span class="tt-n" id="todoCount">0</span></div>
+        </div>
+
+        <!-- 项目 Tab -->
+        <div id="pane-proj">
         <!-- 页头 -->
         <div class="page-head">
-          <h1>我的项目</h1>
           <span class="sp"></span>
           <div class="search">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
             <input id="searchInput" placeholder="搜索项目名称" oninput="renderMine()">
           </div>
-          <button class="btn-new" onclick="openCreate()">
+          <button class="btn-new" onclick="toggleCreateMenu(event)">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
             创建项目
+            <span class="caret">▼</span>
           </button>
+          <div class="create-menu" id="createMenu">
+            <div class="cm-i" onclick="openCreate('simple')">
+              <div class="cm-ic simple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/></svg></div>
+              <div><div class="cm-t">快速创建</div><div class="cm-d">个人项目，简单管理资料与产出</div></div>
+            </div>
+            <div class="cm-i" onclick="openCreate('enterprise')">
+              <div class="cm-ic enterprise"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.2 7.3 15.8 10.7M8.2 16.7l7.6-3.4"/></svg></div>
+              <div><div class="cm-t">企业项目</div><div class="cm-d">节点配置、人机协同、任务指派</div></div>
+            </div>
+          </div>
         </div>
 
         <!-- Banner -->
@@ -233,6 +324,13 @@ svg{display:block;}
 
         <!-- 项目网格 -->
         <div class="my-grid" id="myGrid"></div>
+        </div><!-- /pane-proj -->
+
+        <!-- 待办 Tab -->
+        <div class="todo-pane" id="pane-todo">
+          <div class="todo-stats" id="todoStats"></div>
+          <div class="todo-list" id="todoList"></div>
+        </div>
       </div>
     </main>
   </div>
@@ -253,8 +351,8 @@ svg{display:block;}
 <!-- 新建项目弹窗 -->
 <div class="mask" id="mask" onclick="if(event.target===this)closeCreate()">
   <div class="modal">
-    <h3>创建项目</h3>
-    <div class="m-sub">创建后将进入项目空间，可在项目内发起任务、管理资料与产出物</div>
+    <h3 id="modalTitle">创建项目</h3>
+    <div class="m-sub" id="modalSub">创建后将进入项目空间，可在项目内发起任务、管理资料与产出物</div>
     <div class="fld">
       <label>项目名称</label>
       <input type="text" id="fName" placeholder="例如：五一安徽旅游推荐" maxlength="30">
@@ -262,6 +360,15 @@ svg{display:block;}
     <div class="fld">
       <label>项目说明 <span style="color:var(--sub2);font-weight:400">（选填）</span></label>
       <textarea id="fDesc" placeholder="项目目标、背景或成员约定…" maxlength="120"></textarea>
+    </div>
+    <!-- 企业项目：节点配置 -->
+    <div class="fld" id="nodeField" style="display:none">
+      <label>节点配置 <span style="color:var(--sub2);font-weight:400">（企业项目：配置流程节点，每个节点可指定任务并指派给龙虾或硅基员工）</span></label>
+      <div id="nodeList"></div>
+      <button class="btn-add-node" onclick="addNode()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        添加节点
+      </button>
     </div>
     <div class="m-foot">
       <button class="btn" onclick="closeCreate()">取消</button>
@@ -273,14 +380,132 @@ svg{display:block;}
 <div class="toast" id="toastEl"></div>
 <script>
 let PROJECTS=[
-  {id:'p1',name:'这是一个项目标题这是一个项目',created:'2026-10-12'},
-  {id:'p2',name:'这是一个项目标题',created:'2026-10-12'},
-  {id:'p3',name:'这是一个项目标题',created:'2026-10-12'},
-  {id:'p4',name:'这是一个项目标题',created:'2026-10-12'},
-  {id:'p5',name:'这是一个项目标题',created:'2026-10-12'},
-  {id:'p6',name:'这是一个项目标题',created:'2026-10-12'}
+  {id:'p1',name:'五一安徽旅游推荐',created:'2026-10-12',type:'simple'},
+  {id:'p2',name:'Q4市场竞品分析',created:'2026-10-12',type:'enterprise'},
+  {id:'p3',name:'新产品发布筹备',created:'2026-10-10',type:'enterprise'},
+  {id:'p4',name:'个人阅读笔记',created:'2026-10-08',type:'simple'},
+  {id:'p5',name:'客户尽调报告',created:'2026-10-05',type:'simple'},
+  {id:'p6',name:'年度复盘总结',created:'2026-10-01',type:'simple'}
 ];
 
+// 待办数据
+let TODOS=[
+  {id:1,text:'收集Q4竞品数据',proj:'Q4市场竞品分析',done:false,deadline:'10-15',assignee:{type:'ai',name:'龙虾'}},
+  {id:2,text:'撰写竞品对比章节',proj:'Q4市场竞品分析',done:true,deadline:'10-12',assignee:{type:'ai',name:'龙虾'}},
+  {id:3,text:'审核市场分析报告',proj:'Q4市场竞品分析',done:false,deadline:'10-16',assignee:{type:'bot',name:'分析员'}},
+  {id:4,text:'设计发布活动主视觉',proj:'新产品发布筹备',done:false,deadline:'10-18',assignee:{type:'bot',name:'设计师'}},
+  {id:5,text:'生成产品说明书PDF',proj:'新产品发布筹备',done:false,deadline:'10-14',assignee:{type:'ai',name:'龙虾'}},
+  {id:6,text:'整理客户尽调材料',proj:'客户尽调报告',done:true,deadline:'10-06',assignee:{type:'ai',name:'龙虾'}},
+  {id:7,text:'生成尽调结论摘要',proj:'客户尽调报告',done:false,deadline:'10-20',assignee:{type:'ai',name:'龙虾'}}
+];
+
+// 指派人选项
+const ASSIGNEES=[
+  {type:'ai',name:'龙虾',cls:'ai',label:'AI'},
+  {type:'bot',name:'分析员',cls:'bot',label:'分'},
+  {type:'bot',name:'设计师',cls:'bot',label:'设'},
+  {type:'bot',name:'研究员',cls:'bot',label:'研'},
+  {type:'bot',name:'审核员',cls:'bot',label:'审'}
+];
+
+// ===== 一级 Tab 切换 =====
+function switchTopTab(el,tab){
+  document.querySelectorAll('.top-tabs .tt').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('pane-proj').style.display=tab==='proj'?'':'none';
+  document.getElementById('pane-todo').classList.toggle('on',tab==='todo');
+}
+document.getElementById('projCount').textContent=PROJECTS.length;
+document.getElementById('todoCount').textContent=TODOS.filter(t=>!t.done).length;
+
+// ===== 创建按钮下拉菜单 =====
+function toggleCreateMenu(e){
+  e.stopPropagation();
+  document.getElementById('createMenu').classList.toggle('show');
+}
+document.addEventListener('click',()=>document.getElementById('createMenu').classList.remove('show'));
+
+// ===== 创建弹窗 =====
+let createType='simple';
+let createNodes=[]; // 企业项目节点配置
+
+function openCreate(type){
+  createType=type||'simple';
+  document.getElementById('createMenu').classList.remove('show');
+  document.getElementById('fName').value='';
+  document.getElementById('fDesc').value='';
+  if(createType==='enterprise'){
+    document.getElementById('modalTitle').textContent='创建企业项目';
+    document.getElementById('modalSub').textContent='配置流程节点，每个节点可指定任务并指派给龙虾或硅基员工';
+    document.getElementById('nodeField').style.display='';
+    createNodes=[{name:'',tasks:[{name:'',assignee:0}]}];
+    renderNodes();
+  }else{
+    document.getElementById('modalTitle').textContent='创建项目';
+    document.getElementById('modalSub').textContent='创建后将进入项目空间，可在项目内发起任务、管理资料与产出物';
+    document.getElementById('nodeField').style.display='none';
+  }
+  document.getElementById('mask').classList.add('show');
+  setTimeout(()=>document.getElementById('fName').focus(),50);
+}
+function closeCreate(){ document.getElementById('mask').classList.remove('show'); }
+
+// 节点配置
+function renderNodes(){
+  const list=document.getElementById('nodeList');
+  list.innerHTML=createNodes.map((n,ni)=>`
+    <div class="node-section" data-ni="${ni}">
+      <div class="node-head">
+        <span class="nh-ic">${ni+1}</span>
+        <input class="nh-t" placeholder="节点名称（如：调研、撰写、审核）" value="${esc(n.name)}" oninput="createNodes[${ni}].name=this.value" style="border:none;outline:none;background:transparent;font-size:13px;font-weight:600;font-family:inherit;">
+        <div class="nh-del" onclick="delNode(${ni})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></div>
+      </div>
+      <div class="node-body">
+        ${n.tasks.map((t,ti)=>`
+          <div class="task-mini">
+            <input class="tm-input" placeholder="任务名称…" value="${esc(t.name)}" oninput="createNodes[${ni}].tasks[${ti}].name=this.value">
+            <div class="assignee-select" onclick="cycleAssignee(${ni},${ti})">
+              <span class="as-av ${ASSIGNEES[t.assignee].cls}">${ASSIGNEES[t.assignee].label}</span>
+              ${ASSIGNEES[t.assignee].name}
+            </div>
+            <div class="tm-del" onclick="delTask(${ni},${ti})"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+          </div>
+        `).join('')}
+        <span class="node-add-task" onclick="addTask(${ni})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          添加任务
+        </span>
+      </div>
+    </div>
+  `).join('');
+}
+function addNode(){ createNodes.push({name:'',tasks:[{name:'',assignee:0}]}); renderNodes(); }
+function delNode(ni){ if(createNodes.length<=1){toast('至少保留一个节点');return;} createNodes.splice(ni,1); renderNodes(); }
+function addTask(ni){ createNodes[ni].tasks.push({name:'',assignee:0}); renderNodes(); }
+function delTask(ni,ti){ if(createNodes[ni].tasks.length<=1){toast('节点下至少保留一个任务');return;} createNodes[ni].tasks.splice(ti,1); renderNodes(); }
+function cycleAssignee(ni,ti){
+  createNodes[ni].tasks[ti].assignee=(createNodes[ni].tasks[ti].assignee+1)%ASSIGNEES.length;
+  renderNodes();
+}
+
+function createProject(){
+  const name=document.getElementById('fName').value.trim();
+  if(!name){ toast('请输入项目名称'); document.getElementById('fName').focus(); return; }
+  const d=new Date();
+  const id='p'+Date.now();
+  const created=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  // 企业项目：将节点配置编码到 URL
+  let extra='';
+  if(createType==='enterprise'){
+    const nodes=createNodes.filter(n=>n.name.trim()||n.tasks.some(t=>t.name.trim()));
+    if(nodes.length){ extra='&nodes='+encodeURIComponent(JSON.stringify(nodes.map(n=>({name:n.name||'节点',tasks:n.tasks.filter(t=>t.name.trim()).map(t=>({name:t.name,assignee:ASSIGNEES[t.assignee].name,type:ASSIGNEES[t.assignee].type}))})))); }
+    extra+='&type=enterprise';
+  }
+  closeCreate();
+  location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(name)+'&fresh=1'+extra;
+}
+
+// ===== 项目卡片渲染 =====
 function renderMine(){
   const kw=(document.getElementById('searchInput').value||'').trim().toLowerCase();
   const list=PROJECTS.filter(p=>p.name.toLowerCase().includes(kw));
@@ -288,17 +513,23 @@ function renderMine(){
   grid.innerHTML = (list.length ? list.map(p=>`
     <div class="pcard" data-id="${p.id}" onclick="openProject('${p.id}')">
       <div class="p-row">
-        <div class="p-ic">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14-5.3L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14 5.3L20 16"/><path d="M20 20v-4h-4"/></svg>
+        <div class="p-ic ${p.type==='enterprise'?'enterprise':''}">
+          ${p.type==='enterprise'
+            ? '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.2 7.3 15.8 10.7M8.2 16.7l7.6-3.4"/></svg>'
+            : '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/></svg>'
+          }
         </div>
         <div class="p-name" data-name>${p.name}</div>
         <div class="p-more" onclick="event.stopPropagation();toggleMenu(event,'${p.id}')">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>
         </div>
       </div>
-      <div class="p-time">创建时间：${p.created}</div>
+      <div class="p-time">
+        <span>创建时间：${p.created}</span>
+        <span class="p-badge ${p.type}">${p.type==='enterprise'?'企业':'简单'}</span>
+      </div>
     </div>`).join('') : '<div class="empty-hint" style="display:block">没有匹配的项目</div>')
-    + `<div class="pcard-create" onclick="openCreate()">
+    + `<div class="pcard-create" onclick="toggleCreateMenu(event)">
          <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
          创建项目
        </div>`;
@@ -349,28 +580,56 @@ function onDelete(){
   renderMine(); closeMenu(); toast('已删除项目「'+p.name+'」');
 }
 
-/* 新建弹窗 */
-function openCreate(){
-  document.getElementById('fName').value='';
-  document.getElementById('fDesc').value='';
-  document.getElementById('mask').classList.add('show');
-  setTimeout(()=>document.getElementById('fName').focus(),50);
-}
-function closeCreate(){ document.getElementById('mask').classList.remove('show'); }
-function createProject(){
-  const name=document.getElementById('fName').value.trim();
-  if(!name){ toast('请输入项目名称'); document.getElementById('fName').focus(); return; }
-  const d=new Date();
-  const id='p'+Date.now();
-  const created=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  closeCreate();
-  // 创建后直接进入项目详情
-  location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(name)+'&fresh=1';
-}
 function openProject(id){
   const p=PROJECTS.find(x=>x.id===id);
-  location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(p?p.name:'项目');
+  const t=p&&p.type==='enterprise'?'&type=enterprise':'';
+  location.href='project-detail.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(p?p.name:'项目')+t;
 }
+
+// ===== 待办列表 =====
+function renderTodo(){
+  const done=TODOS.filter(t=>t.done).length;
+  const pending=TODOS.filter(t=>!t.done && !t.deadline.endsWith('-00')).length;
+  const over=TODOS.filter(t=>!t.done && parseInt(t.deadline.split('-')[1])<15).length;
+  document.getElementById('todoStats').innerHTML=`
+    <div class="todo-stat"><div class="ts-n pending">${TODOS.length-done}</div><div class="ts-l">待处理</div></div>
+    <div class="todo-stat"><div class="ts-n done">${done}</div><div class="ts-l">已完成</div></div>
+    <div class="todo-stat"><div class="ts-n over">${over}</div><div class="ts-l">即将逾期</div></div>
+  `;
+  // 按项目分组
+  const groups={};
+  TODOS.forEach(t=>{ (groups[t.proj]=groups[t.proj]||[]).push(t); });
+  document.getElementById('todoList').innerHTML=Object.entries(groups).map(([proj,items])=>`
+    <div class="todo-group-h">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.5 6.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/></svg>
+      ${proj}
+    </div>
+    ${items.map(t=>`
+      <div class="todo-item ${t.done?'done':''}">
+        <div class="todo-ck ${t.done?'done':''}" onclick="toggleTodo(${t.id})">
+          ${t.done?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>':''}
+        </div>
+        <div class="todo-body">
+          <div class="todo-text">${t.text}</div>
+          <div class="todo-meta">
+            <span class="tm-proj">${t.proj}</span>
+            <span>截止 ${t.deadline}</span>
+          </div>
+        </div>
+        <div class="todo-assignee">
+          <span class="a-av ${t.assignee.type==='ai'?'ai':'bot'}">${t.assignee.type==='ai'?'AI':t.assignee.name.charAt(0)}</span>
+          ${t.assignee.name}
+        </div>
+      </div>
+    `).join('')}
+  `).join('');
+}
+function toggleTodo(id){
+  const t=TODOS.find(x=>x.id===id);
+  if(t){ t.done=!t.done; document.getElementById('todoCount').textContent=TODOS.filter(x=>!x.done).length; renderTodo(); }
+}
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 /* 会话列表 */
 document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
@@ -383,6 +642,7 @@ let toastTimer;
 function toast(msg){const el=document.getElementById('toastEl');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),1800);}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCreate();});
 renderMine();
+renderTodo();
 </script>
 </body>
 </html>

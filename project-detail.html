@@ -114,6 +114,32 @@ svg{display:block;}
 .task-empty{text-align:center;color:var(--sub2);font-size:13px;padding:44px 0 40px;line-height:1.9;}
 .rename-input{border:1px solid var(--blue);border-radius:7px;padding:3px 8px;font-size:13.5px;font-family:inherit;outline:none;width:100%;}
 
+/* 企业项目：节点流程 */
+.node-flow{padding:6px 10px 10px;}
+.node-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.node-card-head{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#fafbfc;border-bottom:1px solid var(--line);}
+.node-card-head .nc-num{width:24px;height:24px;border-radius:7px;background:#f0ecfa;color:#6a5be2;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.node-card-head .nc-title{font-size:14px;font-weight:600;flex:1;}
+.node-card-head .nc-status{font-size:11.5px;color:#8a9099;background:#f0f1f4;border-radius:5px;padding:2px 8px;}
+.node-card-head .nc-status.done{color:#18a058;background:#e6f6ed;}
+.node-card-head .nc-status.active{color:var(--blue);background:#e8effc;}
+.node-card-body{padding:6px 10px 10px;display:flex;flex-direction:column;gap:4px;}
+.nf-task{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;cursor:pointer;}
+.nf-task:hover{background:#f6f7f9;}
+.nf-task .nf-ck{width:16px;height:16px;border-radius:5px;border:2px solid #d4d8df;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.nf-task .nf-ck.done{background:#18a058;border-color:#18a058;color:#fff;}
+.nf-task .nf-name{flex:1;min-width:0;font-size:13.5px;color:#3a3f47;}
+.nf-task.done .nf-name{text-decoration:line-through;color:var(--sub2);}
+.nf-task .nf-assignee{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--sub);flex-shrink:0;}
+.nf-task .nf-assignee .a-av{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:#fff;}
+.nf-task .nf-assignee .a-av.ai{background:linear-gradient(135deg,#2b6de8,#4d8dff);}
+.nf-task .nf-assignee .a-av.bot{background:linear-gradient(135deg,#6a5be2,#8b7af0);}
+.nf-add-task{font-size:12px;color:var(--blue);cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:6px 12px;}
+.nf-add-task:hover{text-decoration:underline;}
+.p-badge{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:600;border-radius:5px;padding:1px 6px;margin-left:10px;}
+.p-badge.simple{background:#e8effc;color:var(--blue);}
+.p-badge.enterprise{background:#f0ecfa;color:#6a5be2;}
+
 /* 项目资料 */
 .mat-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .mat-toolbar .seg{background:#eceef1;}
@@ -234,6 +260,7 @@ svg{display:block;}
         <a class="crumb" href="projects.html">项目</a>
         <span class="sep" style="color:#c9cdd4">/</span>
         <span class="crumb cur" id="crumbName">项目名项目名</span>
+        <span class="p-badge simple" id="projBadge" style="display:none">简单</span>
       </div>
 
       <div class="main-scroll">
@@ -374,8 +401,37 @@ const q=new URLSearchParams(location.search);
 const isFresh=q.get('fresh')==='1';
 const projectName=q.get('name')||'项目名项目名';
 const projectId=q.get('id')||'p1';
+const projectType=q.get('type')||'simple';
+const nodesParam=q.get('nodes');
 document.getElementById('crumbName').textContent=projectName;
 document.title=projectName+' · TCLaw 龙虾';
+
+// 项目类型徽标
+const badge=document.getElementById('projBadge');
+if(projectType==='enterprise'){
+  badge.className='p-badge enterprise';
+  badge.textContent='企业';
+  badge.style.display='';
+}else{
+  badge.className='p-badge simple';
+  badge.textContent='简单';
+  badge.style.display='';
+}
+
+// 企业项目节点配置（从 URL 解析或使用默认演示数据）
+let ENTERNODES=[];
+if(projectType==='enterprise'){
+  try{
+    if(nodesParam) ENTERNODES=JSON.parse(decodeURIComponent(nodesParam));
+  }catch(e){}
+  if(!ENTERNODES.length && !isFresh){
+    ENTERNODES=[
+      {name:'调研',tasks:[{name:'收集Q4竞品数据',assignee:'龙虾',type:'ai',done:true},{name:'分析市场趋势',assignee:'分析员',type:'bot',done:false}]},
+      {name:'撰写',tasks:[{name:'撰写竞品对比章节',assignee:'龙虾',type:'ai',done:false},{name:'生成分析报告PDF',assignee:'龙虾',type:'ai',done:false}]},
+      {name:'审核',tasks:[{name:'审核市场分析报告',assignee:'审核员',type:'bot',done:false}]}
+    ];
+  }
+}
 
 // 左侧 IM 会话列表
 document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
@@ -405,8 +461,48 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 
 function renderTasks(){
   const kw=(document.getElementById('taskSearch').value||'').trim();
-  const list=TASKS.filter(t=>!kw||t.name.includes(kw));
   const box=document.getElementById('taskList');
+
+  // 企业项目：渲染节点流程
+  if(projectType==='enterprise'){
+    if(!ENTERNODES.length){
+      box.innerHTML=`<div class="task-empty">企业项目尚未配置流程节点<br>可在创建时配置节点与任务指派，或在下方输入框直接发起对话</div>`;
+      return;
+    }
+    box.innerHTML='<div class="node-flow">'+ENTERNODES.map((n,ni)=>{
+      const total=n.tasks.length;
+      const doneCount=n.tasks.filter(t=>t.done).length;
+      const status=doneCount===total?'done':'active';
+      const statusText=doneCount===total?'已完成':(doneCount>0?'进行中':'待开始');
+      return `<div class="node-card">
+        <div class="node-card-head">
+          <span class="nc-num">${ni+1}</span>
+          <span class="nc-title">${esc(n.name)}</span>
+          <span class="nc-status ${status}">${statusText} ${doneCount}/${total}</span>
+        </div>
+        <div class="node-card-body">
+          ${n.tasks.map((t,ti)=>`
+            <div class="nf-task ${t.done?'done':''}" onclick="toggleNodeTask(${ni},${ti})">
+              <div class="nf-ck ${t.done?'done':''}">${t.done?'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>':''}</div>
+              <span class="nf-name">${esc(t.name)}</span>
+              <span class="nf-assignee">
+                <span class="a-av ${t.type==='ai'?'ai':'bot'}">${t.type==='ai'?'AI':(t.assignee||'').charAt(0)}</span>
+                ${esc(t.assignee||'龙虾')}
+              </span>
+            </div>
+          `).join('')}
+          <span class="nf-add-task" onclick="toast('添加任务到节点（原型演示）')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            添加任务
+          </span>
+        </div>
+      </div>`;
+    }).join('')+'</div>';
+    return;
+  }
+
+  // 简单项目：渲染扁平任务列表
+  const list=TASKS.filter(t=>!kw||t.name.includes(kw));
   if(!TASKS.length){
     box.innerHTML=`<div class="task-empty">还没有任务，在下方输入框直接描述需求即可发起第一个任务<br>任务会自动携带项目说明、项目资料与项目记忆</div>`;
     return;
@@ -427,6 +523,12 @@ function renderTasks(){
         </div>
       </div>
     </div>`).join('') : '<div class="task-empty">没有匹配的任务</div>';
+}
+
+// 企业项目：切换节点任务完成状态
+function toggleNodeTask(ni,ti){
+  ENTERNODES[ni].tasks[ti].done=!ENTERNODES[ni].tasks[ti].done;
+  renderTasks();
 }
 function openTask(id,query){
   const t=TASKS.find(x=>x.id===id);
