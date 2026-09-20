@@ -76,7 +76,12 @@ svg{display:block;}
 
 /* 对话滚动区 */
 .chat-scroll{flex:1;overflow-y:auto;}
-.chat-wrap{max-width:900px;margin:0 auto;padding:26px 28px 30px;display:flex;flex-direction:column;gap:18px;}
+.chat-wrap{max-width:900px;margin:0 auto;padding:26px 28px 30px;display:flex;flex-direction:column;gap:18px;min-height:100%;box-sizing:border-box;}
+
+/* 从任务「去完成」进入的空态欢迎区 */
+.welcome-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12vh 20px 6vh;}
+.welcome-empty .we-title{font-size:30px;font-weight:700;color:var(--ink);letter-spacing:.5px;margin-bottom:14px;}
+.welcome-empty .we-sub{font-size:14px;line-height:1.7;color:var(--sub);max-width:560px;}
 
 /* 文件卡（右对齐） */
 .files-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;max-width:760px;margin-left:auto;}
@@ -220,8 +225,14 @@ svg{display:block;}
           <!-- 上传文件卡 -->
           <div class="files-row" id="filesRow"></div>
 
+          <!-- 从任务「去完成」进入：空态欢迎区（默认隐藏） -->
+          <div class="welcome-empty" id="welcomeEmpty" style="display:none;">
+            <div class="we-title" id="weTitle">开始推进这项任务</div>
+            <div class="we-sub">任务指令已根据项目与节点信息预填，确认后发送即可，也可以继续补充你的要求</div>
+          </div>
+
           <!-- 用户提问 -->
-          <div class="user-row">
+          <div class="user-row" id="demoUserRow">
             <div class="user-bubble">帮我根据【型号】、【型号】和【型号】对比，生成参数对比和AI评分。</div>
           </div>
 
@@ -336,12 +347,13 @@ const pid=q.get('pid')||'p1';
 const projectName=q.get('project')||'项目名项目名';
 const taskName=q.get('task')||'五一安徽旅游推荐';
 document.getElementById('crumbProject').textContent=projectName;
-document.getElementById('crumbProject').href='project-detail.html?id='+encodeURIComponent(pid)+'&name='+encodeURIComponent(projectName);
+document.getElementById('crumbProject').href='project-detail.html?id='+encodeURIComponent(pid)+'&name='+encodeURIComponent(projectName)+(q.get('type')==='collab'?'&type=collab':'');
 document.getElementById('crumbTask').textContent=taskName;
 document.title=taskName+' · TCLaw 龙虾';
 
 // 新对话模式：来自项目详情底部输入框发送的 query（相当于在项目底下开启一条新对话）
 const query=q.get('q');
+const prefill=q.get('pf');
 if(query){
   document.getElementById('filesRow').style.display='none';
   document.querySelector('.user-bubble').textContent=query;
@@ -349,6 +361,19 @@ if(query){
   const stages=['正在理解任务…','正在检索项目资料与项目记忆…','正在生成结果…'];
   let si=0;
   setInterval(()=>{ si=(si+1)%stages.length; const el=document.getElementById('thinkText'); if(el) el.textContent=stages[si]; },2200);
+}else if(prefill){
+  // 从任务「去完成」进入：清空示例对话，显示空态，指令预填到输入框（聚焦、可编辑、不自动发送）
+  document.getElementById('filesRow').style.display='none';
+  document.getElementById('demoUserRow').style.display='none';
+  document.getElementById('aiCol').style.display='none';
+  const we=document.getElementById('welcomeEmpty');
+  we.style.display='flex';
+  document.getElementById('weTitle').textContent='开始推进「'+taskName+'」';
+  const ta0=document.getElementById('ccInput');
+  ta0.value=prefill;
+  ta0.setAttribute('rows','2');
+  ta0.focus();
+  ta0.setSelectionRange(prefill.length,prefill.length);
 }
 
 // 左侧 IM 会话列表
@@ -373,17 +398,31 @@ document.getElementById('filesRow').innerHTML=FILES.map(f=>`
 function toggleSteps(){ document.getElementById('stepsCard').classList.toggle('collapsed'); }
 
 // 发送：原型演示，追加一条用户气泡并清空
+let prefillFirstSent=false;
 function sendMsg(){
   const ta=document.getElementById('ccInput');
   const v=ta.value.trim();
   if(!v){ ta.focus(); return; }
+  const we=document.getElementById('welcomeEmpty');
+  const fromEmpty=we&&we.style.display!=='none';
+  if(fromEmpty) we.style.display='none';
+  const scroll=document.querySelector('.chat-scroll .chat-wrap');
   const row=document.createElement('div');
   row.className='user-row';
   row.innerHTML='<div class="user-bubble"></div>';
   row.querySelector('.user-bubble').textContent=v;
-  const scroll=document.querySelector('.chat-scroll .chat-wrap');
-  const dock=document.querySelector('.chat-dock');
-  scroll.insertBefore(row,dock);
+  scroll.appendChild(row);
+  // 空态（任务去完成）首发后，给出 AI 思考反馈
+  if(fromEmpty&&!prefillFirstSent){
+    prefillFirstSent=true;
+    const think=document.createElement('div');
+    think.className='ai-col';
+    think.innerHTML='<div class="ai-thinking"><span class="dots"><i></i><i></i><i></i></span><span class="thinkTxt">正在理解任务…</span></div>';
+    scroll.appendChild(think);
+    const stages=['正在理解任务…','正在检索项目资料与项目记忆…','正在生成结果…'];
+    let si=0;
+    setInterval(()=>{ si=(si+1)%stages.length; const el=think.querySelector('.thinkTxt'); if(el) el.textContent=stages[si]; },2200);
+  }
   ta.value=''; ta.style.height='auto'; ta.rows=1;
   document.querySelector('.chat-scroll').scrollTop=document.querySelector('.chat-scroll').scrollHeight;
   toast('已发送，AI 将继续补充信息后生成结果');
