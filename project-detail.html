@@ -360,7 +360,7 @@ svg{display:block;}
               </button>
             </div>
           </div>
-          <div class="cc-hint">内容由AI生成，请仔细甄别</div>
+          <div class="cc-hint">发送后将在项目内开启新对话，自动携带项目说明 · 项目资料 · 项目记忆</div>
         </div>
       </div>
     </main>
@@ -428,9 +428,9 @@ function renderTasks(){
       </div>
     </div>`).join('') : '<div class="task-empty">没有匹配的任务</div>';
 }
-function openTask(id){
+function openTask(id,query){
   const t=TASKS.find(x=>x.id===id);
-  location.href='task.html?pid='+encodeURIComponent(projectId)+'&project='+encodeURIComponent(projectName)+'&tid='+encodeURIComponent(id)+'&task='+encodeURIComponent(t?t.name:'任务');
+  location.href='task.html?pid='+encodeURIComponent(projectId)+'&project='+encodeURIComponent(projectName)+'&tid='+encodeURIComponent(id)+'&task='+encodeURIComponent(t?t.name:'任务')+(query?'&q='+encodeURIComponent(query):'');
 }
 function renameTask(id,btn){
   const row=document.querySelector(`.task-row[data-id="${id}"]`);
@@ -472,8 +472,8 @@ function sendTask(){
   const id='t'+Date.now();
   TASKS.unshift({id,name:v,date});
   ta.value=''; ta.style.height='auto'; ta.rows=1;
-  // 直接进入该任务的对话页
-  openTask(id);
+  // 相当于在项目底下打开一条新对话：携带 query 作为第一条消息进入任务对话页
+  openTask(id,v);
 }
 (function(){
   const ta=document.getElementById('ccInput');

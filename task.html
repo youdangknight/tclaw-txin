@@ -70,7 +70,7 @@ svg{display:block;}
 .crumbbar .cb-ic{color:#8a9099;display:flex;margin-right:2px;}
 .crumb{font-size:13.5px;color:var(--sub);cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
 .crumb:hover{color:var(--blue);}
-.crumb.cur{color:var(--text);font-weight:600;cursor:default;}
+.crumb.cur{color:var(--text);font-weight:600;cursor:default;display:inline-block;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .crumb.cur:hover{color:var(--text);}
 .crumb .sep{color:#c9cdd4;}
 
@@ -110,6 +110,14 @@ svg{display:block;}
 
 /* AI 文本 */
 .ai-text{font-size:14px;line-height:1.9;color:#2b3245;}
+
+/* 新对话：思考中 */
+.ai-thinking{display:flex;align-items:center;gap:10px;font-size:13.5px;color:#6b7078;padding:4px 0;}
+.dots{display:inline-flex;gap:4px;flex-shrink:0;}
+.dots i{width:5px;height:5px;border-radius:50%;background:#9aa3b2;animation:dot 1.2s infinite ease-in-out;}
+.dots i:nth-child(2){animation-delay:.15s;}
+.dots i:nth-child(3){animation-delay:.3s;}
+@keyframes dot{0%,80%,100%{opacity:.25;}40%{opacity:1;}}
 
 /* PDF 结果卡 */
 .result-card{display:flex;align-items:center;gap:13px;border:1px solid var(--border);border-radius:12px;background:#fff;padding:15px 18px;}
@@ -218,7 +226,7 @@ svg{display:block;}
           </div>
 
           <!-- AI 回复 -->
-          <div class="ai-col">
+          <div class="ai-col" id="aiCol">
             <!-- 步骤折叠 -->
             <div class="steps" id="stepsCard">
               <div class="steps-head" onclick="toggleSteps()">
@@ -331,6 +339,17 @@ document.getElementById('crumbProject').textContent=projectName;
 document.getElementById('crumbProject').href='project-detail.html?id='+encodeURIComponent(pid)+'&name='+encodeURIComponent(projectName);
 document.getElementById('crumbTask').textContent=taskName;
 document.title=taskName+' · TCLaw 龙虾';
+
+// 新对话模式：来自项目详情底部输入框发送的 query（相当于在项目底下开启一条新对话）
+const query=q.get('q');
+if(query){
+  document.getElementById('filesRow').style.display='none';
+  document.querySelector('.user-bubble').textContent=query;
+  document.getElementById('aiCol').innerHTML='<div class="ai-thinking"><span class="dots"><i></i><i></i><i></i></span><span id="thinkText">正在理解任务…</span></div>';
+  const stages=['正在理解任务…','正在检索项目资料与项目记忆…','正在生成结果…'];
+  let si=0;
+  setInterval(()=>{ si=(si+1)%stages.length; const el=document.getElementById('thinkText'); if(el) el.textContent=stages[si]; },2200);
+}
 
 // 左侧 IM 会话列表
 document.getElementById('convList').innerHTML=Array.from({length:6},()=>`
