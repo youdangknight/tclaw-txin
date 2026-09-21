@@ -165,6 +165,60 @@ svg{display:block;}
 .conv-row .cr-act{font-size:12px;color:var(--blue);cursor:pointer;flex-shrink:0;padding:4px 8px;border-radius:7px;}
 .conv-row .cr-act:hover{background:#f0f6ff;}
 
+/* 团队项目：项目对话（仅呈现项目下的对话，无共享操作） */
+.collab-chat-card{margin-top:14px;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.cc-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px 12px;}
+.cc-title{font-size:15px;font-weight:700;}
+.cc-search{display:flex;align-items:center;gap:7px;background:#f7f8fa;border:1px solid var(--border);border-radius:9px;padding:7px 12px;width:250px;color:var(--sub2);flex-shrink:0;}
+.cc-search:focus-within{border-color:var(--blue);background:#fff;}
+.cc-search input{border:none;background:transparent;outline:none;font-size:12.5px;width:100%;font-family:inherit;color:var(--text);}
+.proj-chat-row{display:flex;align-items:center;gap:12px;padding:13px 18px;border-top:1px solid #f2f3f5;cursor:pointer;}
+.proj-chat-row:first-child{border-top:none;}
+.proj-chat-row:hover{background:#fafbfc;}
+.pcr-body{flex:1;min-width:0;}
+.pcr-t{font-size:13.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pcr-m{font-size:11.5px;color:var(--sub2);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pcr-date{font-size:12px;color:var(--sub2);flex-shrink:0;}
+.pcr-ops{display:flex;align-items:center;gap:2px;flex-shrink:0;margin-left:6px;}
+.pcr-op{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#8a9099;cursor:pointer;}
+.pcr-op:hover{background:#eef1f5;color:#3a3f47;}
+.pcr-op.danger{color:#e06b5f;}
+.pcr-op.danger:hover{background:#fdeceb;color:var(--red);}
+.cc-empty{padding:34px 18px;text-align:center;color:var(--sub2);font-size:12.5px;}
+
+/* 团队项目：资料子页签（项目资料 / 归档资料） */
+.files-subseg{margin-bottom:14px;}
+.sub-seg .s{height:30px;font-size:13px;}
+.archive-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.ah-t{font-size:15px;font-weight:700;}
+.ah-d{font-size:12px;color:var(--sub2);margin-top:4px;}
+.ah-tools{display:flex;gap:10px;align-items:center;}
+.ah-search{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:9px;padding:8px 12px;width:240px;color:var(--sub2);}
+.ah-search:focus-within{border-color:var(--blue);}
+.ah-search input{border:none;background:transparent;outline:none;font-size:12.5px;width:100%;font-family:inherit;color:var(--text);}
+.ah-sel{height:36px;border:1px solid var(--border);border-radius:9px;padding:0 12px;font-size:12.5px;background:#fff;color:#3a3f47;font-family:inherit;outline:none;}
+.ar-tabs{display:flex;gap:24px;border-bottom:1px solid var(--border);}
+.ar-tab{display:flex;align-items:center;gap:9px;padding:6px 2px 12px;cursor:pointer;position:relative;color:var(--sub);font-size:13px;}
+.ar-tab.on{color:var(--blue);font-weight:600;}
+.ar-tab.on::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2.5px;background:var(--blue);border-radius:2px;}
+.ar-tab .at-ic{width:27px;height:27px;border-radius:8px;background:#f0ecfa;color:var(--purple);display:flex;align-items:center;justify-content:center;}
+.ar-tab .at-nm{line-height:1.25;}
+.ar-tab .at-cnt{font-size:11px;color:var(--sub2);font-weight:400;margin-top:1px;}
+.ar-tab.on .at-cnt{color:var(--blue);}
+.ar-table{background:#fff;border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;overflow:hidden;}
+.ar-th,.ar-tr{display:grid;grid-template-columns:64px 1.05fr 2.3fr .85fr 175px 90px;align-items:center;gap:8px;padding:13px 18px;}
+.ar-th{background:#fafbfc;font-size:12px;color:var(--sub);font-weight:600;}
+.ar-tr{border-top:1px solid #f2f3f5;font-size:13px;color:#3a3f47;}
+.ar-tr>span{min-width:0;}
+.ar-tr>span:nth-child(2){white-space:normal;line-height:1.5;}
+.ar-deliv{display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden;}
+.ar-deliv>span:last-child{min-width:0;overflow:hidden;}
+.ar-deliv .ad-ic{width:30px;height:34px;border-radius:5px;background:#fff4e5;color:#ef8d2b;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;}
+.ar-deliv .ad-nm{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ar-deliv .ad-sub{font-size:11px;color:var(--sub2);margin-top:2px;}
+.ar-link{color:var(--blue);cursor:pointer;}
+.ar-empty{padding:40px 18px;text-align:center;color:var(--sub2);font-size:12.5px;}
+
 /* ===== 协同概览 ===== */
 .ov-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .ov-stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
@@ -822,31 +876,31 @@ svg{display:block;}
               </div>
             </div>
 
-            <!-- 团队项目：共享对话 / 我的私有对话 -->
+            <!-- 团队项目：项目下的对话（仅呈现，无共享/私有操作） -->
             <div id="chatCollab" style="display:none;">
-              <div class="share-note">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a9099" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="4" y="10" width="16" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-                <span>项目成员可共享指定的项目对话、知识资料和交付成果；<b>个人私有对话与个人记忆不会默认对整个项目开放</b>，仅共享你明确指定的内容。</span>
-              </div>
-              <div class="chat-group">
-                <div class="cg-head">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2.6"/><circle cx="16.5" cy="8" r="2.6"/><circle cx="12" cy="16.5" r="2.6"/></svg>
-                  项目共享对话 <span class="cg-d">· 项目成员可见</span>
+              <div class="collab-chat-card">
+                <div class="cc-head">
+                  <span class="cc-title">全部对话</span>
+                  <span class="cc-search">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+                    <input id="collabChatKw" placeholder="搜索" oninput="renderProjectChats()">
+                  </span>
                 </div>
-                <div class="conv-card" id="sharedChats"></div>
-              </div>
-              <div class="chat-group">
-                <div class="cg-head">
-                  <span class="cg-lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
-                  我的私有对话 <span class="cg-d">· 仅自己可见，升级项目不会自动公开</span>
-                </div>
-                <div class="conv-card" id="privateChats"></div>
+                <div id="collabChats"></div>
               </div>
             </div>
           </section>
 
-          <!-- ===== 项目资料（团队：文件夹树 + 文件夹级权限；个人：平铺） ===== -->
+          <!-- ===== 项目资料（团队：项目资料/归档资料；个人：平铺） ===== -->
           <section class="pane" id="pane-files">
+            <!-- 团队项目：资料子页签 -->
+            <div class="seg sub-seg files-subseg" id="filesSubSeg" style="display:none;">
+              <div class="s on" id="filesSubProj" onclick="switchFilesView('proj')">项目资料</div>
+              <div class="s" id="filesSubArc" onclick="switchFilesView('archive')">归档资料</div>
+            </div>
+
+            <!-- 项目资料视图（团队：文件夹树 + 文件夹级权限；个人：平铺） -->
+            <div id="filesViewProj">
             <div class="files-layout" id="filesLayout">
               <!-- 团队项目：资料文件夹侧栏 -->
               <aside class="folder-side" id="folderSide">
@@ -928,6 +982,33 @@ svg{display:block;}
             </div>
               </div><!-- /files-main -->
             </div><!-- /files-layout -->
+            </div><!-- /filesViewProj -->
+
+            <!-- 归档资料视图（仅团队项目）：按节点查看已归档成果 -->
+            <div id="filesViewArchive" style="display:none;">
+              <div class="archive-head">
+                <div>
+                  <div class="ah-t">按节点查看归档成果</div>
+                  <div class="ah-d">对话中可直接引用资料库中的文件，让回答更准确</div>
+                </div>
+                <div class="ah-tools">
+                  <span class="ah-search">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+                    <input id="arcKw" placeholder="请输入任务、材料名称" oninput="renderArchive()">
+                  </span>
+                  <select class="ah-sel" id="arcOwner" onchange="renderArchive()">
+                    <option value="">全部负责人</option>
+                  </select>
+                </div>
+              </div>
+              <div class="ar-tabs" id="arcTabs"></div>
+              <div class="ar-table">
+                <div class="ar-th">
+                  <span>序号</span><span>节点任务</span><span>交付物</span><span>负责人</span><span>上传时间</span><span>操作</span>
+                </div>
+                <div id="arcRows"></div>
+              </div>
+            </div>
           </section>
 
           <!-- ===== 任务：状态筛选 + 统一任务卡片 ===== -->
@@ -1502,15 +1583,13 @@ if(projectType==='collab'){
 /* 保存即从暂存转入 ALL_ASSETS；任务详情通过 fromTask 同时关联「在库资产」与「待入库产出」判断状态 */
 function stagedById(sid){ return STAGED_OUTPUTS.find(s=>s.sid===sid); }
 
-/* 协同对话：共享 / 私有 */
-const SHARED_CHATS=[
-  {t:'项目启动会共识与分工',m:'阿拉丁 · 12 条消息 · 09-15',shared:true},
-  {t:'需求规格说明书评审',m:'梁梦欣、王启年 · 8 条消息 · 09-16',shared:true},
-  {t:'方案初稿修改意见汇总',m:'5 位成员参与 · 09-20',shared:true}
-];
-const PRIVATE_CHATS=[
-  {t:'我对预算口径的个人测算',m:'仅自己可见 · 09-18',shared:false},
-  {t:'与 AI 的头脑风暴（未整理）',m:'仅自己可见 · 09-19',shared:false}
+/* 团队项目：项目下的对话（仅呈现，不提供共享/私有操作） */
+const PROJECT_CHATS=[
+  {t:'项目启动会共识与分工',m:'阿拉丁 · 12 条消息',d:'12/12'},
+  {t:'需求规格说明书评审',m:'梁梦欣、王启年 · 8 条消息',d:'12/12'},
+  {t:'方案初稿修改意见汇总',m:'5 位成员参与 · 14 条消息',d:'12/12'},
+  {t:'这是一条对话记录这是一这是一条对话记录这是一',m:'阿拉丁 · 6 条消息',d:'12/12'},
+  {t:'渠道投放节奏讨论',m:'周喆 · 9 条消息',d:'12/11'}
 ];
 
 /* 项目动态 */
@@ -1599,7 +1678,7 @@ function applyMode(){
   document.getElementById('taskPaneTitle').textContent=collab?'计划与任务':'我的任务';
   buildTabs();
   goTab(curTab);
-  renderSharedChats();
+  renderProjectChats();
   renderMaterials();
   renderTasks();
   if(collab) renderMembersPane();
@@ -1731,19 +1810,49 @@ function delTask(id){
   toast('已删除任务');
 }
 
-/* ==================== 协同对话 ==================== */
-function chatRowHtml(c,shared){
-  return `<div class="conv-row" onclick="openChat('${encodeURIComponent(c.t)}')">
-    <span class="cr-ic ${shared?'shared':'private'}">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${shared?'<circle cx="8" cy="8" r="2.4"/><circle cx="16.5" cy="8" r="2.4"/><circle cx="12" cy="16.5" r="2.4"/>':'<rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'}</svg>
+/* ==================== 团队项目对话（仅呈现项目下的对话） ==================== */
+function renderProjectChats(){
+  if(projectType!=='collab') return;
+  const box=document.getElementById('collabChats');
+  if(!box) return;
+  const kw=((document.getElementById('collabChatKw')||{}).value||'').trim().toLowerCase();
+  const list=PROJECT_CHATS.filter(c=>!kw||c.t.toLowerCase().includes(kw));
+  if(!list.length){
+    box.innerHTML='<div class="cc-empty">暂无符合条件的对话</div>';
+    return;
+  }
+  const icEdit='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+  const icCopy='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  const icDel='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg>';
+  box.innerHTML=list.map((c,i)=>`<div class="proj-chat-row" onclick="openChat('${encodeURIComponent(c.t)}')">
+    <span class="pcr-body">
+      <span class="pcr-t">${esc(c.t)}</span>
+      <div class="pcr-m">${esc(c.m)}</div>
     </span>
-    <span class="cr-body"><span class="cr-t">${esc(c.t)}</span><div class="cr-m"><span>${esc(c.m)}</span></div></span>
-    <span class="cr-act" onclick="event.stopPropagation();toast('${shared?'已取消共享，对话转为仅自己可见':'已将对话共享给项目成员'}（原型演示）')">${shared?'取消共享':'共享给项目'}</span>
-  </div>`;
+    <span class="pcr-date">${esc(c.d)}</span>
+    <span class="pcr-ops" onclick="event.stopPropagation()">
+      <span class="pcr-op" title="重命名" onclick="renameProjectChat(${PROJECT_CHATS.indexOf(c)})">${icEdit}</span>
+      <span class="pcr-op" title="复制" onclick="copyProjectChat(${PROJECT_CHATS.indexOf(c)})">${icCopy}</span>
+      <span class="pcr-op danger" title="删除" onclick="deleteProjectChat(${PROJECT_CHATS.indexOf(c)})">${icDel}</span>
+    </span>
+  </div>`).join('');
 }
-function renderSharedChats(){
-  document.getElementById('sharedChats').innerHTML=SHARED_CHATS.map(c=>chatRowHtml(c,true)).join('');
-  document.getElementById('privateChats').innerHTML=PRIVATE_CHATS.map(c=>chatRowHtml(c,false)).join('');
+function renameProjectChat(i){
+  const c=PROJECT_CHATS[i]; if(!c) return;
+  const v=prompt('重命名对话',c.t);
+  if(v===null) return;
+  const name=v.trim(); if(!name){ toast('名称不能为空'); return; }
+  c.t=name; renderProjectChats(); toast('对话已重命名');
+}
+function copyProjectChat(i){
+  const c=PROJECT_CHATS[i]; if(!c) return;
+  PROJECT_CHATS.push({t:c.t+'（副本）',m:c.m,d:c.d});
+  renderProjectChats(); toast('已复制对话');
+}
+function deleteProjectChat(i){
+  const c=PROJECT_CHATS[i]; if(!c) return;
+  if(!confirm('确定删除对话「'+c.t+'」？')) return;
+  PROJECT_CHATS.splice(i,1); renderProjectChats(); toast('对话已删除');
 }
 
 /* ==================== 项目资料（文件表格） ==================== */
@@ -2170,13 +2279,91 @@ function confirmSaveStaged(){
 function folderById(id){ return FOLDERS.find(f=>f.id===id); }
 function folderFileCount(id){ return ALL_ASSETS.filter(a=>ASSET_FOLDERS[a.fid]===id).length; }
 /* 个人项目隐藏文件夹侧栏与权限条，文件区全宽平铺 */
+let filesView='proj'; /* 团队资料子页签：proj / archive */
 function renderFolderLayout(){
   const collab=projectType==='collab';
   const side=document.getElementById('folderSide');
   const bar=document.getElementById('filePermBar');
   if(side) side.style.display=collab?'':'none';
   if(bar) bar.style.display=collab?'':'none';
+  const sub=document.getElementById('filesSubSeg');
+  if(sub) sub.style.display=collab?'flex':'none';
+  if(!collab) switchFilesView('proj',true);
 }
+/* 切换「项目资料 / 归档资料」 */
+function switchFilesView(v,force){
+  if(filesView===v&&!force) return;
+  filesView=v;
+  const collab=projectType==='collab';
+  document.getElementById('filesViewProj').style.display=(v==='proj')?'':'none';
+  document.getElementById('filesViewArchive').style.display=(collab&&v==='archive')?'':'none';
+  const p=document.getElementById('filesSubProj'),a=document.getElementById('filesSubArc');
+  if(p) p.classList.toggle('on',v==='proj');
+  if(a) a.classList.toggle('on',v==='archive');
+  if(v==='archive') renderArchive();
+}
+
+/* ==================== 归档资料（按节点查看已归档成果） ==================== */
+/* 归档条目：node 节点名 / task 节点任务 / 交付物 / 负责人 / 时间。
+   优先由已入库「项目产出」派生（fromNode+fromTask+author+date），演示项目补两条种子。 */
+function buildArchiveEntries(){
+  const fromAssets=ALL_ASSETS.filter(a=>a.source==='output').map(a=>({
+    node:a.fromNode||'默认文件夹',
+    task:a.fromTask||'项目共享对话',
+    nm:a.nm, type:a.type||'doc', size:a.size||'2.4 MB',
+    owner:a.author||'成员',
+    time:(a.date||'').replace(/^(\d{4})-(\d{2})-(\d{2})$/,'$1-$2-$3')+' 00:00:00'
+  }));
+  /* 演示种子（全新项目不再叠加资产产出时仍有内容参考图二） */
+  const seed=(STORED&&Array.isArray(STORED.assets)&&STORED.assets.length)?[]:[
+    {node:'需求分析',task:'输出需求规格说明书',nm:'测试111',type:'doc',size:'197B',owner:'王敏',time:'2026-09-21 14:04:47'},
+    {node:'需求分析',task:'输出需求规格说明书',nm:'11',type:'doc',size:'197B',owner:'王敏',time:'2026-09-20 20:35:48'}
+  ];
+  return fromAssets.concat(seed);
+}
+let ARCHIVE_ENTRIES=[];
+function arcTypeTag(t){ return ({ppt:'PPT',doc:'MD',sheet:'XLS',pdf:'PDF',media:'IMG'})[t]||'MD'; }
+function renderArchive(){
+  if(projectType!=='collab') return;
+  ARCHIVE_ENTRIES=buildArchiveEntries();
+  /* 负责人下拉 */
+  const owners=[...new Set(ARCHIVE_ENTRIES.map(e=>e.owner))];
+  const sel=document.getElementById('arcOwner');
+  if(sel){
+    const cur=sel.value;
+    sel.innerHTML='<option value="">全部负责人</option>'+owners.map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('');
+    sel.value=owners.includes(cur)?cur:'';
+  }
+  /* 节点分组（图二样式：节点图标 tab + N项） */
+  const nodes=[];
+  ARCHIVE_ENTRIES.forEach(e=>{ let g=nodes.find(n=>n.name===e.node); if(!g){g={name:e.node,items:[]};nodes.push(g);} g.items.push(e); });
+  if(!archiveNode) archiveNode=nodes.length?nodes[0].name:'';
+  if(!nodes.some(n=>n.name===archiveNode)) archiveNode=nodes.length?nodes[0].name:'';
+  const tabIco='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="2.2"/><circle cx="17" cy="8" r="2.2"/><path d="M7 10.2v3.2a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-3.2"/></svg>';
+  document.getElementById('arcTabs').innerHTML=nodes.length?nodes.map(n=>`<div class="ar-tab ${n.name===archiveNode?'on':''}" onclick="selectArchiveNode('${encodeURIComponent(n.name)}')">
+    <span class="at-ic">${tabIco}</span>
+    <span class="at-nm">${esc(n.name)}<div class="at-cnt">${n.items.length}项</div></span>
+  </div>`).join(''):'';
+  /* 当前节点条目 + 搜索/负责人过滤 */
+  const kw=((document.getElementById('arcKw')||{}).value||'').trim().toLowerCase();
+  const owner=sel?sel.value:'';
+  let rows=ARCHIVE_ENTRIES.filter(e=>e.node===archiveNode);
+  if(kw) rows=rows.filter(e=>e.nm.toLowerCase().includes(kw)||e.task.toLowerCase().includes(kw));
+  if(owner) rows=rows.filter(e=>e.owner===owner);
+  document.getElementById('arcRows').innerHTML=rows.length?rows.map((e,i)=>`<div class="ar-tr">
+    <span>${String(i+1).padStart(2,'0')}</span>
+    <span>${esc(e.task)}</span>
+    <span class="ar-deliv">
+      <span class="ad-ic">${arcTypeTag(e.type)}</span>
+      <span><div class="ad-nm">${esc(e.nm)}</div><div class="ad-sub">${arcTypeTag(e.type).toLowerCase()} | ${esc(e.size)}</div></span>
+    </span>
+    <span>${esc(e.owner)}</span>
+    <span>${esc(e.time)}</span>
+    <span class="ar-link" onclick="toast('查看详情：${esc(e.nm)}（原型演示）')">查看详情</span>
+  </div>`).join(''):'<div class="ar-empty">暂无符合条件的归档成果</div>';
+}
+let archiveNode='';
+function selectArchiveNode(n){ archiveNode=decodeURIComponent(n); renderArchive(); }
 let folderAdding=false;
 function renderFolderList(){
   const box=document.getElementById('folderList');
