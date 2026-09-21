@@ -137,12 +137,6 @@ svg{display:block;}
 .pc-time{font-size:11.5px;color:var(--sub2);}
 .pc-more{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#b9bfc9;}
 .pc-more:hover{background:#f2f3f5;color:var(--text);}
-/* 协同卡进度 */
-.pc-prog{margin-top:14px;}
-.pc-prog .pp-row{display:flex;justify-content:space-between;font-size:11.5px;color:var(--sub);margin-bottom:6px;}
-.pc-prog .pp-row b{color:var(--text);font-size:12.5px;}
-.pc-bar{height:6px;border-radius:3px;background:#f0f1f4;overflow:hidden;}
-.pc-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#2bb673,#36c98a);}
 .pcard-create{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
   background:#f7f8fa;border:1px dashed #d9dde3;border-radius:14px;cursor:pointer;min-height:168px;
   color:#6b7078;font-size:14px;font-weight:500;transition:.15s;}
@@ -825,7 +819,6 @@ function renderProjects(){
   const grid=document.getElementById('projGrid');
   grid.innerHTML=(list.length?list.map(p=>{
     if(p.type==='collab'){
-      const pct=p.tasksTotal?Math.round(p.tasksDone/p.tasksTotal*100):0;
       return `<div class="pcard" onclick="openProject('${p.id}')">
         <div class="pc-top">
           <span class="p-badge collab">
@@ -835,10 +828,10 @@ function renderProjects(){
           <span class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
         </div>
         <div class="pc-name">${esc(p.name)}</div>
-        <div class="pc-meta">${p.members} 位成员 · ${p.tasksTotal} 项任务${p.risks?` · <span style="color:var(--red)">${p.risks} 项阻塞</span>`:''}</div>
-        <div class="pc-prog">
-          <div class="pp-row"><span>项目进度</span><b>${pct}%</b></div>
-          <div class="pc-bar"><i style="width:${pct}%"></i></div>
+        <div class="pc-meta">${p.members} 位成员 · ${p.tasksTotal} 项任务</div>
+        <div class="pc-foot">
+          <span class="pc-time">最近更新 ${p.updated}</span>
+          <span class="pc-more" onclick="event.stopPropagation();toggleMenu(event,'${p.id}')"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg></span>
         </div>
       </div>`;
     }

@@ -408,6 +408,36 @@ svg{display:block;}
 .td-out-add:hover{background:#f2f7ff;}
 .td-out-empty{font-size:12.5px;color:var(--sub2);padding:12px 13px;}
 
+/* ==================== 项目说明页 ==================== */
+.about-card{padding:22px 24px;}
+.about-sec-t{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--ink);margin:22px 0 12px;}
+.about-sec-t:first-child{margin-top:0;}
+.about-sec-t .td-bar{width:3px;height:14px;border-radius:2px;background:var(--blue);display:inline-block;}
+.about-desc{font-size:13.5px;line-height:1.85;color:#444b55;background:#fafbfc;border:1px solid var(--line2);border-radius:10px;padding:14px 16px;white-space:pre-wrap;word-break:break-word;}
+.about-desc.empty{color:var(--sub2);}
+.about-edit{margin-left:auto;font-size:12.5px;color:var(--blue);cursor:pointer;font-weight:500;display:inline-flex;align-items:center;gap:5px;}
+.about-ta{width:100%;min-height:120px;border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.7;font-family:inherit;color:var(--text);resize:vertical;box-sizing:border-box;outline:none;}
+.about-ta:focus{border-color:var(--blue);}
+.about-acts{display:none;gap:10px;justify-content:flex-end;margin-top:12px;}
+.about-acts.show{display:flex;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.about-item{border:1px solid var(--line2);border-radius:10px;padding:12px 14px;background:#fff;}
+.about-item.full{grid-column:1 / -1;}
+.about-item .ai-lb{font-size:12px;color:var(--sub2);margin-bottom:5px;}
+.about-item .ai-vl{font-size:13.5px;color:var(--ink);font-weight:500;word-break:break-word;}
+.about-nodes{display:flex;flex-direction:column;gap:8px;}
+.about-node{display:flex;align-items:center;gap:12px;border:1px solid var(--line2);border-radius:10px;padding:11px 14px;}
+.about-node .an-idx{width:22px;height:22px;border-radius:50%;background:#e8effc;color:var(--blue);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;}
+.about-node .an-name{font-size:13.5px;font-weight:600;}
+.about-node .an-cnt{font-size:12px;color:var(--sub2);margin-top:2px;}
+.about-node .an-time{margin-left:auto;font-size:12px;color:var(--sub2);flex:none;}
+.about-empty{font-size:12.5px;color:var(--sub2);padding:14px;border:1px dashed var(--border);border-radius:10px;text-align:center;}
+.about-mems{display:flex;flex-wrap:wrap;gap:10px 18px;}
+.about-mem{display:flex;align-items:center;gap:8px;}
+.about-mem .am-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;flex:none;}
+.about-mem .am-nm{font-size:13px;font-weight:500;}
+.about-mem .am-role{font-size:11.5px;color:var(--sub2);}
+
 
 /* 资料页：左文件夹树 + 右文件区（团队项目） */
 .files-layout{display:flex;gap:14px;align-items:stretch;}
@@ -930,6 +960,11 @@ svg{display:block;}
               <div id="paneMemberHuman"></div>
             </div>
           </section>
+
+          <!-- ===== 项目说明（个人 / 团队均有） ===== -->
+          <section class="pane" id="pane-about">
+            <div class="card about-card" id="aboutBody"></div>
+          </section>
         </div>
       </div>
 
@@ -1252,7 +1287,10 @@ let projectType=(q.get('type')==='collab'||q.get('type')==='enterprise')?'collab
 const nodesParam=q.get('nodes');
 const membersParam=q.get('members');
 const metaParam=q.get('meta');
-const projectDesc=q.get('desc')||'';
+/* 项目说明：URL 传入 > 本地已保存 > 默认文案（个人/团队差异化，在 STORED 加载后回填） */
+let projectDesc=q.get('desc')||'';
+const DEFAULT_DESC_SIMPLE='本项目聚焦季度重点工作，围绕项目目标统筹任务与资料，输出可归档的产出物。资料、任务与产出物在项目内集中管理，关键结论沉淀为项目记忆。';
+const DEFAULT_DESC_COLLAB='本项目由项目负责人统筹，成员按节点分工协作推进；项目资料、任务与交付成果在项目内统一管理，成员依据各自权限参与任务、共享明确开放的资料与产出。';
 /* 企业级项目元信息：所属业务 / 级别 / 计划起止 / 知识库 / 创建时上传文件 */
 let PROJECT_META={biz:'',level:'',start:'',end:'',kb:'',files:[]};
 if(metaParam){ try{ Object.assign(PROJECT_META,JSON.parse(decodeURIComponent(metaParam))); }catch(e){} }
@@ -1324,6 +1362,11 @@ function persistProjectData(){
 /* 团队项目：节点与任务。状态 done/active/todo；任务 status: doing/review/pending/done/over */
 let NODES=[];
 const STORED=loadStoredProject();
+/* 项目说明回填：URL 未传时，优先本地已保存内容，否则用类型默认文案 */
+if(!projectDesc){
+  if(STORED&&typeof STORED.desc==='string'&&STORED.desc) projectDesc=STORED.desc;
+  else projectDesc=projectType==='collab'?DEFAULT_DESC_COLLAB:DEFAULT_DESC_SIMPLE;
+}
 (function initNodes(){
   if(projectType!=='collab') return;
   /* 再次打开已保存的项目：优先恢复本地数据 */
@@ -1506,10 +1549,10 @@ function toast(msg){const el=document.getElementById('toastEl');el.textContent=m
 /* ==================== Tab 框架（对话 / 任务 / 资料，团队加成员） ==================== */
 const TAB_DEFS={
   simple:[
-    {k:'chat',t:'对话'},{k:'tasks',t:'任务'},{k:'files',t:'资料'}
+    {k:'chat',t:'对话'},{k:'tasks',t:'任务'},{k:'files',t:'资料'},{k:'about',t:'说明'}
   ],
   collab:[
-    {k:'chat',t:'对话'},{k:'tasks',t:'任务'},{k:'files',t:'资料'},{k:'members',t:'成员'}
+    {k:'chat',t:'对话'},{k:'tasks',t:'任务'},{k:'files',t:'资料'},{k:'members',t:'成员'},{k:'about',t:'说明'}
   ]
 };
 let curTab='chat';
@@ -1560,6 +1603,7 @@ function applyMode(){
   renderMaterials();
   renderTasks();
   if(collab) renderMembersPane();
+  renderAbout(false);
   document.getElementById('assetMatN').textContent=MATERIALS.length;
   document.getElementById('assetOutN').textContent=OUTPUTS.length;
   document.getElementById('assetTaskN').textContent=projectAllTasks().filter(t=>!t.done).length;
@@ -2495,6 +2539,119 @@ function renderMembersPane(){
   document.getElementById('paneMemberHuman').innerHTML=HUMAN_MEMBERS.map(m=>memberRowHtml(m,false)).join('');
 }
 
+/* ==================== 项目说明（个人 / 团队） ==================== */
+function aboutRoleLabel(r){ return r==='owner'?'负责人':(r==='view'?'仅查看':'可编辑'); }
+function infoItem(lb,vl,full){
+  return `<div class="about-item${full?' full':''}"><div class="ai-lb">${lb}</div><div class="ai-vl">${vl===''||vl==null?'<span style="color:var(--sub2);font-weight:400;">未设置</span>':esc(vl)}</div></div>`;
+}
+function renderAbout(editing){
+  const body=document.getElementById('aboutBody');
+  const collab=projectType==='collab';
+  const pr=projectProgress();
+  const updated=(STORED&&STORED.updated)?STORED.updated:'—';
+
+  /* 项目说明：查看态 / 编辑态 */
+  let descHtml;
+  if(editing){
+    descHtml=`
+      <div class="about-sec-t"><span class="td-bar"></span>项目说明</div>
+      <textarea class="about-ta" id="aboutTa" placeholder="介绍项目背景、目标、范围与协作约定，将自动作为 AI 的项目背景…">${esc(projectDesc)}</textarea>
+      <div class="about-acts show">
+        <button class="btn" onclick="renderAbout(false)">取消</button>
+        <button class="btn btn-pri" onclick="saveAboutDesc()">保存说明</button>
+      </div>`;
+  }else{
+    descHtml=`
+      <div class="about-sec-t"><span class="td-bar"></span>项目说明
+        <span class="about-edit" onclick="renderAbout(true)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          编辑
+        </span>
+      </div>
+      <div class="about-desc${projectDesc?'':' empty'}">${projectDesc?esc(projectDesc):'暂无项目说明，点击右上角「编辑」补充项目背景与目标。'}</div>`;
+  }
+
+  /* 基本信息 */
+  let infoHtml;
+  if(collab){
+    const period=(PROJECT_META.start&&PROJECT_META.end)?(md(PROJECT_META.start)+' ~ '+md(PROJECT_META.end)):'';
+    infoHtml=`
+      <div class="about-sec-t"><span class="td-bar"></span>基本信息</div>
+      <div class="about-grid">
+        ${infoItem('项目类型','团队项目')}
+        ${infoItem('所属业务',PROJECT_META.biz)}
+        ${infoItem('项目级别',PROJECT_META.level?PROJECT_META.level+' 级':'')}
+        ${infoItem('计划周期',period)}
+        ${infoItem('项目成员',HUMAN_MEMBERS.length+' 位')}
+        ${infoItem('项目节点',NODES.length+' 个')}
+        ${infoItem('任务总数',pr.total+' 项（已完成 '+pr.done+' 项）',true)}
+        ${infoItem('外接知识库',PROJECT_META.kb,true)}
+      </div>`;
+  }else{
+    infoHtml=`
+      <div class="about-sec-t"><span class="td-bar"></span>基本信息</div>
+      <div class="about-grid">
+        ${infoItem('项目类型','个人项目')}
+        ${infoItem('负责人',CUR_USER)}
+        ${infoItem('任务总数',pr.total+' 项（已完成 '+pr.done+' 项）')}
+        ${infoItem('项目资料',ALL_ASSETS.length+' 份')}
+        ${infoItem('最近更新',updated,true)}
+      </div>`;
+  }
+
+  /* 团队：项目节点 */
+  let nodesHtml='';
+  if(collab){
+    if(NODES.length){
+      nodesHtml=`
+        <div class="about-sec-t"><span class="td-bar"></span>项目节点</div>
+        <div class="about-nodes">
+          ${NODES.map((n,i)=>{
+            const done=(n.tasks||[]).filter(t=>t.done).length;
+            const time=(n.start&&n.end)?(md(n.start)+' ~ '+md(n.end)):'';
+            return `<div class="about-node">
+              <span class="an-idx">${i+1}</span>
+              <span>
+                <div class="an-name">${esc(n.name)}</div>
+                <div class="an-cnt">${(n.tasks||[]).length} 项任务 · 已完成 ${done} 项</div>
+              </span>
+              ${time?`<span class="an-time">${time}</span>`:''}
+            </div>`;
+          }).join('')}
+        </div>`;
+    }else{
+      nodesHtml=`
+        <div class="about-sec-t"><span class="td-bar"></span>项目节点</div>
+        <div class="about-empty">暂未配置项目节点，可在「任务」中直接创建独立任务</div>`;
+    }
+  }
+
+  /* 团队：项目成员 */
+  let memsHtml='';
+  if(collab){
+    memsHtml=`
+      <div class="about-sec-t"><span class="td-bar"></span>项目成员 · ${HUMAN_MEMBERS.length} 位</div>
+      <div class="about-mems">
+        ${HUMAN_MEMBERS.map(m=>`<div class="about-mem">
+          <span class="mem-face human" style="width:28px;height:28px;font-size:11px;">${esc(m.label||m.name.charAt(0))}</span>
+          <span><span class="am-nm">${esc(m.name)}</span> <span class="am-role">· ${aboutRoleLabel(m.role)}</span></span>
+        </div>`).join('')}
+      </div>`;
+  }
+
+  body.innerHTML=descHtml+infoHtml+nodesHtml+memsHtml;
+  if(editing){ const ta=document.getElementById('aboutTa'); if(ta){ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);} }
+}
+function saveAboutDesc(){
+  const ta=document.getElementById('aboutTa');
+  projectDesc=(ta?ta.value:'').trim();
+  persistProjectData();
+  renderAbout(false);
+  /* 同步项目设置弹窗里的说明文本 */
+  const setDesc=document.getElementById('setDesc'); if(setDesc) setDesc.value=projectDesc;
+  toast('项目说明已保存');
+}
+
 /* ==================== 项目设置 ==================== */
 function openSettings(){
   const collab=projectType==='collab';
@@ -2502,13 +2659,16 @@ function openSettings(){
   document.getElementById('setUpgradeRow').style.display=collab?'none':'';
   document.getElementById('setKbRow').style.display=(collab&&PROJECT_META.kb)?'':'none';
   if(collab&&PROJECT_META.kb) document.getElementById('setKbName').textContent=PROJECT_META.kb;
-  if(projectDesc) document.getElementById('setDesc').value=projectDesc;
+  document.getElementById('setDesc').value=projectDesc||'';
   document.getElementById('settingMask').classList.add('show');
 }
 function closeSettings(){ document.getElementById('settingMask').classList.remove('show'); }
 function saveSettings(){
+  projectDesc=(document.getElementById('setDesc').value||'').trim();
+  persistProjectData();
+  renderAbout(false);
   closeSettings();
-  toast('项目设置已保存（原型演示）');
+  toast('项目设置已保存');
 }
 
 /* ==================== 底部全局对话 dock ==================== */
