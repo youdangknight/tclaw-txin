@@ -319,8 +319,7 @@ svg{display:block;}
 .tc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
 .tc-name{font-size:15px;font-weight:700;line-height:1.4;color:var(--ink);word-break:break-all;}
 .tc-st{display:inline-flex;align-items:center;font-size:11.5px;font-weight:600;border-radius:6px;padding:2.5px 9px;flex-shrink:0;cursor:pointer;user-select:none;}
-.tc-st.pending,.tc-st.doing{color:var(--blue);background:#e8effc;}
-.tc-st.review{color:var(--purple);background:#f0ecfa;}
+.tc-st.pending,.tc-st.doing,.tc-st.review{color:var(--blue);background:#e8effc;}
 .tc-st.done{color:var(--green);background:#e6f6ed;}
 .tc-st.over{color:var(--red);background:#fdeceb;}
 .tc-ops{position:absolute;top:10px;right:12px;display:flex;gap:2px;opacity:0;transition:opacity .15s;background:linear-gradient(90deg,rgba(255,255,255,0),#fff 30%);padding-left:18px;}
@@ -1371,12 +1370,13 @@ const M_STYLE={
   doc:['#e8effd','#2f7bf6','<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h5"/>'],
   media:['#fff4e5','#e8932b','<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m4.5 17.5 5-5 3.5 3.5 2.5-2.5 4 4"/>']
 };
+/* 内部状态 pending/doing/review 对外统一显示「待完成」；任务卡片仅三态：已完成/待完成/已延期 */
 const STATUS_META={
-  pending:{label:'待处理',cls:'todo'},
-  doing:{label:'执行中',cls:'active'},
-  review:{label:'待审核',cls:'review'},
+  pending:{label:'待完成',cls:'todo'},
+  doing:{label:'待完成',cls:'active'},
+  review:{label:'待完成',cls:'review'},
   done:{label:'已完成',cls:'done'},
-  over:{label:'已逾期',cls:'over'}
+  over:{label:'已延期',cls:'over'}
 };
 
 /* 左侧 IM */
@@ -1461,7 +1461,7 @@ function projectProgress(){
   const done=tasks.filter(t=>t.done).length;
   return {total:tasks.length,done,pct:tasks.length?Math.round(done/tasks.length*100):0};
 }
-/* 任务 tab 只保留三个状态卡片：已完成 / 待完成（待处理+执行中+待审核）/ 已延期 */
+/* 任务 tab 只保留三个状态卡片：已完成 / 待完成（待处理+执行中+内部审核中统一聚合）/ 已延期 */
 const TASK_STATS=[
   {k:'done',t:'已完成',cls:'done',
     ico:'<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M8 3v4M16 3v4M3 10h18M8.5 15.5l2.2 2.2 4.3-4.3"/>'},
