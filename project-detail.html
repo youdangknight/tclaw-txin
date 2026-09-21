@@ -354,6 +354,61 @@ svg{display:block;}
 .f-lock{display:inline-flex;vertical-align:-1px;margin-left:5px;color:#b08a2e;}
 .pb-folder{font-weight:700;color:var(--text);white-space:nowrap;max-width:160px;overflow:hidden;text-overflow:ellipsis;}
 
+/* ===== 团队项目：对话产出待入库 ===== */
+.stage-bar{border:1px solid #e6d9b8;background:linear-gradient(180deg,#fdf8ee,#fbf3e2);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+.stage-head{display:flex;align-items:center;gap:10px;padding:11px 15px;cursor:pointer;user-select:none;}
+.stage-ic{width:28px;height:28px;border-radius:8px;background:#f4e2bd;color:#b27d1e;display:inline-flex;align-items:center;justify-content:center;flex:none;}
+.stage-t{font-size:13.5px;font-weight:700;color:#6b4e16;}
+.stage-sub{font-size:12px;color:#9a7b3c;}
+.stage-caret{margin-left:auto;color:#b08a2e;transition:transform .18s;display:inline-flex;}
+.stage-bar.open .stage-caret{transform:rotate(180deg);}
+.stage-body{display:none;border-top:1px dashed #e6d9b8;padding:6px 12px 10px;}
+.stage-bar.open .stage-body{display:block;}
+.stage-row{display:flex;align-items:center;gap:12px;padding:10px 6px;border-bottom:1px solid #f0e6cf;}
+.stage-row:last-child{border-bottom:none;}
+.stage-meta{min-width:0;flex:1;}
+.stage-nm{font-size:13.5px;font-weight:600;color:#3a3f47;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.stage-from{font-size:11.5px;color:#9a7b3c;margin-top:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.stage-tag{display:inline-flex;align-items:center;background:#f4e7cc;color:#8a6420;border-radius:5px;padding:0 7px;font-size:11px;font-weight:600;}
+.stage-btns{display:flex;gap:8px;flex:none;}
+.stage-btn{height:30px;padding:0 13px;border-radius:8px;font-size:12.5px;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
+.stage-btn.pri{border:1px solid var(--ink);background:var(--ink);color:#fff;}
+.stage-btn.pri:hover{background:#000;}
+.stage-btn.ghost{border:1px solid var(--border);background:#fff;color:#6b7280;}
+.stage-btn.ghost:hover{border-color:#d0a85c;color:#b27d1e;}
+.stage-empty{font-size:12.5px;color:#9a7b3c;padding:8px 6px;}
+
+/* 保存到项目资料弹窗：文件夹选择 */
+.save-fld-list{max-height:260px;overflow:auto;border:1px solid var(--border);border-radius:10px;margin-top:8px;}
+.save-fld{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--line2);}
+.save-fld:last-child{border-bottom:none;}
+.save-fld:hover{background:#fafbfc;}
+.save-fld.on{background:#f0f4ff;}
+.save-fld .sf-radio{width:16px;height:16px;border-radius:50%;border:1.5px solid #c6cad2;flex:none;display:inline-flex;align-items:center;justify-content:center;}
+.save-fld.on .sf-radio{border-color:var(--blue);}
+.save-fld.on .sf-radio::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--blue);}
+.save-fld .sf-nm{font-size:13.5px;}
+.save-fld .sf-default{font-size:11px;color:var(--sub2);background:#f2f3f5;border-radius:4px;padding:0 6px;margin-left:6px;}
+.save-fld-name{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:2px;}
+.save-fld-name #saveFldIc .f-ic{margin:0;flex:none;}
+.save-fld-tip{font-size:12px;color:var(--sub2);margin-top:2px;}
+
+/* 任务详情：任务产出 */
+.td-out{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:4px;}
+.td-out-row{display:flex;align-items:center;gap:10px;padding:10px 13px;border-bottom:1px solid var(--line2);}
+.td-out-row:last-child{border-bottom:none;}
+.td-out-nm{font-size:13px;font-weight:600;flex:1;min-width:0;display:flex;align-items:center;gap:8px;}
+.td-out-nm .f-ic{width:26px;height:30px;flex:none;margin:0;}
+.td-out-nm .f-ic svg{width:14px;height:16px;}
+.td-out-nm > span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.td-out-st{font-size:11px;font-weight:600;border-radius:5px;padding:1px 8px;flex:none;}
+.td-out-st.in{color:#1f9d6b;background:#e6f6ed;}
+.td-out-st.staged{color:#b27d1e;background:#faf0db;}
+.td-out-add{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:11px;border:none;background:#fafbfc;color:var(--blue);font-size:13px;font-family:inherit;cursor:pointer;}
+.td-out-add:hover{background:#f2f7ff;}
+.td-out-empty{font-size:12.5px;color:var(--sub2);padding:12px 13px;}
+
+
 /* 资料页：左文件夹树 + 右文件区（团队项目） */
 .files-layout{display:flex;gap:14px;align-items:stretch;}
 .folder-side{width:230px;flex:none;background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;align-self:flex-start;position:sticky;top:12px;}
@@ -406,6 +461,8 @@ svg{display:block;}
 .fr-name:hover .f-nm{color:var(--blue);}
 .f-sz{font-size:11.5px;color:var(--sub2);margin-top:2px;}
 .f-type,.f-src{font-size:13px;color:#444b55;}
+.f-src-link{color:var(--blue);cursor:pointer;white-space:nowrap;}
+.f-src-link:hover{text-decoration:underline;}
 .f-date{font-size:12.5px;color:var(--sub);}
 .f-ops{display:flex;align-items:center;gap:2px;justify-content:flex-end;}
 .f-op{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9aa0ac;cursor:pointer;}
@@ -771,6 +828,16 @@ svg{display:block;}
               </aside>
 
               <div class="files-main">
+                <!-- 团队项目：对话产出待入库（仅产出者本人可见，未保存前不进入资料库） -->
+                <div class="stage-bar" id="stageBar" style="display:none;">
+                  <div class="stage-head" onclick="toggleStageBar()">
+                    <span class="stage-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span>
+                    <span class="stage-t">对话产出待入库</span>
+                    <span class="stage-sub" id="stageSub">来自任务 / 共享对话的 AI 产出，保存后成员才可见</span>
+                    <span class="stage-caret"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+                  </div>
+                  <div class="stage-body" id="stageBody"></div>
+                </div>
                 <!-- 团队项目：当前文件夹权限条 -->
                 <div class="perm-bar" id="filePermBar">
                   <div class="pb-info">
@@ -959,6 +1026,27 @@ svg{display:block;}
 
 <!-- 文件行操作菜单 -->
 <div class="fmenu" id="fileMenu"></div>
+
+<!-- ========== 对话产出：保存到项目资料（团队项目，选文件夹） ========== -->
+<div class="mask" id="saveFldMask" onclick="if(event.target===this)closeSaveFldModal()">
+  <div class="modal" style="width:460px;position:relative;">
+    <div class="m-head">
+      <div>
+        <h3>保存到项目资料</h3>
+        <div class="m-sub">保存后按所选文件夹权限对成员可见，未保存前仅你本人可见</div>
+      </div>
+      <div class="m-x" onclick="closeSaveFldModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+    </div>
+    <div class="save-fld-name"><span id="saveFldIc" style="display:inline-flex;"></span><span id="saveFldNm" style="word-break:break-all;"></span></div>
+    <div class="save-fld-tip" id="saveFldFrom"></div>
+    <div style="margin-top:14px;font-size:13px;font-weight:600;">选择保存位置</div>
+    <div class="save-fld-list" id="saveFldList"></div>
+    <div class="m-foot">
+      <button class="btn" onclick="closeSaveFldModal()">取消</button>
+      <button class="btn btn-pri" onclick="confirmSaveStaged()">保存到该文件夹</button>
+    </div>
+  </div>
+</div>
 
 <!-- ========== 资料权限设置弹窗（团队项目） ========== -->
 <div class="mask" id="permMask" onclick="if(event.target===this)closePermModal()">
@@ -1222,6 +1310,7 @@ function persistProjectData(){
     st.id=projectId; st.name=projectName; st.type=projectType; st.desc=projectDesc; st.updated='刚刚';
     st.nodes=NODES; st.tasks=SIMPLE_TASKS; st.members=HUMAN_MEMBERS; st.meta=PROJECT_META;
     st.filePerms=FILE_PERMS; st.folders=FOLDERS; st.assetFolders=ASSET_FOLDERS;
+    st.assets=ALL_ASSETS; st.stagedOutputs=STAGED_OUTPUTS; st.stagedInitialized=true;
     const pr=projectProgress();
     st.tasksTotal=pr.total; st.tasksDone=pr.done;
     st.risks=(projectType==='collab'?allTasks():SIMPLE_TASKS).filter(t=>t.status==='review'||t.status==='over').length;
@@ -1333,17 +1422,42 @@ if(isFresh && projectType==='collab'){
   MATERIALS=[];
 }
 let OUTPUTS=[
-  {nm:'企业营销AI项目-方案初稿.pptx',info:'梁梦欣 · 09/20 提交',size:'2.4 MB',type:'ppt',kind:'out',source:'output',date:'2025-09-25'},
-  {nm:'市场分析数据报表.pptx',info:'王启年 · 09/19 提交',size:'2.4 MB',type:'ppt',kind:'out',source:'output',date:'2025-09-25'},
-  {nm:'渠道竞品调研汇总.pptx',info:'周喆 · 09/18 提交',size:'2.4 MB',type:'ppt',kind:'out',source:'output',date:'2025-09-25'},
-  {nm:'项目阶段性汇报.pptx',info:'周喆 · 09/17 提交',size:'5.8 MB',type:'ppt',kind:'out',source:'output',date:'2025-09-25'}
+  {nm:'企业营销AI项目-方案初稿.pptx',info:'梁梦欣 · 09/20 提交',size:'2.4 MB',type:'ppt',kind:'out',source:'output',date:'2025-09-25',author:'梁梦欣',fromTask:'编写项目方案初稿',fromNode:'方案设计'},
+  {nm:'市场分析数据报表.pptx',info:'王启年 · 09/19 提交',size:'2.4 MB',type:'ppt',kind:'out',source:'output',date:'2025-09-25',author:'王启年',fromTask:'输出需求规格说明书',fromNode:'需求分析'},
+  {nm:'渠道竞品调研汇总.pptx',info:'周喆 · 09/18 提交',size:'2.4 MB',type:'ppt',kind:'out',source:'output',date:'2025-09-25',author:'周喆',fromTask:'行业趋势与竞品资料分析',fromNode:'需求分析'},
+  {nm:'项目阶段性汇报.pptx',info:'周喆 · 09/17 提交',size:'5.8 MB',type:'ppt',kind:'out',source:'output',date:'2025-09-25',author:'周喆',fromTask:'项目共享对话',fromNode:''}
 ];
 /* 全新项目（含个人快速创建）：无演示产出物 */
 if(isFresh) OUTPUTS=[];
-const ALL_ASSETS=MATERIALS.concat(OUTPUTS).map((a,i)=>Object.assign({fid:'f'+i},a));
+let ALL_ASSETS=MATERIALS.concat(OUTPUTS).map((a,i)=>Object.assign({fid:'f'+i},a));
 /* 文件 → 文件夹归属（仅团队项目使用）：默认全部在默认文件夹；优先恢复本地映射 */
 let ASSET_FOLDERS=(STORED&&STORED.assetFolders&&typeof STORED.assetFolders==='object')?STORED.assetFolders:{};
 ALL_ASSETS.forEach(a=>{ if(!ASSET_FOLDERS[a.fid]) ASSET_FOLDERS[a.fid]='fd_default'; });
+/* 已保存过资料库的项目：以本地资产为准（含对话产出入库、手动上传），覆盖演示种子 */
+if(STORED&&Array.isArray(STORED.assets)&&STORED.assets.length){
+  ALL_ASSETS.length=0;
+  STORED.assets.forEach(a=>ALL_ASSETS.push(a));
+  ALL_ASSETS.forEach(a=>{ if(!ASSET_FOLDERS[a.fid]) ASSET_FOLDERS[a.fid]='fd_default'; });
+}
+
+/* ==================== 团队项目：对话产出「待入库」暂存 ====================
+   团队对话（任务/共享对话）产生的 AI 文件先进暂存，仅产出者本人可见；
+   产出者手动「保存到项目资料」并选择文件夹后才进入资料库，对权限范围内成员可见。
+   个人项目无此环节（单人空间，对话产出直接入库，保持现状）。 */
+let STAGED_OUTPUTS=[];
+if(projectType==='collab'){
+  if(STORED&&STORED.stagedInitialized){
+    STAGED_OUTPUTS=Array.isArray(STORED.stagedOutputs)?STORED.stagedOutputs:[];
+  }else if(!isFresh){
+    /* 预置演示：当前用户（阿拉丁）在任务对话中产生、尚未入库的文件 */
+    STAGED_OUTPUTS=[
+      {sid:'st1',nm:'项目实施方案-审核意见.docx',size:'320 KB',type:'doc',author:CUR_USER,fromTask:'审核项目实施方案',fromNode:'方案设计',date:'2026-09-21'},
+      {sid:'st2',nm:'需求澄清问题清单.xlsx',size:'180 KB',type:'sheet',author:CUR_USER,fromTask:'项目共享对话',fromNode:'',date:'2026-09-21'}
+    ];
+  }
+}
+/* 保存即从暂存转入 ALL_ASSETS；任务详情通过 fromTask 同时关联「在库资产」与「待入库产出」判断状态 */
+function stagedById(sid){ return STAGED_OUTPUTS.find(s=>s.sid===sid); }
 
 /* 协同对话：共享 / 私有 */
 const SHARED_CHATS=[
@@ -1615,6 +1729,28 @@ function fileIcoHtml(a){
   const [bg,c,paths]=M_STYLE[a.type]||M_STYLE.doc;
   return `<div class="f-ic" style="background:${bg};color:${c}"><svg width="18" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${paths}</svg></div>`;
 }
+/* 团队项目产出：显示「项目产出 · 产出人」，可点回溯源任务；个人项目仅「项目产出」 */
+function taskIdByName(name){
+  if(!name) return '';
+  const hit=allTasks().find(t=>t.name===name);
+  return hit?hit.id:'';
+}
+function fileSourceHtml(a){
+  if(a.source!=='output') return '我上传的';
+  if(projectType!=='collab') return '项目产出';
+  const author=a.author||'成员';
+  const tid=taskIdByName(a.fromTask);
+  const tip=a.fromTask?('来自任务：'+a.fromTask):'来自项目共享对话';
+  if(tid){
+    return `<span class="f-src-link" title="${esc(tip)}，点击查看任务" onclick="traceOutputTask('${tid}')">项目产出 · ${esc(author)}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:2px;"><path d="M7 17 17 7M9 7h8v8"/></svg></span>`;
+  }
+  return `<span class="f-src-link" title="${esc(tip)}">项目产出 · ${esc(author)}</span>`;
+}
+function traceOutputTask(tid){
+  goTab('tasks');
+  if(typeof renderTasks==='function') renderTasks();
+  setTimeout(()=>openTaskDetail(tid),60);
+}
 function renderFileTable(){
   const all=filteredFiles();
   /* 个人项目：真实数据不足时补足总数用于分页演示；团队项目按文件夹展示真实文件 */
@@ -1660,7 +1796,7 @@ function renderFileTable(){
         </span>
       </span>
       <span class="f-type">${FILE_TYPE_LABEL[a.type]||'文档'}</span>
-      <span class="f-src">${isMine?'我上传的':'项目产出'}</span>
+      <span class="f-src">${fileSourceHtml(a)}</span>
       <span class="f-date">${esc(a.date||'')}</span>
       <span class="f-ops">
         <span class="f-op ${isMine?'disabled':''}" title="${isMine?'我上传的文件不支持跳转对话':'跳转对话设置'}" ${isMine?'':`onclick="goFileChat('${a.fid}')"`}>
@@ -1879,10 +2015,112 @@ let matFilter='all';
 function renderMaterials(){
   renderFolderLayout();
   renderFolderList();
+  renderStageBar();
   renderFileTable();
   renderPermBar();
 }
 function setMat(){}
+
+/* ==================== 团队项目：对话产出待入库 ==================== */
+/* 仅产出者本人可见自己的待入库产出 */
+function myStaged(){ return STAGED_OUTPUTS.filter(s=>s.author===CUR_USER); }
+function renderStageBar(){
+  const bar=document.getElementById('stageBar');
+  if(!bar) return;
+  if(projectType!=='collab'){ bar.style.display='none'; return; }
+  const list=myStaged();
+  if(!list.length){ bar.style.display='none'; return; }
+  bar.style.display='';
+  bar.classList.add('open');
+  document.getElementById('stageSub').textContent=`${list.length} 个产出待你确认 · 保存后按文件夹权限对成员可见`;
+  document.getElementById('stageBody').innerHTML=list.map(s=>{
+    const a={type:s.type};
+    const tags=[s.fromNode?`<span class="stage-tag">${esc(s.fromNode)}</span>`:'',`<span class="stage-tag">${esc(s.fromTask||'共享对话')}</span>`].join('');
+    return `<div class="stage-row">
+      ${fileIcoHtml(a)}
+      <div class="stage-meta">
+        <div class="stage-nm">${esc(s.nm)}</div>
+        <div class="stage-from">${tags}<span>${esc(s.size||'')}</span><span>· ${esc(s.date||'')}</span></div>
+      </div>
+      <div class="stage-btns">
+        <button class="stage-btn ghost" onclick="discardStaged('${s.sid}')">放弃</button>
+        <button class="stage-btn pri" onclick="openSaveFldModal('${s.sid}')">保存到资料</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleStageBar(){ document.getElementById('stageBar').classList.toggle('open'); }
+function discardStaged(sid){
+  const s=stagedById(sid); if(!s) return;
+  if(!confirm(`放弃产出「${s.nm}」？放弃后不会进入项目资料，且无法恢复。`)) return;
+  STAGED_OUTPUTS=STAGED_OUTPUTS.filter(x=>x.sid!==sid);
+  persistProjectData();
+  renderStageBar();
+  renderTasks&&renderTasks();
+  toast('已放弃该产出');
+}
+
+/* ---------- 保存到项目资料：选文件夹 ---------- */
+let saveFldSids=[], saveFldPick='fd_default';
+function openSaveFldModal(sids){
+  saveFldSids=Array.isArray(sids)?sids.slice():[sids];
+  const items=saveFldSids.map(stagedById).filter(Boolean);
+  if(!items.length) return;
+  /* 默认文件夹：优先取节点同名文件夹，否则默认文件夹 */
+  const node=items[0].fromNode;
+  const hit=node?FOLDERS.find(f=>f.name===node):null;
+  saveFldPick=hit?hit.id:'fd_default';
+  /* 头部文件信息 */
+  const icBox=document.getElementById('saveFldIc');
+  if(items.length===1){
+    icBox.style.display='';
+    icBox.innerHTML=fileIcoHtml({type:items[0].type});
+    document.getElementById('saveFldNm').textContent=items[0].nm;
+    document.getElementById('saveFldFrom').textContent=(items[0].fromNode?items[0].fromNode+' · ':'')+(items[0].fromTask||'共享对话');
+  }else{
+    icBox.style.display='none';
+    document.getElementById('saveFldNm').textContent=`归档 ${items.length} 个对话产出`;
+    document.getElementById('saveFldFrom').textContent='来自任务：'+(items[0].fromTask||'共享对话');
+  }
+  renderSaveFldList();
+  document.getElementById('saveFldMask').classList.add('show');
+}
+function renderSaveFldList(){
+  const box=document.getElementById('saveFldList');
+  box.innerHTML=FOLDERS.map(f=>`<div class="save-fld ${f.id===saveFldPick?'on':''}" onclick="pickSaveFld('${f.id}')">
+    <span class="sf-radio"></span>
+    <span class="sf-nm">${esc(f.name)}${f.fixed?'<span class="sf-default">默认</span>':''}</span>
+  </div>`).join('');
+}
+function pickSaveFld(id){ saveFldPick=id; renderSaveFldList(); }
+function closeSaveFldModal(){ document.getElementById('saveFldMask').classList.remove('show'); }
+function confirmSaveStaged(){
+  const target=folderById(saveFldPick);
+  if(!target){ toast('请选择保存位置'); return; }
+  const items=saveFldSids.map(stagedById).filter(Boolean);
+  if(!items.length){ closeSaveFldModal(); return; }
+  const today=new Date().toISOString().slice(0,10);
+  items.forEach(s=>{
+    const fid='fout_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
+    ALL_ASSETS.push({
+      fid,nm:s.nm,info:(s.author||CUR_USER)+' · 对话产出入库',size:s.size||'2.4 MB',
+      type:s.type||'doc',kind:'out',source:'output',date:today,
+      author:s.author||CUR_USER,fromTask:s.fromTask||'',fromNode:s.fromNode||''
+    });
+    ASSET_FOLDERS[fid]=saveFldPick;
+  });
+  const ids=items.map(s=>s.sid);
+  STAGED_OUTPUTS=STAGED_OUTPUTS.filter(x=>!ids.includes(x.sid));
+  closeSaveFldModal();
+  fPage=1;
+  persistProjectData();
+  renderStageBar();
+  renderFolderList();
+  renderFileTable();
+  if(detailTaskId) openTaskDetail(detailTaskId);
+  if(typeof renderTasks==='function') renderTasks();
+  toast(`已保存到「${target.name}」，成员按该文件夹权限可见`);
+}
 
 /* ==================== 资料文件夹（团队项目） ==================== */
 function folderById(id){ return FOLDERS.find(f=>f.id===id); }
@@ -2091,6 +2329,26 @@ function openTaskDetail(id){
   const over=t.status==='over';
   const collab=projectType==='collab';
   const m=execMeta(t.exec,t.execName);
+  /* 任务产出（团队项目）：已入库资产 + 待入库对话产出。归档不阻断任务完成 */
+  let outSectionHtml='', archiveBtnHtml='';
+  if(collab){
+    const inAssets=ALL_ASSETS.filter(a=>a.fromTask===t.name);
+    const stagedItems=myStaged().filter(s=>s.fromTask===t.name);
+    const rows=inAssets.map(a=>`<div class="td-out-row">
+        <span class="td-out-nm" title="${esc(a.nm)}">${fileIcoHtml(a)}<span>${esc(a.nm)}</span></span>
+        <span class="td-out-st in">已入库 · ${esc(a.author||'成员')}</span>
+      </div>`).join('')
+      +stagedItems.map(s=>`<div class="td-out-row">
+        <span class="td-out-nm" title="${esc(s.nm)}">${fileIcoHtml({type:s.type})}<span>${esc(s.nm)}</span></span>
+        <span class="td-out-st staged">待入库</span>
+        <button class="stage-btn pri" style="height:28px;padding:0 11px;" onclick="openSaveFldModal('${s.sid}')">保存到资料</button>
+      </div>`).join('');
+    outSectionHtml=`<div class="td-sec-t"><span class="td-bar"></span>任务产出<span style="font-size:11.5px;color:var(--sub2);font-weight:400;">对话产出经你确认后才进入资料库</span></div>
+      <div class="td-out">${rows||'<div class="td-out-empty">暂无对话产出，可在任务对话中让 AI 生成文件</div>'}</div>`;
+    if(stagedItems.length){
+      archiveBtnHtml=`<button class="td-del-btn" onclick='archiveAllTaskOutputs(${JSON.stringify(stagedItems.map(s=>s.sid))})'>归档对话产出${stagedItems.length>1?'（'+stagedItems.length+'）':''}</button>`;
+    }
+  }
   const goBtn=done
     ? '<button class="td-go-btn" style="margin-left:auto;background:#c9cdd4;border-color:#c9cdd4;cursor:not-allowed;" disabled>已完成</button>'
     : `<button class="td-go-btn" style="margin-left:auto;" onclick="goCompleteTask('${t.id}')">去完成 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>`;
@@ -2109,7 +2367,9 @@ function openTaskDetail(id){
     </div>
     <div class="td-sec-t"><span class="td-bar"></span>任务记录<span style="font-size:11.5px;color:var(--sub2);font-weight:400;">仅负责人和参与成员可见及留言</span></div>
     <div class="td-empty">暂无任务记录</div>
+    ${outSectionHtml}
     <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
+      ${archiveBtnHtml}
       <button class="td-del-btn" onclick="delTask('${t.id}')">删除任务</button>
       <button class="td-go-btn" onclick="${done?`reopenTask('${t.id}')`:`toggleTask('${t.id}');closeTaskDetail();`}">${done?'重新打开':'标记完成'}</button>
     </div>`;
@@ -2119,6 +2379,13 @@ function closeTaskDetail(){
   detailTaskId=null;
   const el=document.getElementById('taskDetailMask');
   if(el) el.classList.remove('show');
+}
+/* 任务详情：一键归档该任务全部待入库产出（仍走选文件夹弹窗，默认节点文件夹） */
+function archiveAllTaskOutputs(sids){
+  if(!Array.isArray(sids)||!sids.length) return;
+  const valid=sids.map(stagedById).filter(Boolean);
+  if(!valid.length) return;
+  openSaveFldModal(valid.map(s=>s.sid));
 }
 function reopenTask(id){
   const ref=findTaskRef(id); if(!ref) return;
