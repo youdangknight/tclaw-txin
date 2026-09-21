@@ -367,7 +367,7 @@ svg{display:block;}
 .tpl-links{display:flex;gap:16px;}
 .tpl-links .lk2{font-size:12.5px;color:var(--blue);cursor:pointer;}
 .tpl-links .lk2:hover{text-decoration:underline;}
-/* 第3步：节点卡 + 事项表格 */
+/* 第3步：节点卡 + 任务表格 */
 .ntabs{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 4px;}
 .ntab{position:relative;border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px 16px;cursor:pointer;min-width:96px;transition:.15s;}
 .ntab:hover{border-color:#c9ced6;}
@@ -464,10 +464,10 @@ textarea.tg-in{height:34px;padding:7px 9px;resize:none;line-height:1.4;}
             </button>
           </div>
 
-          <!-- 我的事项 -->
+          <!-- 我的任务 -->
           <section class="sec">
             <div class="sec-head">
-              <h2>我的事项</h2>
+              <h2>我的任务</h2>
               <div class="sh-r">
                 <span class="pill-n" id="homeTodoN">5 项待处理</span>
               </div>
@@ -475,7 +475,7 @@ textarea.tg-in{height:34px;padding:7px 9px;resize:none;line-height:1.4;}
             <div class="todo-stats" id="todoStats"></div>
             <div class="todo-preview" id="todoPreview"></div>
             <div class="todo-more-wrap" onclick="openFullTodo()">
-              <span class="link">查看全部事项 →</span>
+              <span class="link">查看全部任务 →</span>
             </div>
           </section>
 
@@ -535,7 +535,7 @@ textarea.tg-in{height:34px;padding:7px 9px;resize:none;line-height:1.4;}
       <div class="sb-line"></div>
       <div class="sb-i" id="sb2"><span class="sb-n">2</span>项目节点</div>
       <div class="sb-line"></div>
-      <div class="sb-i" id="sb3"><span class="sb-n">3</span>事项配置</div>
+      <div class="sb-i" id="sb3"><span class="sb-n">3</span>任务配置</div>
     </div>
 
     <!-- 步骤一：类型 + 基本信息 -->
@@ -545,7 +545,7 @@ textarea.tg-in{height:34px;padding:7px 9px;resize:none;line-height:1.4;}
           <div class="tc-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></div>
           <div class="tc-ic simple"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/></svg></div>
           <div class="tc-t">个人项目</div>
-          <div class="tc-d">快速创建个人空间，管理任务、资料、产出物与个人事项</div>
+          <div class="tc-d">快速创建个人空间，管理任务、资料与产出物</div>
           <span class="tc-tag simple">快速创建</span>
         </div>
         <div class="type-card" id="tcCollab" onclick="selectType('collab')">
@@ -591,7 +591,7 @@ textarea.tg-in{height:34px;padding:7px 9px;resize:none;line-height:1.4;}
               <option value="S">S 级（公司重点）</option>
               <option value="A">A 级（部门重点）</option>
               <option value="B">B 级（常规项目）</option>
-              <option value="C">C 级（一般事项）</option>
+              <option value="C">C 级（一般任务）</option>
             </select>
           </div>
         </div>
@@ -620,7 +620,7 @@ textarea.tg-in{height:34px;padding:7px 9px;resize:none;line-height:1.4;}
           </div>
           <div class="wz-cb">
             <div class="mch-list" id="memberChips"></div>
-            <div class="m-tip" style="margin-top:10px;">成员默认「可编辑」；设置为「仅查看」后只能浏览项目内容，不能修改事项与资料。负责人拥有全部管理权限。</div>
+            <div class="m-tip" style="margin-top:10px;">成员默认「可编辑」；设置为「仅查看」后只能浏览项目内容，不能修改任务与资料。负责人拥有全部管理权限。</div>
           </div>
         </div>
 
@@ -662,13 +662,13 @@ textarea.tg-in{height:34px;padding:7px 9px;resize:none;line-height:1.4;}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         添加节点
       </button>
-      <div class="m-tip" style="margin-top:10px;">可展开节点设置节点目标与计划时间；事项分工在下一步统一编排，也可以先创建项目，稍后配置。</div>
+      <div class="m-tip" style="margin-top:10px;">可展开节点设置节点目标与计划时间；任务分工在下一步统一编排，也可以先创建项目，稍后配置。</div>
     </div>
 
-    <!-- 步骤三：事项配置（团队项目） -->
+    <!-- 步骤三：任务配置（团队项目） -->
     <div id="wzStep3" style="display:none;">
-      <div style="font-size:14px;font-weight:700;margin-top:16px;">编排全流程节点事项</div>
-      <div class="m-tip" style="margin-top:3px;">逐个检查事项、负责人、描述、截止时间与归档要求，发布后自动下发给对应负责人。</div>
+      <div style="font-size:14px;font-weight:700;margin-top:16px;">编排全流程节点任务</div>
+      <div class="m-tip" style="margin-top:3px;">逐个检查任务、负责人、描述、截止时间与归档要求，发布后自动下发给对应负责人。</div>
       <div class="ntabs" id="ntabs"></div>
       <div id="taskTableBox"></div>
     </div>
@@ -698,7 +698,7 @@ textarea.tg-in{height:34px;padding:7px 9px;resize:none;line-height:1.4;}
     <div class="upgrade-box">
       <div class="ub-li"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg><span>原项目 ID、项目任务、资料及产出物保持不变</span></div>
       <div class="ub-li"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg><span>个人私有任务、个人记忆不会默认对项目成员开放，仅共享你指定的内容</span></div>
-      <div class="ub-li"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg><span>升级后可补充成员与权限、项目节点计划与事项分工</span></div>
+      <div class="ub-li"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg><span>升级后可补充成员与权限、项目节点计划与任务分工</span></div>
     </div>
     <div class="m-foot" style="margin-top:20px;">
       <span style="flex:1"></span>
@@ -751,6 +751,33 @@ const STATUS_META={
 };
 
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* ================= 合并本地持久化项目 =================
+   详情页的任务增删/完成会写入 localStorage；这里在读卡片前合并，
+   使项目进度、任务数、阻塞数始终按真实任务状态计算。 */
+const LS_PROJECT_KEY='tclaw_project_';
+function mergeStoredProjects(){
+  let ids=[];
+  try{ ids=JSON.parse(localStorage.getItem('tclaw_project_ids'))||[]; }catch(e){}
+  ids.forEach(id=>{
+    let st=null;
+    try{ st=JSON.parse(localStorage.getItem(LS_PROJECT_KEY+id)); }catch(e){}
+    if(!st) return;
+    const ex=PROJECTS.find(p=>p.id===id);
+    const patch={
+      name:st.name||(ex&&ex.name)||'未命名项目',
+      type:st.type||(ex&&ex.type)||'simple',
+      tasksTotal:st.tasksTotal||0,
+      tasksDone:st.tasksDone||0,
+      risks:st.risks||0,
+      members:Array.isArray(st.members)?st.members.length:(ex&&ex.members)||1,
+      updated:st.updated||(ex&&ex.updated)||'刚刚'
+    };
+    if(ex){ Object.assign(ex,patch); }
+    else{ PROJECTS.push(Object.assign({id,chats:0,materials:0,stored:true},patch)); }
+  });
+}
+mergeStoredProjects();
 function avHtml(exec,execName,size){
   const a=exec==='ai'?'ai':(exec==='bot'?'bot':'human');
   const lab=exec==='ai'?'AI':(execName||'').charAt(0);
@@ -777,7 +804,7 @@ function renderHomeTodo(){
         <div class="tp-meta"><span class="m-proj">${esc(t.proj)}</span><span>${t.status==='review'?'成员已提交，待你审核':'截止 '+t.deadline}</span></div>
       </div>
       <div class="tp-act">
-        <button class="btn-ghost" onclick="openTaskDetail(${t.id})">查看事项</button>
+        <button class="btn-ghost" onclick="openTaskDetail(${t.id})">查看任务</button>
         <button class="btn-dark" onclick="openTask(${t.id})">去处理
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
@@ -799,7 +826,7 @@ function renderProjects(){
   const grid=document.getElementById('projGrid');
   grid.innerHTML=(list.length?list.map(p=>{
     if(p.type==='collab'){
-      const pct=Math.round(p.tasksDone/p.tasksTotal*100);
+      const pct=p.tasksTotal?Math.round(p.tasksDone/p.tasksTotal*100):0;
       return `<div class="pcard" onclick="openProject('${p.id}')">
         <div class="pc-top">
           <span class="p-badge collab">
@@ -809,7 +836,7 @@ function renderProjects(){
           <span class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
         </div>
         <div class="pc-name">${esc(p.name)}</div>
-        <div class="pc-meta">${p.members} 位成员 · ${p.tasksTotal} 项事项${p.risks?` · <span style="color:var(--red)">${p.risks} 项阻塞</span>`:''}</div>
+        <div class="pc-meta">${p.members} 位成员 · ${p.tasksTotal} 项任务${p.risks?` · <span style="color:var(--red)">${p.risks} 项阻塞</span>`:''}</div>
         <div class="pc-prog">
           <div class="pp-row"><span>项目进度</span><b>${pct}%</b></div>
           <div class="pc-bar"><i style="width:${pct}%"></i></div>
@@ -825,7 +852,7 @@ function renderProjects(){
         <span class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </div>
       <div class="pc-name">${esc(p.name)}</div>
-      <div class="pc-meta">${p.chats} 个项目任务 · ${p.materials} 份资料</div>
+      <div class="pc-meta">${p.chats} 项任务 · ${p.materials} 份资料</div>
       <div class="pc-foot">
         <span class="pc-time">最近更新 ${p.updated}</span>
         <span class="pc-more" onclick="event.stopPropagation();toggleMenu(event,'${p.id}')"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg></span>
@@ -1012,7 +1039,7 @@ let wzType='simple', wzStep=1;
 let wzMembers=[], wzKb='', wzFiles=[], wzNodes=[], curNode=0;
 /* 可选项目成员池（原型数据） */
 const MEMBER_POOL=['梁梦欣','王启年','周喆','陈曦','赵磊'];
-/* 事项负责人：项目成员（本期仅人工执行） */
+/* 任务负责人：项目成员（本期仅人工执行） */
 function ownerOptions(){
   return [{type:'human',name:'阿拉丁（负责人）'}].concat(wzMembers.map(m=>({type:'human',name:m.name})));
 }
@@ -1057,8 +1084,8 @@ function showWizardStep(n){
   ['sb1','sb2','sb3'].forEach((id,i)=>document.getElementById(id).classList.toggle('on',i+1<=n));
   document.getElementById('btnBack').style.display=(wzType==='collab'&&n>1)?'':'none';
   const btn=document.getElementById('btnNext');
-  btn.innerHTML=n===3?'发布项目并下发事项 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
-    : (n===2?'下一步：事项配置' : (wzType==='collab'?'下一步：项目节点':'快速创建'));
+  btn.innerHTML=n===3?'发布项目并下发任务 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+    : (n===2?'下一步：任务配置' : (wzType==='collab'?'下一步：项目节点':'快速创建'));
   if(n===2) renderNodeRows();
   if(n===3){ if(curNode>wzNodes.length-1) curNode=0; renderNTabs(); renderTaskTable(); }
 }
@@ -1165,12 +1192,12 @@ function useTpl(kind){
   }
 }
 
-/* ---- 第3步：节点事项表格 ---- */
+/* ---- 第3步：节点任务表格 ---- */
 function renderNTabs(){
   document.getElementById('ntabs').innerHTML=wzNodes.map((n,ni)=>`
     <div class="ntab ${ni===curNode?'on':''}" onclick="switchNode(${ni})">
       <div class="nt-t">${esc(n.name||('节点'+(ni+1)))}</div>
-      <div class="nt-n">${n.tasks.filter(t=>t.name.trim()).length} 项事项</div>
+      <div class="nt-n">${n.tasks.filter(t=>t.name.trim()).length} 项任务</div>
     </div>`).join('');
 }
 function switchNode(i){ curNode=i; renderNTabs(); renderTaskTable(); }
@@ -1179,7 +1206,7 @@ function renderTaskTable(){
   const opts=ownerOptions();
   const rows=n.tasks.map((t,ti)=>`
     <div class="tg-c tg-seq">${String(ti+1).padStart(2,'0')}</div>
-    <div class="tg-c"><input class="tg-in" placeholder="请填写事项名称" value="${esc(t.name)}" oninput="wzNodes[${curNode}].tasks[${ti}].name=this.value"></div>
+    <div class="tg-c"><input class="tg-in" placeholder="请填写任务名称" value="${esc(t.name)}" oninput="wzNodes[${curNode}].tasks[${ti}].name=this.value"></div>
     <div class="tg-c">
       <select class="tg-in" onchange="setTaskOwner(${ti},this.value)">
         ${opts.map(o=>`<option value="${o.type}:${esc(o.name)}" ${ownerVal(t)===(o.type+':'+o.name)?'selected':''}>${esc(o.name)}</option>`).join('')}
@@ -1194,21 +1221,21 @@ function renderTaskTable(){
         <option value="none" ${t.archive==='none'?'selected':''}>无需归档</option>
       </select>
     </div>
-    <div class="tg-c"><button class="tg-del" title="删除事项" onclick="delTaskRow(${ti})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></button></div>
+    <div class="tg-c"><button class="tg-del" title="删除任务" onclick="delTaskRow(${ti})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></button></div>
   `).join('');
   document.getElementById('taskTableBox').innerHTML=`
     <div class="tgrid-wrap">
       <div class="tgrid">
         <div class="tg-h">序号</div>
-        <div class="tg-h req">节点事项</div>
-        <div class="tg-h req">事项负责人</div>
-        <div class="tg-h">事项描述</div>
+        <div class="tg-h req">节点任务</div>
+        <div class="tg-h req">任务负责人</div>
+        <div class="tg-h">任务描述</div>
         <div class="tg-h req">截止时间</div>
         <div class="tg-h">归档要求</div>
         <div class="tg-h">操作</div>
         ${rows}
       </div>
-      <button class="tgrid-add" onclick="addTaskRow()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>添加事项</button>
+      <button class="tgrid-add" onclick="addTaskRow()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>添加任务</button>
     </div>`;
 }
 function setTaskOwner(ti,v){ const p=v.split(':'); wzNodes[curNode].tasks[ti].ownerType=p[0]; wzNodes[curNode].tasks[ti].ownerName=p.slice(1).join(':'); }
@@ -1250,7 +1277,7 @@ function submitCreate(){
     return;
   }
   const name=document.getElementById('fNameC').value.trim()||'未命名项目';
-  /* 节点与事项（丢弃全空行；有名事项必须有负责人与截止时间） */
+  /* 节点与任务（丢弃全空行；有名任务必须有负责人与截止时间） */
   const payload=wzNodes.filter(n=>n.name.trim()).map(n=>({
     name:n.name.trim(), goal:n.goal.trim(), start:n.start, end:n.end,
     tasks:n.tasks.filter(t=>t.name.trim()).map(t=>({
