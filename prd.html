@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>团队项目协作能力 PRD</title>
+<style>
+  :root{
+    --ink:#1f2329; --sub:#646a73; --faint:#8f959e;
+    --line:#e5e6eb; --line2:#eff0f2;
+    --bg:#f5f6f7; --card:#ffffff;
+    --accent:#2456f6; --accent-bg:#f0f4ff;
+    --yes:#1f9d6b; --no:#d83931; --warn:#b26400;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:14.5px;line-height:1.75;
+  }
+  .page{max-width:980px;margin:0 auto;padding:40px 24px 96px;}
+  header.doc{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:34px 38px;margin-bottom:22px;
+  }
+  header.doc .eyebrow{font-size:12.5px;color:var(--accent);font-weight:600;letter-spacing:.12em;margin-bottom:10px;}
+  header.doc h1{font-size:26px;font-weight:750;letter-spacing:-.01em;margin-bottom:8px;}
+  header.doc .lead{color:var(--sub);font-size:14px;}
+  .meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:24px;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .meta-grid .cell{padding:12px 16px;border-right:1px solid var(--line2);}
+  .meta-grid .cell:last-child{border-right:none;}
+  .meta-grid .k{font-size:12px;color:var(--faint);margin-bottom:2px;}
+  .meta-grid .v{font-size:13.5px;font-weight:600;}
+  section.card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:28px 38px;margin-bottom:18px;
+  }
+  h2{font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  h2 .no{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:24px;height:24px;border-radius:7px;background:var(--ink);color:#fff;
+    font-size:12.5px;font-weight:700;flex:none;
+  }
+  h3{font-size:15px;font-weight:650;margin:22px 0 10px;color:var(--ink);}
+  p{margin:8px 0;color:#3c4149;}
+  ul{margin:8px 0 8px 4px;list-style:none;}
+  ul li{position:relative;padding-left:16px;margin:5px 0;color:#3c4149;}
+  ul li::before{content:"";position:absolute;left:2px;top:11px;width:5px;height:5px;border-radius:50%;background:var(--faint);}
+  table{width:100%;border-collapse:collapse;margin:12px 0 6px;font-size:13.5px;}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top;}
+  th{background:#fafbfc;font-weight:650;color:#444b54;white-space:nowrap;}
+  td{color:#3c4149;}
+  tr td:first-child{white-space:nowrap;font-weight:550;color:var(--ink);}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:5px;margin-right:4px;white-space:nowrap;}
+  .tag.req{background:#fdeceb;color:var(--no);}
+  .tag.opt{background:#eef0f2;color:var(--sub);}
+  .tag.v1{background:#e8f7f0;color:var(--yes);}
+  .tag.no{background:#f4f5f6;color:var(--faint);text-decoration:line-through;}
+  .callout{border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13.5px;}
+  .callout.rule{background:var(--accent-bg);border:1px solid #d8e3ff;}
+  .callout.rule b{color:var(--accent);}
+  .callout.warn{background:#fff7eb;border:1px solid #ffe4b8;}
+  .callout.warn b{color:var(--warn);}
+  .scope-out td:first-child{color:var(--faint);}
+  .scope-out{color:var(--faint);}
+  .divider{height:1px;background:var(--line2);margin:18px 0;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0;background:#fcfcfd;}
+  .review-item .q{font-weight:650;margin-bottom:3px;}
+  .review-item .q span{color:var(--accent);margin-right:8px;}
+  footer{text-align:center;color:var(--faint);font-size:12.5px;margin-top:26px;}
+  @media(max-width:760px){
+    .page{padding:20px 12px 60px;}
+    section.card,header.doc{padding:22px 18px;}
+    .meta-grid{grid-template-columns:repeat(2,1fr);}
+    .meta-grid .cell:nth-child(2){border-right:none;}
+    .meta-grid .cell:nth-child(1),.meta-grid .cell:nth-child(2){border-bottom:1px solid var(--line2);}
+    table{font-size:12.5px;display:block;overflow-x:auto;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <div class="eyebrow">PRODUCT REQUIREMENTS DOCUMENT</div>
+  <h1>团队项目协作能力需求文档</h1>
+  <div class="lead">在个人项目能力基础上，新增团队项目类型，支持多人成员、节点化任务编排、任务下发与资料分级授权。</div>
+  <div class="meta-grid">
+    <div class="cell"><div class="k">文档版本</div><div class="v">V1.0</div></div>
+    <div class="cell"><div class="k">状态</div><div class="v">团队评审中</div></div>
+    <div class="cell"><div class="k">更新日期</div><div class="v">2026-09-21</div></div>
+    <div class="cell"><div class="k">适用范围</div><div class="v">项目模块（个人 / 团队项目）</div></div>
+  </div>
+</header>
+
+<!-- 1 -->
+<section class="card">
+  <h2><span class="no">1</span>背景与目标</h2>
+  <h3>1.1 背景</h3>
+  <p>现有项目为个人工作空间，承载个人任务、资料与 AI 对话产出，不支持多人协同。团队场景下，工作需要按项目节点拆解、明确负责人和截止时间、按文件夹控制资料可见范围，因此在同一套项目体系内新增团队项目类型。</p>
+  <h3>1.2 目标</h3>
+  <table>
+    <tr><th style="width:70px;">编号</th><th>目标</th></tr>
+    <tr><td>G1</td><td>个人项目与团队项目共用同一套项目模型与详情页结构，个人项目可升级为团队项目</td></tr>
+    <tr><td>G2</td><td>提供三步建项向导：基础信息 → 项目节点 → 任务配置，发布项目后任务自动下发给负责人</td></tr>
+    <tr><td>G3</td><td>支持项目成员与角色管理、节点化任务流转、资料文件夹与分级权限</td></tr>
+    <tr><td>G4</td><td>全产品命名口径一致：与 AI 的会话统一称「对话」，工作执行单元统一称「任务」</td></tr>
+  </table>
+  <h3>1.3 V1 不做</h3>
+  <table class="scope-out">
+    <tr><th style="width:230px;">不纳入 V1 的能力</th><th>说明</th></tr>
+    <tr><td>AI 工作情况汇总卡 / 重新点检</td><td>管理者视角的整体进度、风险项目点检本期不做</td></tr>
+    <tr><td>工作首页改版</td><td>不新增问候区、五张统计卡、归档项目入口，工作首页保持现有形态</td></tr>
+    <tr><td>项目管理列表改版</td><td>不新增行式列表视图与状态筛选，项目列表保持现有形态</td></tr>
+    <tr><td>任务辅助 Agent 字段</td><td>不为任务指定 AI 助手，后续版本评估</td></tr>
+    <tr><td>任务新留言红点提醒</td><td>不做未读红点机制</td></tr>
+    <tr><td>项目归档与恢复</td><td>项目级归档、归档库本期不做</td></tr>
+    <tr><td>全局导航调整</td><td>左侧导航保持「新建任务 / 任务记录 / 定时任务 / 项目 / AI 资产库」不变</td></tr>
+    <tr><td>升级逆向</td><td>个人项目升级为团队项目后，V1 不支持降回个人项目</td></tr>
+    <tr><td>其他</td><td>跨组织外部协作、甘特图与资源排期、多级子任务、多人实时在线文档</td></tr>
+  </table>
+</section>
+
+<!-- 2 -->
+<section class="card">
+  <h2><span class="no">2</span>核心概念</h2>
+  <table>
+    <tr><th style="width:110px;">维度</th><th>个人项目</th><th>团队项目</th></tr>
+    <tr><td>成员</td><td>仅创建人本人</td><td>负责人（创建人）+ 项目成员，可设角色</td></tr>
+    <tr><td>任务</td><td>个人任务，无节点要求</td><td>挂载在项目节点下，有负责人、截止时间、归档要求，发布即下发</td></tr>
+    <tr><td>资料</td><td>平铺文件列表，无权限设置</td><td>文件夹组织，文件夹/文件可独立设置可见与编辑范围</td></tr>
+    <tr><td>详情页 Tab</td><td>对话 / 任务 / 资料</td><td>对话 / 任务 / 资料 / 成员</td></tr>
+    <tr><td>创建方式</td><td>新建项目时默认类型</td><td>建项时选择团队类型，或由个人项目升级</td></tr>
+  </table>
+
+  <h3>2.1 命名铁律</h3>
+  <div class="callout rule">
+    <b>对话：</b>用户与 AI 的一次会话（消息流）。开启新会话一律称「新对话」，对话场景内禁止使用「任务」表述。<br>
+    <b>任务：</b>需执行完成的工作单元，有负责人、截止时间与状态。创建、分配、下发、完成、审核的对象均为任务。<br>
+    <b>废弃词：</b>「事项」一词在全部页面、字段、按钮、通知中停止使用，统一为「任务」（外部系统导入模板的原始列名除外）。
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="card">
+  <h2><span class="no">3</span>关键规则</h2>
+
+  <h3>3.1 个人项目升级规则</h3>
+  <table>
+    <tr><th style="width:150px;">规则</th><th>内容</th></tr>
+    <tr><td>数据不迁移</td><td>升级仅变更项目类型，原项目 ID、任务、资料、产出物、对话历史全部保留，不复制、不删除</td></tr>
+    <tr><td>历史不改写</td><td>升级前的对话内容与项目记忆不因升级而改变</td></tr>
+    <tr><td>私有不默认开放</td><td>个人私有对话与个人记忆不随升级自动对成员开放，仅开放用户明确共享的内容</td></tr>
+    <tr><td>升级后引导</td><td>升级完成后引导补充：项目成员、项目节点、任务负责人指派</td></tr>
+    <tr><td>不可逆</td><td>升级为团队项目后 V1 不支持降回个人项目，操作前需二次确认</td></tr>
+  </table>
+
+  <h3>3.2 任务下发与状态规则</h3>
+  <table>
+    <tr><th style="width:150px;">规则</th><th>内容</th></tr>
+    <tr><td>发布即下发</td><td>团队项目完成向导后，任务按负责人自动出现在其「我的任务」列表中</td></tr>
+    <tr><td>状态展示口径</td><td>对外统一展示三种状态：已完成 / 待完成 / 已延期；其中待完成聚合待处理、执行中、待审核三种内部状态</td></tr>
+    <tr><td>延期自动判定</td><td>当前时间超过截止时间且任务未完成，自动标记为已延期，无需人工操作</td></tr>
+    <tr><td>任务归属</td><td>每个任务必属一个项目节点；删除节点时，其下任务移入「未分组」，禁止级联删除</td></tr>
+    <tr><td>截止时间</td><td>任务截止时间不得晚于项目计划结束时间</td></tr>
+  </table>
+
+  <h3>3.3 资料与权限规则</h3>
+  <table>
+    <tr><th style="width:150px;">规则</th><th>内容</th></tr>
+    <tr><td>文件夹</td><td>团队项目内置「默认文件夹」（不可删除），成员可自建文件夹；删除自建文件夹时，其中文件移入默认文件夹，不复制、不删除</td></tr>
+    <tr><td>权限粒度</td><td>每个文件夹、每个文件均可独立设置：全员可见可编辑 / 部分成员可见可编辑；未单独设置时继承上级默认</td></tr>
+    <tr><td>角色权限</td><td>负责人：全部管理权限；可编辑：查看、上传、下载与编辑；仅查看：只能浏览</td></tr>
+    <tr><td>负责人兜底</td><td>项目负责人始终可见全部资料，不受部分可见范围限制</td></tr>
+    <tr><td>上下文隔离</td><td>成员不可见的资料，不得进入其项目对话的 AI 引用上下文</td></tr>
+    <tr><td>个人项目</td><td>不显示文件夹侧栏与权限入口，资料平铺展示</td></tr>
+  </table>
+
+  <h3>3.4 对话上下文规则</h3>
+  <ul>
+    <li>项目内发起的新对话自动携带：项目说明 · 项目资料 · 项目记忆</li>
+    <li>项目记忆由任务完成等关键节点自动沉淀，AI 在本项目任务执行中默认参考</li>
+    <li>对话强归属唯一项目；任务引用对话内容时只引用、不复制，迁移不改变历史</li>
+  </ul>
+</section>
+
+<!-- 4 -->
+<section class="card">
+  <h2><span class="no">4</span>功能需求</h2>
+
+  <h3>4.1 新建项目向导</h3>
+  <p>个人项目只需填写基础名称即可创建；团队项目按三步完成配置，步骤条可回退查看已填内容。</p>
+
+  <p style="font-weight:650;margin-top:14px;">第一步 · 基础信息</p>
+  <table>
+    <tr><th style="width:140px;">字段</th><th style="width:80px;">必填</th><th>规则</th></tr>
+    <tr><td>项目名称</td><td><span class="tag req">必填</span></td><td>1–30 字</td></tr>
+    <tr><td>所属业务</td><td><span class="tag req">必填</span></td><td>文本填写，1–20 字</td></tr>
+    <tr><td>负责人</td><td><span class="tag req">必填</span></td><td>默认为创建人</td></tr>
+    <tr><td>项目级别</td><td><span class="tag opt">选填</span></td><td>S 级（公司重点）/ A 级（部门重点）/ B 级（常规项目）/ C 级（一般任务）</td></tr>
+    <tr><td>计划开始时间</td><td><span class="tag req">必填</span></td><td>日期选择</td></tr>
+    <tr><td>计划结束时间</td><td><span class="tag req">必填</span></td><td>不得早于计划开始时间</td></tr>
+    <tr><td>项目简介</td><td><span class="tag opt">选填</span></td><td>不超过 120 字</td></tr>
+    <tr><td>项目成员</td><td><span class="tag req">团队必填</span></td><td>至少 1 名成员；默认角色「可编辑」，可调整为「仅查看」</td></tr>
+    <tr><td>外接知识库</td><td><span class="tag opt">选填</span></td><td>可绑定外部知识库，绑定后项目对话可引用其中内容</td></tr>
+    <tr><td>项目文件</td><td><span class="tag opt">选填</span></td><td>点击或拖拽上传；支持 Word / PPT / PDF / Excel / 图片；单文件不超过 20MB，最多 20 个；上传后作为项目初始资料</td></tr>
+  </table>
+
+  <p style="font-weight:650;margin-top:18px;">第二步 · 项目节点</p>
+  <table>
+    <tr><th style="width:150px;">需求</th><th>规则</th></tr>
+    <tr><td>节点配置</td><td>默认提供节点 1–4 可重命名；支持添加节点、删除节点、上移 / 下移调整顺序</td></tr>
+    <tr><td>节点模板</td><td>支持「上传本地模板」「使用项目模板」两种方式一键生成节点结构</td></tr>
+    <tr><td>校验</td><td>节点名称非空，同一项目内节点名称不可重复</td></tr>
+  </table>
+
+  <p style="font-weight:650;margin-top:18px;">第三步 · 任务配置</p>
+  <table>
+    <tr><th style="width:120px;">列项</th><th style="width:80px;">必填</th><th>规则</th></tr>
+    <tr><td>节点任务名称</td><td><span class="tag req">必填</span></td><td>按节点分页签编排，逐节点检查</td></tr>
+    <tr><td>任务负责人</td><td><span class="tag req">必填</span></td><td>从项目成员中选择</td></tr>
+    <tr><td>任务描述</td><td><span class="tag opt">选填</span></td><td>文本说明任务要求与交付标准</td></tr>
+    <tr><td>截止时间</td><td><span class="tag req">必填</span></td><td>不得晚于项目计划结束时间</td></tr>
+    <tr><td>归档要求</td><td><span class="tag req">必填</span></td><td>需要归档文件 / 需要归档链接 / 无需归档</td></tr>
+    <tr><td>操作</td><td>—</td><td>删除任务；列表底部提供「+ 添加任务」</td></tr>
+  </table>
+  <div class="callout warn"><b>发布动作：</b>团队项目第三步主按钮为「发布项目并下发任务」。存在必填项缺失时阻断发布，并定位到首个缺失项。</div>
+
+  <h3>4.2 项目详情页</h3>
+  <table>
+    <tr><th style="width:90px;">Tab</th><th style="width:70px;">个人</th><th style="width:70px;">团队</th><th>能力说明</th></tr>
+    <tr><td>对话</td><td>有</td><td>有</td><td>项目共享对话与个人私有对话分区展示；输入区发起的新对话自动携带项目上下文</td></tr>
+    <tr><td>任务</td><td>有</td><td>有</td><td>顶部三张状态卡片（已完成 / 待完成 / 已延期）带数量统计，点击筛选；下方为任务卡片列表；团队任务显示所属节点与负责人</td></tr>
+    <tr><td>资料</td><td>有</td><td>有</td><td>个人：文件平铺。团队：左侧文件夹列表（含文件数、部分权限锁标），右侧当前文件夹权限信息条 + 文件列表 + 上传文档；支持文件夹新建、重命名入口与删除（默认文件夹除外）</td></tr>
+    <tr><td>成员</td><td>无</td><td>有</td><td>成员列表与角色（负责人 / 可编辑 / 仅查看），支持添加成员、调整角色</td></tr>
+  </table>
+  <ul>
+    <li>任务卡片信息：任务名称与状态标签、任务描述、所属节点与截止时间、「查看详情」与「去完成」</li>
+    <li>项目设置包含：项目简介编辑、外接知识库绑定、项目记忆查看、升级为团队项目（仅个人项目显示）、删除项目</li>
+  </ul>
+
+  <h3>4.3 资料权限设置</h3>
+  <table>
+    <tr><th style="width:150px;">入口 / 操作</th><th>结果</th></tr>
+    <tr><td>文件夹「设置权限」</td><td>弹窗选择全员可见可编辑 / 部分可见可编辑；选择部分时勾选成员，负责人始终默认在可见范围内且不可取消</td></tr>
+    <tr><td>单文件权限设置</td><td>文件操作菜单中可对单个文件单独授权，规则与文件夹一致；部分可见时文件名后显示锁标</td></tr>
+    <tr><td>保存后</td><td>权限条实时更新权限类型、可见人数与成员名单；权限随项目持久保存</td></tr>
+  </table>
+</section>
+
+<!-- 5 -->
+<section class="card">
+  <h2><span class="no">5</span>对象定义</h2>
+  <table>
+    <tr><th style="width:120px;">对象</th><th>产品定义</th><th>V1 规则</th></tr>
+    <tr><td>个人项目</td><td>单人的 AI 工作空间</td><td>仅创建人可见，可升级为团队项目（不可逆）</td></tr>
+    <tr><td>团队项目</td><td>多成员按节点协同的项目</td><td>包含负责人、成员、节点、任务与资料权限</td></tr>
+    <tr><td>项目节点</td><td>团队项目的阶段划分</td><td>有序、可由模板生成，是任务的挂载点，不可级联删除任务</td></tr>
+    <tr><td>任务</td><td>有负责人与截止时间的执行单元</td><td>三态展示，发布即下发，超期自动标记延期</td></tr>
+    <tr><td>对话</td><td>用户与 AI 的会话</td><td>自动携带项目上下文，强归属唯一项目</td></tr>
+    <tr><td>项目资料</td><td>项目内文件</td><td>团队按文件夹组织并设权限；支持文件与链接两种归档要求</td></tr>
+    <tr><td>项目记忆</td><td>项目级 AI 长期上下文</td><td>由关键节点自动沉淀，成员范围内可用</td></tr>
+    <tr><td>外接知识库</td><td>项目绑定的外部知识源</td><td>可绑定、解绑，作为对话引用来源</td></tr>
+  </table>
+</section>
+
+<!-- 6 -->
+<section class="card">
+  <h2><span class="no">6</span>异常与边界</h2>
+  <table>
+    <tr><th style="width:200px;">场景</th><th>表现</th><th>兜底行为</th></tr>
+    <tr><td>文件超限上传</td><td>单文件超过 20MB 或总数超过 20 个</td><td>拦截并提示具体限制，已选文件保留</td></tr>
+    <tr><td>发布时必填项缺失</td><td>任务名称、负责人、截止时间、归档要求存在空值</td><td>阻断发布，定位到首个缺失项</td></tr>
+    <tr><td>移除名下有任务的成员</td><td>该成员仍有未完成任务</td><td>需先将其名下未完成任务转派给其他成员，否则不可移除</td></tr>
+    <tr><td>无权限访问文件夹</td><td>成员不在部分可见名单内</td><td>文件夹与文件在列表中完全不可见，且不进入其 AI 对话上下文</td></tr>
+    <tr><td>项目无任务</td><td>进度统计分母为 0</td><td>进度显示 0%，不出现异常数值</td></tr>
+    <tr><td>删除含文件的文件夹</td><td>自建文件夹下存在文件</td><td>二次确认后删除文件夹，文件全部移入默认文件夹，不删除文件</td></tr>
+    <tr><td>升级团队项目</td><td>个人项目存在私有对话与个人记忆</td><td>默认不开放，二次确认升级且不可逆</td></tr>
+  </table>
+</section>
+
+<!-- 7 -->
+<section class="card">
+  <h2><span class="no">7</span>验收用例</h2>
+  <table>
+    <tr><th style="width:56px;">编号</th><th style="width:300px;">场景</th><th>验收结果</th></tr>
+    <tr><td>1</td><td>新建个人项目</td><td>填写名称即可创建；无节点与成员配置步骤；详情页不显示「成员」Tab</td></tr>
+    <tr><td>2</td><td>新建团队项目完整流程</td><td>三步顺序推进、可回退；必填缺失时阻断并定位；发布后任务出现在各负责人「我的任务」中</td></tr>
+    <tr><td>3</td><td>文件上传边界</td><td>第 21 个文件被拦截并提示「最多 20 个」；超过 20MB 的文件被拦截</td></tr>
+    <tr><td>4</td><td>个人项目升级</td><td>升级后任务、资料、产出物、对话数量零变化；出现成员、节点补充引导；无降回入口</td></tr>
+    <tr><td>5</td><td>文件夹部分可见</td><td>范围外成员看不到该文件夹及文件，其对话中 AI 不引用其中内容；负责人始终可见</td></tr>
+    <tr><td>6</td><td>删除自建文件夹</td><td>二次确认后文件夹消失，文件全部出现在默认文件夹且可正常打开</td></tr>
+    <tr><td>7</td><td>任务自动延期</td><td>超过截止时间未完成的任务自动归入「已延期」状态卡片统计</td></tr>
+    <tr><td>8</td><td>移除成员</td><td>名下存在未完成任务时无法移除，完成转派后可移除</td></tr>
+    <tr><td>9</td><td>命名一致性</td><td>全部页面、按钮、字段、提示中无「事项」字样（外部模板原始列名除外）；对话场景内无「任务」误用</td></tr>
+    <tr><td>10</td><td>单文件授权</td><td>对单个文件设置部分可见后，文件显示锁标，范围外成员在文件夹内看不到该文件</td></tr>
+  </table>
+</section>
+
+<!-- 8 -->
+<section class="card">
+  <h2><span class="no">8</span>评审重点</h2>
+  <div class="review-item"><div class="q"><span>01</span>「所属业务」字段口径</div><div>本期按自由文本必填设计，是否需要改为业务字典下拉（选项来源与维护方需明确）。</div></div>
+  <div class="review-item"><div class="q"><span>02</span>任务下发后的修改权限</div><div>任务下发给负责人后，创建人与负责人分别可修改哪些字段（截止时间、负责人、归档要求），修改后是否需要通知相关成员。</div></div>
+  <div class="review-item"><div class="q"><span>03</span>成员移除与任务转派</div><div>「必须先转派才可移除」的兜底规则是否符合实际管理习惯，是否允许创建人在移除弹窗中直接批量转派。</div></div>
+</section>
+
+<footer>TCLaw 龙虾 · 团队项目协作能力 PRD V1.0 · 2026-09-21</footer>
+
+</div>
+</body>
+</html>
